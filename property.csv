@@ -1,0 +1,9 @@
+title_deed,property_name,property_cost,building_cost,rent,house1,house2,house3,house4,hotel,color,numBuildings
+none,Mediterranean Avenue,60,50,2,10,30,90,160,250,purple,0
+none,Baltic Ave.,60,50,4,20,60,180,320,450,purple,0
+none,Oriental Avenue,100,50,6,30,90,270,400,550,baby blue,0
+none,Vermont Avenue,100,50,6,30,90,270,400,550,baby blue,0
+none,Massachusetts Avenue ,120,50,8,40,100,300,450,600,baby blue,0
+none,St. Charles Place,140,100,10,50,150,450,625,750,pink,0
+none,States Avenue,140,100,10,50,150,450,625,750,pink,0
+none,Virginia Avenue,160,100,12,60,180,500,700,900,pink,0
