@@ -17,7 +17,7 @@ class Game
     public:
         void display_MapAndPlayer() const;
         int roll() const;
-        void move();
+        void move(int);
     
 };
 
