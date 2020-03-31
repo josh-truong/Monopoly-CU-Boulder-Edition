@@ -8,8 +8,8 @@ using namespace std;
 class Game
 {
     private:
-        int firstDiceRoll;
-        int secondDiceRoll;
+        int dice_1;
+        int dice_2;
         bool InJail;
         char Map[44][44];
         string player[4]; //<-- Max of 4 players
