@@ -3,12 +3,12 @@
 
 #include <iostream>
 using namespace std;
-
+hello
 class Game
 {
     private:
-        int FirstDiceRoll
-        int SecondDiceRoll
+        int FirstDiceRoll;
+        int SecondDiceRoll;
         bool InJail;
         char Map[44][44];
         string player[4]; //<-- Max of 4 players
