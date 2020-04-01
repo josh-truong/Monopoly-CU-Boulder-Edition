@@ -11,7 +11,7 @@ class Game
     private:
         int dice_1;
         int dice_2;
-        bool InJail;
+        bool inJail;
         char Map[44][44];
         string player[4]; //<-- Max of 4 players
         vector<string> property;
@@ -25,18 +25,18 @@ class Game
         void endTurn(string end_);
         void buy(char y_n);
         void trade(string playerName, string property, int offer_); 
-        void buyhouse(string propertyname);
+        void buyHouse(string propertyname);
         void rent(string property);
-        void waterelectricrent(int rollone, int rolltwo, string propertyname);
-        void busrent(string propertyname);
-        int luxurytax(int balance);
-        int incometax(int balance);
+        void waterElectricRent(int rollone, int rolltwo, string propertyname);
+        void busRent(string propertyname);
+        int luxuryTax(int balance);
+        int incomeTax(int balance);
         void jail(char y_n);
-        void doubleturn(int rollone, int rolltwo);
-        void passgo(char y_n);
-        void communitychest(string textfile);
+        void doubleTurn(int rollone, int rolltwo);
+        void passGo(char y_n);
+        void communityChest(string textfile);
         void chance(string textfile);
-        void determinewinner();
+        void determineWinner();
 };
 
 #endif
