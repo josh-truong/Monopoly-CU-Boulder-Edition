@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 
 class Game
@@ -16,18 +17,26 @@ class Game
         vector<string> property;
 
     public:
+        Game();
         void display_MapAndPlayer() const;
         int roll() const;
-        void move() const; //<-- call the roll function
+        void move(int rollone, int rolltwo); //<-- call the roll function
         void endGame(string quit_);
         void endTurn(string end_);
         void buy(char y_n);
-        // We must figure out how to bring in the other user... We also will have to create an option for a different offer
-        //Offer should include money/property
-        void trade(string playerName, int property, int offer_); 
-        
-        
-    
+        void trade(string playerName, string property, int offer_); 
+        void buyhouse(string propertyname);
+        void rent(string property);
+        void waterelectricrent(int rollone, int rolltwo, string propertyname);
+        void busrent(string propertyname);
+        int luxurytax(int balance);
+        int incometax(int balance);
+        void jail(char y_n);
+        void doubleturn(int rollone, int rolltwo);
+        void passgo(char y_n);
+        void communitychest(string textfile);
+        void chance(string textfile);
+        void determinewinner();
 };
 
 #endif
