@@ -12,14 +12,14 @@ class Game
         int dice_1;
         int dice_2;
         bool inJail;
-        char Map[44][44];
+        string map[22][22];
         string player[4]; //<-- Max of 4 players
         vector<string> property;
 
     public:
         Game();
         void display_MapAndPlayer() const;
-        int roll() const;
+        void roll();
         void move(int rollone, int rolltwo); //<-- call the roll function
         void endGame(string quit_);
         void endTurn(string end_);
