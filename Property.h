@@ -7,25 +7,33 @@ using namespace std;
 class Property
 {
     private:
+        string propertyName;
+        string owner;
         int cost;
         int houseCost;
         //{rent,house1,house2,house3,house4,hotel} <-- rent in the array is for rent when no house/hotel is available
-        int rent[6];
+        int rentArr[6];
         //Suggestion: we add how many buildings are built
         int numBuildings;
-        string propertyName;
-        string owner;
+        
         
     public:
-        string setPropertyName(string propertyName_);
-        int setCost(int cost_);
-        int setRentAt(int i, int rent_);
+        //Constructor
+        Property();
+        
+        //Modifiers
+        void setCost(int cost_);
+        void setRentAt(int i, int rent_);
         void setOwner(string username_, string propertyName_);
+        void setPropertyName(string propertyName_);
+        
+        
+        //Accessors
         // void getPropertyName(); <--Need more details on how to obtain property name
-        void getCost(string propertyName_);
-        void getRent(string propertyName_); //<--We need to determine how many houses * rent
-        void getHouseCost(string propertyName_);
-        void getOwner(string propertyName_);
+        int getCost(string propertyName_);
+        int getRent(string propertyName_); //<--We need to determine how many houses * rent
+        int getHouseCost(string propertyName_);
+        string getOwner(string propertyName_);
 
 };
 #endif
