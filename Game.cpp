@@ -1,4 +1,6 @@
 #include "Game.h"
+// #include "Property.h"
+// #include "Player.h"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
@@ -11,51 +13,124 @@ Game::Game()
     int dice_1 = 0;
     int dice_2 = 0;
     inJail = false;
-    string map[22][22];
-    //i = row
-    for(int i = 0; i < 22; i++)
+    
+    //Initialized Tabula Rasa Board
+    for(int i = 0; i < 11; i++)
     {
-        // j = column
-        for(int j = 0; j < 22; j++)
+        for(int j = 0; j < 11; j++)
         {
-            if(!((2 <= i && i <= 19) && (2 <= j && j <= 19)))
+            for(int k = 0; k < 2; k++)
             {
-                if(((j % 2) != 0 && j != 0) && j != 20)
+                for(int l = 0; l < 2; l++)
                 {
-                    map[i][j] = "# |";
+                    if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
+                    {
+                        map[i][j][k][l] = '#';
+                    }
+                    else
+                    {
+                        map[i][j][k][l] = ' ';
+                    }
+                    if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
+                    {
+                        map[i][j][k][l] += " |";
+                    }
+                    else
+                    {
+                        map[i][j][k][l] += "  ";
+                    }
+                    map[i][j][k][l] += ' ';
                 }
-                else
+            }
+        }
+    }
+}
+
+void Game::move()
+{
+    //This is where we will update players position
+    int i = 0;
+    int j = 10;
+    int k = 0;
+    int l = 0;
+    string playerPiece = "*";
+    if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
+    {
+        map[i][j][k][l] = playerPiece;
+    }
+    else
+    {
+        map[i][j][k][l] = ' ';
+    }
+    if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) && j != 10)
+    {
+        map[i][j][k][l] += "|";
+    }
+    else
+    {
+        map[i][j][k][l] += " ";
+    }
+    map[i][j][k][l] += " ";
+
+    //4d array - This allows for fixed position of character while knowing which player is on which square
+        /*arr[i][j][k][l] <-- I and J represent the number of squares in a monopoly board (11 by 11)
+            //k and l are the position of each player. This will not be change under any circumstance to change the player position use i and j
+        */
+    //This is where the map will be displayed
+    string firstRowConcatOfK, secondRowConcatOfK;
+    int topLinecounter = 20;
+    int leftLineCounter = 20;
+    int rightLineCounter = 30;
+    for(int oneLine = 0; oneLine < 11; oneLine++)
+    {
+        cout << "      " << topLinecounter; 
+        topLinecounter++;
+    }
+    cout << endl;
+    for(int i = 0; i < 11; i++)
+    {
+        for(int j = 0; j < 11; j++)
+        {
+            for(int k = 0; k < 2; k++)
+            {
+                for(int l = 0; l < 2; l++)
                 {
-                    map[i][j] = " # ";
-                }
-                if(j == 21)
-                {
-                    map[i][j] = "#";
+                    // cout << "i: " << i << " j: " << j  << " k: " << k << " l: " << l << endl;
+                    if(k == 0) //OMG I forgot the other = and it kept on going to inf
+                    {
+                        firstRowConcatOfK += map[i][j][k][l];
+                    }
+                    else
+                    {
+                        secondRowConcatOfK += map[i][j][k][l];
+                    }
+                    
                 }
                 
             }
-            else
-            {
-                map[i][j] = "   ";
-            }
-            
         }
+        if(rightLineCounter == 40)
+        {
+            rightLineCounter = 0;
+        }
+        cout << leftLineCounter << " | " << firstRowConcatOfK << endl << "   | " << secondRowConcatOfK << rightLineCounter << endl;
+        leftLineCounter--;
+        rightLineCounter++;
+        if(0 <= i && i < 10)
+        {
+            cout << "   ---------" << setw(80) << "---------" << endl;
+        }
+        firstRowConcatOfK = "";
+        secondRowConcatOfK = "";
     }
     
-    string concat;
-    for(int i = 0; i < 22; i++)
+    int bottomLinecounter = 10;
+    for(int oneLine = 0; oneLine < 11; oneLine++)
     {
-        for(int j = 0; j < 22; j++)
-        {
-            concat += map[i][j];
-        }
-        if(((i % 2) == 0) && i != 0)
-        {
-            cout << " -----" << setw(59) << "-----" << endl;
-        }
-        cout << concat << endl;
-        concat = "";
+        cout << "      " << bottomLinecounter << " "; 
+        bottomLinecounter--;
     }
+    cout << endl;
 }
 
 void Game::roll()
