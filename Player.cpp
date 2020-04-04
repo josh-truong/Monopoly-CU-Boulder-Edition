@@ -16,11 +16,13 @@ Player::Player()
 void Player::setName(string playerName_)
 {
     playerName = playerName_;
+    // cout << "playerName: " << playerName << endl;
 }
 
 void Player::setBalance(int balance_)
 {
     balance = balance_;
+    // cout << "balance: " << balance << endl;
 }
 
 void Player::setPlayerPos(int x, int y)
@@ -29,6 +31,12 @@ void Player::setPlayerPos(int x, int y)
     playerPos_y = y;
     // cout << "playerPos_x: " << playerPos_x << endl;
     // cout << "playerPos_y: " << playerPos_y << endl;
+}
+
+void Player::setPlayerChar(string playerChar_)
+{
+    playerChar = playerChar_;
+    // cout << "playerChar: " << playerChar << endl;
 }
 
 void Player::setBankruptStatusTrue()
@@ -41,9 +49,24 @@ string Player::getName() const
     return playerName;
 }
 
+string Player::getPlayerChar() const
+{
+    return playerChar;
+}
+
 int Player::getBalance() const
 {
     return balance;
+}
+
+int Player::getPlayerPos_x() const
+{
+    return playerPos_x;
+}
+
+int Player::getPlayerPos_y() const
+{
+    return playerPos_y;
 }
 
 bool Player::getStatus() const
