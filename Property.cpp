@@ -1,29 +1,55 @@
 #include "Property.h"
 #include "Game.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
 Property::Property()
 {
-    int cost = 0;
-    int houseCost = 0;
+    propertyLocation = 0;
+    propertyName = "";
+    owner = "none";
+    propertyCost = 0;
+    buildingCost = 0;
     for(int i = 0; i < 6; i++)
     {
         rentArr[i] = 0;
     }
-    int numBuildings = 0;
-    string owner = "none";
+    color = "white"; //<-- White just have all the colors
+    numBuildings = 0;
 }
 
-void Property::setCost(int cost_)
+void Property::setPropertyLocation(int propertyLocation_)
 {
-    cost = cost_;
+    propertyLocation = propertyLocation_;
+}
+
+void Property::setPropertyName(string propertyName_)
+{
+    propertyName = propertyName_;
+}
+
+// We may have an issue how will we address whether the Owner exist for a particular property
+// I'll leave this issue out for now
+void Property::setOwner(string username_)
+{
+    owner = username_;
+}
+
+void Property::setPropertyCost(int propertyCost_)
+{
+    propertyCost = propertyCost_;
+}
+
+void Property::setBuildingCost(int buildingCost_)
+{
+    buildingCost = buildingCost_;
 }
 
 void Property::setRentAt(int i, int rent_)
 {
-    if(0 <= i && 0 < 6)
+    if(!(0 <= i && 0 < 6))
     {
         cout << "[Error -- setRentAt] Specified index is out of bounds" << endl;
     }
@@ -33,32 +59,73 @@ void Property::setRentAt(int i, int rent_)
     }
 }
 
-// We may have an issue how will we address whether the Owner exist for a particular property
-// I'll leave this issue out for now
-void Property::setOwner(string username_, string propertyName_)
+void Property::setColor(string color_)
 {
-    owner = username_;
+    color = color_;
 }
 
-void Property::setPropertyName(string propertyName_)
+void Property::setNumBuildings(int numBuildings_)
 {
-    propertyName = propertyName_;
+    numBuildings = numBuildings_;
 }
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-//Accessors Section
-//Error we need to search for property at users location or a certain property
-int Property::getCost(string propertyName_)
+
+// ////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////
+// //Accessors Section
+int Property::getPropertyLocation()
 {
-    return cost;
+    return propertyLocation;
 }
 
-// void Property::getRent(string propertyName_)
+string Property::getPropertyName()
+{
+    return propertyName;
+}
 
-// void Property::getHouseCost(string propertyName_)
+string Property::getOwner()
+{
+    return owner;
+}
 
-// void Property::getOwner(string propertyName_)
+int Property::getPropertyCost()
+{
+    return propertyCost;
+}
 
-// void Property::
+int Property::getBuildingCost()
+{
+    return buildingCost;
+}
 
+int Property::getListOfRent()
+{
+    cout << setw(15) << "Rent Cost" << endl;
+    cout << "-------------------------" << endl;
+    for(int i = 0; i < 6; i++)
+    {
+        if(i == 5)
+        {
+            cout << "(5) Building (Hotel): $" << rentArr[5] << endl;
+        }
+        else
+        {
+            cout << "(" << i << ") Building(s): $" << rentArr[i] << endl;
+        }
+    }
+}
+
+int Property::getRent()
+{
+    return rentArr[numBuildings];
+}
+
+string Property::getColor()
+{
+    return color;
+}
+
+int Property::getNumBuildings()
+{
+    return numBuildings;
+}
