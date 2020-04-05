@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-/#include "Property.h"
+#include "Property.h"
 #include "Player.h"
 #include <iostream>
 #include <vector>
@@ -17,21 +17,22 @@ class Game
         string map[11][11][2][2];
         int numPlayers;
         Player player[4]; //<-- Max of 4 players
-        // vector<Property> property;
+        Property property[40];
 
     public:
         Game();
         void display_MapAndPlayer() const;
-        void move();
+        void move(int currentPlayer); //Player 1,2,3,4
         
         //File readers <-- There is no need to have user input filenames, but would be a 
         //great idea if they want to customize their own board
-        void readPlayers();
-        // void readProperty();
+        bool readPlayers();
+        void readProperty();
         
         void roll();
         // void doubleTurn(int dice_1, int dice_2);
         
+        void getPropertyInfo(int propertyLocation_);
         // void endGame(string quit_);
         // void endTurn(string end_);
         // void buy(char y_n);
