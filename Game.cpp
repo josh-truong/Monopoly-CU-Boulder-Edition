@@ -15,9 +15,7 @@ Game::Game()
     dice_1 = 0;
     dice_2 = 0;
     inJail = false;
-    
-    cout << "How many players? (2-4): " << endl;
-    cin >> numPlayers;
+    numPlayers = 0;
     
     //Initialized Tabula Rasa Board
     for(int i = 0; i < 11; i++)
@@ -51,14 +49,135 @@ Game::Game()
     }
 }
 
-void Game::move()
+bool Game::readPlayers()
+{
+    cout << "How many players? (2-4): " << endl;
+    cin >> numPlayers;
+    ifstream readPlayerFile;
+    string line, x_pos, y_pos, playerChar_, playerName;
+    readPlayerFile.open("player.csv");
+    if(readPlayerFile.fail())
+    {
+        cout << "Error. Could not read player file." << endl;
+        return false;
+    }
+    else
+    {
+        if(!(2 <= numPlayers && numPlayers <= 4))
+        {
+            cout << "Invalid Range of players" << endl << endl;
+            return false;
+        }
+        else
+        {
+            for(int i = 0; i <= numPlayers; i++)
+            {
+                getline(readPlayerFile, line);
+                istringstream strm;
+                strm.str(line);
+                getline(strm, x_pos, ',');
+                getline(strm, y_pos, ',');
+                getline(strm, playerChar_, ',');
+                if(i != 0)
+                {
+                    cout << "\n(" << i << ") Enter a player name: " << endl;
+                    cin >> playerName;
+                    
+                    player[i - 1].setName(playerName);
+                    player[i - 1].setPlayerChar(playerChar_);
+                    cout << "Player Character: " << player[i-1].getPlayerChar() << endl;
+                    player[i - 1].setPlayerPos(stoi(x_pos), stoi(y_pos));
+                }
+            }
+            // for(int i = 0; i < numPlayers; i++)
+            // {
+            //     cout << player[i].getName() << " (" << player[i].getPlayerChar() << ")" << endl;
+            //     cout << "Balance: " << player[i].getBalance() << endl;
+            //     cout << "(" << player[i].getPlayerPos_x() << ", " << player[i].getPlayerPos_y() << ")" << endl;
+            // }
+            readPlayerFile.close();
+            return true;
+        }
+        
+    }
+}
+
+//Will intialize the property of the board after reading the file
+void Game::readProperty()
+{
+    string line, propertyLocation_str;
+    ifstream readPropertyFile;
+    readPropertyFile.open("allProperty.csv");
+    for(int i = 0; i <= 40; i++) //<-- The number 23 represents how many buildings
+    {
+        getline(readPropertyFile, line);
+        if(i != 0) //Will skip the first line
+        {
+            istringstream strm;
+            strm.str(line);
+            getline(strm, propertyLocation_str, ',');
+            int propertyLocation_int = stoi(propertyLocation_str);
+            
+            switch (propertyLocation_int)
+            {
+                //All these cases 
+                // Note that cases 5, 12, 15, 25, 27, 35
+                    // ^ Those are electric company, water works, and railroads
+                    //Those are cases which we can do, i have no idea how to implement the other cases
+                    //when the players land on those. At least for now
+                case 0: case 2: case 4: case 5: case 7: case 10: case 12: case 15: case 17: 
+                case 20: case 22: case 25: case 27: case 30: case 33: case 35: case 36: case 38: 
+                    // cout << "IDK Cases: " << propertyLocation_int << endl;
+                    //INDIVIDUAL CASES ARE NOT COMPLETED
+                    break;
+                default:
+                    // cout << "Colored Property: " << propertyLocation_int << endl;
+                    string propertyName_, property_cost_, building_cost_;
+                    string rent_,house1_,house2_,house3_,house4_,hotel_, color_;
+                    
+                    getline(strm, propertyName_, ',');
+                    getline(strm, property_cost_, ',');
+                    getline(strm, building_cost_, ',');
+                    getline(strm, rent_, ',');
+                    getline(strm, house1_, ',');
+                    getline(strm, house2_, ',');
+                    getline(strm, house3_, ',');
+                    getline(strm, house4_, ',');
+                    getline(strm, hotel_, ',');
+                    getline(strm, color_, ',');
+                    
+                    
+                    property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
+                    property[propertyLocation_int].setPropertyName(propertyName_);
+                    property[propertyLocation_int].setPropertyCost(stoi(property_cost_));
+                    property[propertyLocation_int].setBuildingCost(stoi(building_cost_));
+                    property[propertyLocation_int].setRentAt(0, stoi(rent_));
+                    property[propertyLocation_int].setRentAt(1, stoi(house1_));
+                    property[propertyLocation_int].setRentAt(2, stoi(house2_));
+                    property[propertyLocation_int].setRentAt(3, stoi(house3_));
+                    property[propertyLocation_int].setRentAt(4, stoi(house4_));
+                    property[propertyLocation_int].setRentAt(5, stoi(hotel_));
+                    property[propertyLocation_int].setColor(color_);
+            }
+
+
+            
+        }
+    }
+    readPropertyFile.close();
+}
+
+void Game::move(int currentPlayer)
 {
     //This is where we will update players position
     int i = 10;
     int j = 10;
+    // int k = player[currentPlayer].getPlayerPos_x();
+    // int l = player[currentPlayer].getPlayerPos_y();
     int k = 0;
     int l = 0;
-    string playerPiece = "*";
+    string playerPiece = "$";
+    // string playerPiece = player[currentPlayer].getPlayerChar();
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
     {
         map[i][j][k][l] = playerPiece;
@@ -142,41 +261,27 @@ void Game::display_MapAndPlayer() const
     cout << endl;
 }
 
-void Game::readPlayers()
+
+void Game::getPropertyInfo(int propertyLocation_)
 {
-    ifstream readPlayerFile;
-    string x_pos, y_pos, playerChar_, playerName;
-    readPlayerFile.open("player.csv");
-    for(int i = 0; i <= numPlayers; i++)
+    //Issue how will we deal with non properties
+    if(!(0 <= propertyLocation_ && propertyLocation_ <= 39))
     {
-        getline(readPlayerFile, x_pos, ',');
-        getline(readPlayerFile, y_pos, ',');
-        getline(readPlayerFile, playerChar_, ',');
-        if(i != 0)
-        {
-            cout << "(" << (i - 1) << ") Enter a player name: " << endl;
-            cin >> playerName;
-            
-            player[i - 1].setName(playerName);
-            player[i - 1].setPlayerChar(playerChar_);
-            player[i - 1].setPlayerPos(stoi(x_pos), stoi(y_pos));
-        }
+        cout << "[Error -- getPropertyInfo: Out of bounds]" << endl;
     }
-    // for(int i = 0; i < numPlayers; i++)
-    // {
-    //     cout << player[i].getName() << " (" << player[i].getPlayerChar() << ")" << endl;
-    //     cout << "Balance: " << player[i].getBalance() << endl;
-    //     cout << "(" << player[i].getPlayerPos_x() << ", " << player[i].getPlayerPos_y() << ")" << endl;
-    // }
-    readPlayerFile.close();
+    else
+    {
+        cout << "[" << propertyLocation_ << "] " << property[propertyLocation_].getPropertyName() << endl;
+        cout << "--------------------------------" << endl;
+        cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
+        cout << "Owner: " << property[propertyLocation_].getOwner() << endl;
+        cout << "Property Price: $" << property[propertyLocation_].getPropertyCost() << endl;
+        cout << "Building cost: $" << property[propertyLocation_].getBuildingCost() << endl;
+        property[propertyLocation_].getListOfRent();
+        cout << "\nNumber of buildings built: " << property[propertyLocation_].getNumBuildings() << endl;
+        cout << "Current Rent Cost: $" << property[propertyLocation_].getRent() << endl;
+    }
 }
-
-void Game::readProperty()
-{
-    
-}
-
-
 
 
 
