@@ -1,4 +1,5 @@
-//Use this to check that classes work
+//Note this is a public driver, if you want to test your own code, then create your own driver and call the neccessary files
+//This is the brains of the program don't f*** this one up
 #include <iostream>
 #include "Game.h"
 #include "Player.h"
