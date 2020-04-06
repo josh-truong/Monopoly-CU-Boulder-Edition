@@ -6,6 +6,7 @@ using namespace std;
 
 
 //PLAYER CLASS IS FINISHED
+//IS IT?
 class Player
 {
     private:
