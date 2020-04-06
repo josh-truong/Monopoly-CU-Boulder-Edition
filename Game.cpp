@@ -107,7 +107,7 @@ void Game::readProperty()
 {
     string line, propertyLocation_str;
     ifstream readPropertyFile;
-    readPropertyFile.open("aproperty.csv");
+    readPropertyFile.open("property.csv");
     if(readPropertyFile.fail())
     {
         cout << "Boi you failed somewhere cause you got an error for readProperty file." << endl;
