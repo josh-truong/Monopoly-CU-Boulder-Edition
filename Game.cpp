@@ -107,7 +107,13 @@ void Game::readProperty()
 {
     string line, propertyLocation_str;
     ifstream readPropertyFile;
-    readPropertyFile.open("allProperty.csv");
+    readPropertyFile.open("aproperty.csv");
+    if(readPropertyFile.fail())
+    {
+        cout << "Boi you failed somewhere cause you got an error for readProperty file." << endl;
+        cout << "The file probably doesn't exist." << endl;
+        exit(-1);
+    }
     for(int i = 0; i <= 40; i++) //<-- The number 23 represents how many buildings
     {
         getline(readPropertyFile, line);
@@ -116,6 +122,7 @@ void Game::readProperty()
             istringstream strm;
             strm.str(line);
             getline(strm, propertyLocation_str, ',');
+
             int propertyLocation_int = stoi(propertyLocation_str);
             
             switch (propertyLocation_int)
@@ -133,30 +140,39 @@ void Game::readProperty()
                 default:
                     // cout << "Colored Property: " << propertyLocation_int << endl;
                     string propertyName_, property_cost_, building_cost_;
-                    string rent_,house1_,house2_,house3_,house4_,hotel_, color_;
+                    // string rent_,house1_,house2_,house3_,house4_,hotel_, color_;
+                    string rent_, color_;
                     
                     getline(strm, propertyName_, ',');
                     getline(strm, property_cost_, ',');
                     getline(strm, building_cost_, ',');
-                    getline(strm, rent_, ',');
-                    getline(strm, house1_, ',');
-                    getline(strm, house2_, ',');
-                    getline(strm, house3_, ',');
-                    getline(strm, house4_, ',');
-                    getline(strm, hotel_, ',');
+                    for(int i = 0; i < 6; i++)
+                    {
+                        getline(strm, rent_, ',');
+                        property[propertyLocation_int].setRentAt(i, stoi(rent_));
+                    }
                     getline(strm, color_, ',');
+                    // getline(strm, rent_, ',');
+                    // getline(strm, house1_, ',');
+                    // getline(strm, house2_, ',');
+                    // getline(strm, house3_, ',');
+                    // getline(strm, house4_, ',');
+                    // getline(strm, hotel_, ',');
+
                     
                     
                     property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
                     property[propertyLocation_int].setPropertyName(propertyName_);
                     property[propertyLocation_int].setPropertyCost(stoi(property_cost_));
                     property[propertyLocation_int].setBuildingCost(stoi(building_cost_));
-                    property[propertyLocation_int].setRentAt(0, stoi(rent_));
-                    property[propertyLocation_int].setRentAt(1, stoi(house1_));
-                    property[propertyLocation_int].setRentAt(2, stoi(house2_));
-                    property[propertyLocation_int].setRentAt(3, stoi(house3_));
-                    property[propertyLocation_int].setRentAt(4, stoi(house4_));
-                    property[propertyLocation_int].setRentAt(5, stoi(hotel_));
+
+                    // property[propertyLocation_int].setRentAt(0, stoi(rent_));
+                    // property[propertyLocation_int].setRentAt(1, stoi(house1_));
+                    // property[propertyLocation_int].setRentAt(2, stoi(house2_));
+                    // property[propertyLocation_int].setRentAt(3, stoi(house3_));
+                    // property[propertyLocation_int].setRentAt(4, stoi(house4_));
+                    // property[propertyLocation_int].setRentAt(5, stoi(hotel_));
+
                     property[propertyLocation_int].setColor(color_);
             }
         }
