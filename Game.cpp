@@ -159,9 +159,6 @@ void Game::readProperty()
                     property[propertyLocation_int].setRentAt(5, stoi(hotel_));
                     property[propertyLocation_int].setColor(color_);
             }
-
-
-            
         }
     }
     readPropertyFile.close();
