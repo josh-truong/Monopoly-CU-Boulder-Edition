@@ -329,12 +329,25 @@ void Game::roll()
     // cout << "dice_2: " << dice_2 << endl;
 }
 
+
+
 void Game::endTurn(string end_)
 {
+    /*
+    The end game function will allow a player to end their turn by typing in "end".
+    They current turn will move to the next player and display which player's turn it is.
+    */
     string endturn = toupper(end_);
     if(end_ == "END")
     {
         currentTurn = (currentTurn % numPlayers) + 1;
         cout << "It is player " << currentTurn << "'s turn." << endl;
     }
+}
+
+void doubleTurn(int dice_1, int dice_2);
+{
+    /*
+
+    */
 }
