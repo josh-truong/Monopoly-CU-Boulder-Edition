@@ -18,6 +18,7 @@ int main()
     cout << "Theme: CU Boudler" << endl;
     cout << "Solgan: The only place in Boulder where you can get rich!" << endl;
     monopoly.move(0);
+    monopoly.display_MapAndPlayer();
     // monopoly.getPropertyInfo(0);
     return 0;
 }
