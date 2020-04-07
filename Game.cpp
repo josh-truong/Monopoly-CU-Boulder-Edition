@@ -10,6 +10,25 @@
 //01001110 01101001 01100011 01100101 00100001 00100001 00100000 01000101 01100001 01110011 01110100 01100101 01110010 00100000 01000101 01100111 01100111 00101100 00100000 01101000 01110101 01101000 00111111 00001101 00001010 00100000 00100000 00100000 01011111 00001101 00001010 00100000 00100111 00100000 00100000 00100000 00100111 00001101 00001010 00100111 00100000 00100000 00100000 00100000 00100000 00100111 00001101 00001010 00100000 00100111 00100000 01011111 00100000 00100111 00001101 00001010 00100000
 using namespace std; 
 
+string toupper(string name) //A function to turn the string entered into all capital leters
+{
+    int length = name.length(); //Obtains the length of the string
+    string newname;
+    for(int i = 0; i < length; i++) //Cycles through all of the characters of the entered string.
+    {
+        if(name[i] >= 97 && name[i] <= 122) //Checks if characher is a lowercase letter using ascii values.
+        {
+            char newchar = name[i] - 32; //Obtains its capital leter equivalent.
+            newname = newname + newchar;
+        }
+        else
+        {
+            newname = newname + name[i];
+        }
+    }
+    return newname;
+}
+
 Game::Game()
 {
     dice_1 = 0;
@@ -296,7 +315,6 @@ void Game::getPropertyInfo(int propertyLocation_)
         cout << "Current Rent Cost: $" << property[propertyLocation_].getRent() << endl;
     }
 }
-
 
 
 void Game::roll()
