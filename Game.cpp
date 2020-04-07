@@ -352,6 +352,118 @@ void Game::endTurn(string end_)
 void doubleTurn(int dice_1, int dice_2)
 {
     /*
-
+    This function will allow the player to roll again if they roll two dice of the same time.
+    It will function by taking in both of the dice roll variables and comparing them to each other.
+    If they are the same, it will move you and allow you to roll again after performing other tasks.
     */
 }
+
+void endGame(string quit_);
+{
+    /*
+    This function will allow the users to end the game whenver they feel like it by typing in quit. This will allow for 
+    the users to quit if they wish to but could also allow you to calculate the response if someone wins by setting up
+    a condition to activate it in main. It print a message to a text file that will display the results and the winner, 
+    along with their balances.
+    */
+}
+
+void buy(char y_n);
+{
+    /*
+    This function will allow the user to buy the property that they land on if it is unknown. It will obtain the cost of 
+    the property from the property array and will then subtract the cost from the player's balance.
+    */
+}
+
+void trade(string playerName, string propertyoffer, int offer_, string propertywanted); 
+{
+    /*
+    This function allows the user to offer a trade to another player. It takes the name of the player, the property you want to offer,
+    and the amount of money you want to offer. It will then allow the person being offered to decide if they want to accept the offer or not.
+    If they accepted the offer, it will transfer the money and exchange the properties.
+    */
+}
+
+void buyHouse(string propertyname);
+{
+    /*
+    This function will allow the user to buy a house for one of their properties. It will obtain the house cost from the property
+    array and move the rent array down one position. It will also subtract the house cost from the player's balance.
+    */
+}
+
+void rent(string property);
+{
+    /*
+    This function will allow it so that if the player lands on a property already owned, it will check if it is owned,
+    determine how much rent is owed due to the rent array in the property array, and subtract the balance from the player
+    while adding that amount to the owner.
+    */
+}
+
+void waterElectricRent(int rollone, int rolltwo, string propertyname);
+{
+    /*
+    If the player lands on a utility that someone else owns, it determines if they own one or both utility,
+    and performs a calculation based on whatever they rolled to land on that spot. The multiplier is changed based
+    on if they own one or both properties. This money is subtracted from the player's balance and added to the
+    owner's balance.
+    */
+}
+
+void busRent(string propertyname);
+{
+    /*
+    If the player lands on a bus spot that is already owned by someone else, the player will be charged a rent based
+    on how many buses the onwer has. This function will determine how many buses the owner has and determine the rent. 
+    The player will lose that amount and the owner will gain that amount.
+    */
+}
+
+void luxuryTax(int balance);
+{
+    /*
+     If the player lands on the luxury tax spot, they will have 75 dollars subtracted from their balance.
+    */
+}
+
+void incomeTax(int balance);
+{
+    /*
+    If the player lands on this spot, they are given the option of paying either 200 dollars or 10% of their balance. This
+    function will allow them to choose and will perform the subtractions from their balance after the player chooses.
+    */
+}
+
+void jail(char y_n);
+{
+    /*
+    This function will move a player directly to jail. It will then set a boolian to true which will remain true until three turns
+    pass or the player succeeds in rolling a double. 
+    */
+}
+
+void passGo(char y_n);
+{
+    /*
+    When the player passes go, this function will automatically add 200 dollars to their balance.
+    */
+}
+
+void communityChest(string textfile);
+{
+    /*
+    This function will read the community chest textfile, generate a random number between 1 and 17, determine what message to print
+    using a getline and while loop, and apply a specific effect based on the number they obtained (these effects will be in a switch)
+    */  
+}
+
+void chance(string textfile);
+{
+    /*
+    This function will read the chance textfile, generate a random number between 1 and 16, determine what message to print
+    using a getline and while loop, and apply a specific effect based on the number they obtained (these effects will be in a switch)
+    */  
+}
+
