@@ -14,6 +14,7 @@ Game::Game()
 {
     dice_1 = 0;
     dice_2 = 0;
+    currentTurn = 0;
     inJail = false;
     numPlayers = 0;
     
@@ -308,4 +309,14 @@ void Game::roll()
     }
     // cout << "dice_1: " << dice_1 << endl;
     // cout << "dice_2: " << dice_2 << endl;
+}
+
+void Game::endTurn(string end_)
+{
+    string endturn = toupper(end_);
+    if(end_ == "END")
+    {
+        currentTurn = (currentTurn % numPlayers) + 1;
+        cout << "It is player " << currentTurn "'s turn." << endl;
+    }
 }
