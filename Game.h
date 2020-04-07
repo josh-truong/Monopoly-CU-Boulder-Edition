@@ -37,13 +37,13 @@ class Game
         // void endGame(string quit_);
         void endTurn(string end_);
         // void buy(char y_n);
-        // void trade(string playerName, string property, int offer_); 
+        // void trade(string playerName, string propertyoffered, int offer_, string propertywanted); 
         // void buyHouse(string propertyname);
         // void rent(string property);
         // void waterElectricRent(int rollone, int rolltwo, string propertyname);
         // void busRent(string propertyname);
-        // int luxuryTax(int balance);
-        // int incomeTax(int balance);
+        // void luxuryTax(int balance);
+        // void incomeTax(int balance);
         // void jail(char y_n);
         // void passGo(char y_n);
         
