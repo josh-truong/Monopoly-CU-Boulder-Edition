@@ -16,6 +16,7 @@ class Property
         int propertyCost;
         int buildingCost;
         //{rent,house1,house2,house3,house4,hotel} <-- rent in the array is for rent when no house/hotel is available
+        //For railroads {1 railRoad, 2 railRoad, 3 railRoad, 4 railRoad}
         int rentArr[6];
         //Suggestion: we add how many buildings are built
         string color;
@@ -45,7 +46,8 @@ class Property
         string getOwner();
         int getPropertyCost();
         int getBuildingCost();
-        int getListOfRent();
+        void getListOfRentCP(); //Colored Properties
+        void getListOfRentTransport(); //Transport Properties
         int getRent(); //<--We need to determine how many houses * rent
         string getColor();
         int getNumBuildings();

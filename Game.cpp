@@ -232,10 +232,10 @@ void Game::readProperty()
         cout << "The file probably doesn't exist." << endl;
         exit(-1);
     }
-    for(int i = 0; i <= 40; i++) //<-- The number 23 represents how many buildings
+    for(int i = 0; i <= (40 + 1); i++) //<-- The number 23 represents how many buildings, the extra +1 comes from the 2nd header()
     {
         getline(readPropertyFile, line);
-        if(i != 0) //Will skip the first line
+        if(i != 0 && i!= 1) //Will skip the first line
         {
             istringstream strm;
             strm.str(line);
@@ -243,18 +243,37 @@ void Game::readProperty()
 
             int propertyLocation_int = stoi(propertyLocation_str);
             
-            switch (propertyLocation_int)
+            switch(propertyLocation_int)
             {
                 //All these cases 
-                // Note that cases 5, 12, 15, 25, 27, 35
-                    // ^ Those are electric company, water works, and railroads
+                // Note that cases 12, 27
+                    // ^ Those are electric company, water works,
                     //Those are cases which we can do, i have no idea how to implement the other cases
                     //when the players land on those. At least for now
-                case 0: case 2: case 4: case 5: case 7: case 10: case 12: case 15: case 17: 
-                case 20: case 22: case 25: case 27: case 30: case 33: case 35: case 36: case 38: 
+                case 0: case 2: case 4: case 7: case 10: case 12: case 17: 
+                case 20: case 22: case 27: case 30: case 33: case 36: case 38:
+                {
                     // cout << "IDK Cases: " << propertyLocation_int << endl;
                     //INDIVIDUAL CASES ARE NOT COMPLETED
                     break;
+                }
+                //case 5, 15, 25, 35 are railroads
+                case 5: case 15: case 25: case 35:
+                {
+                    string transportName_, transportCost_, transportRent_;
+                    getline(strm, transportName_, ',');
+                    getline(strm, transportCost_, ',');
+                    for(int i = 0; i < 4; i++)
+                    {
+                        getline(strm, transportRent_, ',');
+                        property[propertyLocation_int].setRentAt(i, stoi(transportRent_));
+                    }
+
+                    property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
+                    property[propertyLocation_int].setPropertyName(transportName_);
+                    property[propertyLocation_int].setPropertyCost(stoi(transportCost_));
+                    break;
+                }
                 default:
                     // cout << "Colored Property: " << propertyLocation_int << endl;
                     string propertyName_, property_cost_, building_cost_;
@@ -310,13 +329,25 @@ void Game::getPropertyInfo(int propertyLocation_)
     {
         cout << "[" << propertyLocation_ << "] " << property[propertyLocation_].getPropertyName() << endl;
         cout << "--------------------------------" << endl;
-        cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
         cout << "Owner: " << property[propertyLocation_].getOwner() << endl;
         cout << "Property Price: $" << property[propertyLocation_].getPropertyCost() << endl;
-        cout << "Building cost: $" << property[propertyLocation_].getBuildingCost() << endl;
-        property[propertyLocation_].getListOfRent();
+        
+        switch(propertyLocation_)
+        {
+            case 5: case 15: case 25: case 35:
+            {
+                property[propertyLocation_].getListOfRentTransport();
+                break;
+            }
+            default:
+                cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
+                cout << "Building cost: $" << property[propertyLocation_].getBuildingCost() << endl;
+                property[propertyLocation_].getListOfRentCP();
+                break;
+        }
+        
         cout << "\nNumber of buildings built: " << property[propertyLocation_].getNumBuildings() << endl;
-        cout << "Current Rent Cost: $" << property[propertyLocation_].getRent() << endl;
+        cout << "Current Rent Cost: $" << property[propertyLocation_].getRent() << endl << endl;
     }
 }
 
@@ -376,7 +407,7 @@ void buy(char y_n)
     */
 }
 
-void trade(string playerName, string propertyoffer, int offer_, string propertywanted); 
+void trade(string playerName, string propertyoffer, int offer_, string propertywanted)
 {
     /*
     This function allows the user to offer a trade to another player. It takes the name of the player, the property you want to offer,
@@ -385,7 +416,7 @@ void trade(string playerName, string propertyoffer, int offer_, string propertyw
     */
 }
 
-void buyHouse(string propertyname);
+void buyHouse(string propertyname)
 {
     /*
     This function will allow the user to buy a house for one of their properties. It will obtain the house cost from the property
@@ -393,7 +424,7 @@ void buyHouse(string propertyname);
     */
 }
 
-void rent(string property);
+void rent(string property)
 {
     /*
     This function will allow it so that if the player lands on a property already owned, it will check if it is owned,
@@ -402,7 +433,7 @@ void rent(string property);
     */
 }
 
-void waterElectricRent(int rollone, int rolltwo, string propertyname);
+void waterElectricRent(int rollone, int rolltwo, string propertyname)
 {
     /*
     If the player lands on a utility that someone else owns, it determines if they own one or both utility,
@@ -412,7 +443,7 @@ void waterElectricRent(int rollone, int rolltwo, string propertyname);
     */
 }
 
-void busRent(string propertyname);
+void busRent(string propertyname)
 {
     /*
     If the player lands on a bus spot that is already owned by someone else, the player will be charged a rent based
@@ -421,14 +452,18 @@ void busRent(string propertyname);
     */
 }
 
+<<<<<<< HEAD
 void luxuryTax();
+=======
+void luxuryTax(int balance)
+>>>>>>> 8d07b06f7a04bb9abe0db3698493c2fa4f07ca95
 {
     /*
      If the player lands on the luxury tax spot, they will have 75 dollars subtracted from their balance.
     */
 }
 
-void incomeTax(int balance);
+void incomeTax(int balance)
 {
     /*
     If the player lands on this spot, they are given the option of paying either 200 dollars or 10% of their balance. This
@@ -436,7 +471,7 @@ void incomeTax(int balance);
     */
 }
 
-void jail(char y_n);
+void jail(char y_n)
 {
     /*
     This function will move a player directly to jail. It will then set a boolian to true which will remain true until three turns
@@ -444,14 +479,14 @@ void jail(char y_n);
     */
 }
 
-void passGo(char y_n);
+void passGo(char y_n)
 {
     /*
     When the player passes go, this function will automatically add 200 dollars to their balance.
     */
 }
 
-void communityChest(string textfile);
+void communityChest(string textfile)
 {
     /*
     This function will read the community chest textfile, generate a random number between 1 and 17, determine what message to print
@@ -459,7 +494,7 @@ void communityChest(string textfile);
     */  
 }
 
-void chance(string textfile);
+void chance(string textfile)
 {
     /*
     This function will read the chance textfile, generate a random number between 1 and 16, determine what message to print

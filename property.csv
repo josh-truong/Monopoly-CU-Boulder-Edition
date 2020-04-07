@@ -1,10 +1,11 @@
 location,property_name,property_cost,building_cost,rent,house1,house2,house3,house4,hotel,color
+location,transport_name,transport_Cost,1Rail,2Rail,3Rail,4Rail,,,,
 0,PASS GO,,,,,,,,,
 1,Mediterranean Avenue,60,50,2,10,30,90,160,250,purple
 2,COMMUNITY CHEST,,,,,,,,,
 3,Baltic Ave.,60,50,4,20,60,180,320,450,purple
 4,INCOME TAX,,,,,,,,,
-5,Reading Railroad,,,,,,,,,
+5,Reading Railroad,200,25,50,100,200,,,,
 6,Oriental Avenue,100,50,6,30,90,270,400,550,baby blue
 7,CHANCE,,,,,,,,,
 8,Vermont Avenue,100,50,6,30,90,270,400,550,baby blue
@@ -14,7 +15,7 @@ location,property_name,property_cost,building_cost,rent,house1,house2,house3,hou
 12,ELECTRIC COMPANY,,,,,,,,,
 13,States Avenue,140,100,10,50,150,450,625,750,pink
 14,Virginia Avenue,160,100,12,60,180,500,700,900,pink
-15,Pennsylvania Railroad,,,,,,,,,
+15,Pennsylvania Railroad,200,25,50,100,200,,,,
 16,St. James Place,180,100,14,70,200,550,750,950,orange
 17,COMMUNITY CHEST,,,,,,,,,
 18,Tennessee Avenue,180,100,14,70,200,550,750,950,orange
@@ -24,7 +25,7 @@ location,property_name,property_cost,building_cost,rent,house1,house2,house3,hou
 22,CHANCE,,,,,,,,,
 23,Indiana Avenue,220,150,18,90,250,700,875,1050,red
 24,Illinois Avenue,240,150,20,100,300,750,925,1100,red
-25,B & O Railroad,,,,,,,,,
+25,B & O Railroad,200,25,50,100,200,,,,
 26,Atlantic Avenue ,260,150,22,110,330,800,975,1150,yellow
 27,WATER WORKS,,,,,,,,,
 28,Ventnor Avenue ,260,150,22,110,330,800,975,1150,yellow
@@ -34,7 +35,7 @@ location,property_name,property_cost,building_cost,rent,house1,house2,house3,hou
 32,North Carolina Avenue ,300,200,26,130,390,900,1100,1275,green
 33,COMMUNITY CHEST,,,,,,,,,
 34,Pennsylvania Avenue,320,200,28,150,450,1000,1200,1400,green
-35,Short Line Railroad,,,,,,,,,
+35,Short Line Railroad,200,25,50,100,200,,,,
 36,CHANCE,,,,,,,,,
 37,Park Place,350,200,35,175,500,1100,1300,1500,dark blue
 38,LUXARY TAX,,,,,,,,,
