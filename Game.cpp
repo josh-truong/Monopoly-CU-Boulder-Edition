@@ -232,10 +232,10 @@ void Game::readProperty()
         cout << "The file probably doesn't exist." << endl;
         exit(-1);
     }
-    for(int i = 0; i <= 40; i++) //<-- The number 23 represents how many buildings
+    for(int i = 0; i <= (40 + 1); i++) //<-- The number 23 represents how many buildings, the extra +1 comes from the 2nd header()
     {
         getline(readPropertyFile, line);
-        if(i != 0) //Will skip the first line
+        if(i != 0 && i!= 1) //Will skip the first line
         {
             istringstream strm;
             strm.str(line);
@@ -243,18 +243,37 @@ void Game::readProperty()
 
             int propertyLocation_int = stoi(propertyLocation_str);
             
-            switch (propertyLocation_int)
+            switch(propertyLocation_int)
             {
                 //All these cases 
-                // Note that cases 5, 12, 15, 25, 27, 35
-                    // ^ Those are electric company, water works, and railroads
+                // Note that cases 12, 27
+                    // ^ Those are electric company, water works,
                     //Those are cases which we can do, i have no idea how to implement the other cases
                     //when the players land on those. At least for now
-                case 0: case 2: case 4: case 5: case 7: case 10: case 12: case 15: case 17: 
-                case 20: case 22: case 25: case 27: case 30: case 33: case 35: case 36: case 38: 
+                case 0: case 2: case 4: case 7: case 10: case 12: case 17: 
+                case 20: case 22: case 27: case 30: case 33: case 36: case 38:
+                {
                     // cout << "IDK Cases: " << propertyLocation_int << endl;
                     //INDIVIDUAL CASES ARE NOT COMPLETED
                     break;
+                }
+                //case 5, 15, 25, 35 are railroads
+                case 5: case 15: case 25: case 35:
+                {
+                    string transportName_, transportCost_, transportRent_;
+                    getline(strm, transportName_, ',');
+                    getline(strm, transportCost_, ',');
+                    for(int i = 0; i < 4; i++)
+                    {
+                        getline(strm, transportRent_, ',');
+                        property[propertyLocation_int].setRentAt(i, stoi(transportRent_));
+                    }
+
+                    property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
+                    property[propertyLocation_int].setPropertyName(transportName_);
+                    property[propertyLocation_int].setPropertyCost(stoi(transportCost_));
+                    break;
+                }
                 default:
                     // cout << "Colored Property: " << propertyLocation_int << endl;
                     string propertyName_, property_cost_, building_cost_;
@@ -310,13 +329,25 @@ void Game::getPropertyInfo(int propertyLocation_)
     {
         cout << "[" << propertyLocation_ << "] " << property[propertyLocation_].getPropertyName() << endl;
         cout << "--------------------------------" << endl;
-        cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
         cout << "Owner: " << property[propertyLocation_].getOwner() << endl;
         cout << "Property Price: $" << property[propertyLocation_].getPropertyCost() << endl;
-        cout << "Building cost: $" << property[propertyLocation_].getBuildingCost() << endl;
-        property[propertyLocation_].getListOfRent();
+        
+        switch(propertyLocation_)
+        {
+            case 5: case 15: case 25: case 35:
+            {
+                property[propertyLocation_].getListOfRentTransport();
+                break;
+            }
+            default:
+                cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
+                cout << "Building cost: $" << property[propertyLocation_].getBuildingCost() << endl;
+                property[propertyLocation_].getListOfRentCP();
+                break;
+        }
+        
         cout << "\nNumber of buildings built: " << property[propertyLocation_].getNumBuildings() << endl;
-        cout << "Current Rent Cost: $" << property[propertyLocation_].getRent() << endl;
+        cout << "Current Rent Cost: $" << property[propertyLocation_].getRent() << endl << endl;
     }
 }
 
