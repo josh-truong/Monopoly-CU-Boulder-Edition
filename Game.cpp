@@ -194,6 +194,7 @@ void Game::readProperty()
                     // property[propertyLocation_int].setRentAt(5, stoi(hotel_));
 
                     property[propertyLocation_int].setColor(color_);
+                    break;
             }
         }
     }
@@ -207,10 +208,11 @@ void Game::move(int currentPlayer)
     int j = 10;
     // int k = player[currentPlayer].getPlayerPos_x();
     // int l = player[currentPlayer].getPlayerPos_y();
+    // string playerPiece = player[currentPlayer].getPlayerChar();
     int k = 0;
     int l = 0;
     string playerPiece = "$";
-    // string playerPiece = player[currentPlayer].getPlayerChar();
+    
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
     {
         map[i][j][k][l] = playerPiece;
