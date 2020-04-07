@@ -335,6 +335,6 @@ void Game::endTurn(string end_)
     if(end_ == "END")
     {
         currentTurn = (currentTurn % numPlayers) + 1;
-        cout << "It is player " << currentTurn "'s turn." << endl;
+        cout << "It is player " << currentTurn << "'s turn." << endl;
     }
 }
