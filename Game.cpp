@@ -69,6 +69,104 @@ Game::Game()
     }
 }
 
+void Game::move(int currentPlayer)
+{
+    //This is where we will update players position
+    int i = 10;
+    int j = 10;
+    int k = player[currentPlayer].getPlayerPos_x();
+    int l = player[currentPlayer].getPlayerPos_y();
+    string playerPiece = player[currentPlayer].getPlayerChar();
+    // cout << "K:" << k << endl;
+    // cout << "l:" << l << endl;
+    // cout << "playerPiece:" << playerPiece << endl;
+    // int k = 0;
+    // int l = 0;
+    // string playerPiece = "$";
+    
+    if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
+    {
+        map[i][j][k][l] = playerPiece;
+    }
+    else
+    {
+        map[i][j][k][l] = ' ';
+    }
+    if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) && j != 10)
+    {
+        map[i][j][k][l] += "|";
+    }
+    else
+    {
+        map[i][j][k][l] += " ";
+    }
+    map[i][j][k][l] += " ";
+}
+
+void Game::display_MapAndPlayer() const
+{
+    //4d array - This allows for fixed position of character while knowing which player is on which square
+        /*arr[i][j][k][l] <-- I and J represent the number of squares in a monopoly board (11 by 11)
+            //k and l are the position of each player. This will not be change under any circumstance to change the player position use i and j
+        */
+    //This is where the map will be displayed
+    string firstRowConcatOfK, secondRowConcatOfK;
+    int topLinecounter = 20;
+    int leftLineCounter = 20;
+    int rightLineCounter = 30;
+    for(int oneLine = 0; oneLine < 11; oneLine++)
+    {
+        cout << "      " << topLinecounter; 
+        topLinecounter++;
+    }
+    cout << endl;
+    for(int i = 0; i < 11; i++)
+    {
+        for(int j = 0; j < 11; j++)
+        {
+            for(int k = 0; k < 2; k++)
+            {
+                for(int l = 0; l < 2; l++)
+                {
+                    // cout << "i: " << i << " j: " << j  << " k: " << k << " l: " << l << endl;
+                    if(k == 0) //OMG I forgot the other = and it kept on going to inf
+                    {
+                        firstRowConcatOfK += map[i][j][k][l];
+                        //cout << firstRowConcatOfK << endl;
+                    }
+                    else
+                    {
+                        secondRowConcatOfK += map[i][j][k][l];
+                    }
+                    
+                }
+                
+            }
+        }
+        if(rightLineCounter == 40)
+        {
+            rightLineCounter = 0;
+        }
+        cout << leftLineCounter << " | " << firstRowConcatOfK << endl << "   | " << secondRowConcatOfK << rightLineCounter << endl;
+        leftLineCounter--;
+        rightLineCounter++;
+        if(0 <= i && i < 10)
+        {
+            cout << "   ---------" << setw(80) << "---------" << endl;
+        }
+        firstRowConcatOfK = "";
+        secondRowConcatOfK = "";
+    }
+    
+    int bottomLinecounter = 10;
+    for(int oneLine = 0; oneLine < 11; oneLine++)
+    {
+        cout << "      " << bottomLinecounter << " "; 
+        bottomLinecounter--;
+    }
+    cout << endl;
+}
+
 bool Game::readPlayers()
 {
     cout << "How many players? (2-4): " << endl;
@@ -105,15 +203,15 @@ bool Game::readPlayers()
                     
                     player[i - 1].setName(playerName);
                     player[i - 1].setPlayerChar(playerChar_);
-                    cout << "Player Character: " << player[i-1].getPlayerChar() << endl;
+                    cout << "Player Character: " << player[i - 1].getPlayerChar() << endl;
                     player[i - 1].setPlayerPos(stoi(x_pos), stoi(y_pos));
                 }
             }
             // for(int i = 0; i < numPlayers; i++)
             // {
-            //     cout << player[i].getName() << " (" << player[i].getPlayerChar() << ")" << endl;
-            //     cout << "Balance: " << player[i].getBalance() << endl;
-            //     cout << "(" << player[i].getPlayerPos_x() << ", " << player[i].getPlayerPos_y() << ")" << endl;
+            //     cout << setw(20) << player[i].getName() << " (" << player[i].getPlayerChar() << ')' << endl;
+            //     cout << setw(20) << "Balance: " << player[i].getBalance() << endl;
+            //     cout << setw(20) << '(' << player[i].getPlayerPos_x() << ", " << player[i].getPlayerPos_y() << ')' << endl;
             // }
             readPlayerFile.close();
             return true;
@@ -194,106 +292,12 @@ void Game::readProperty()
                     // property[propertyLocation_int].setRentAt(5, stoi(hotel_));
 
                     property[propertyLocation_int].setColor(color_);
+                    break;
             }
         }
     }
     readPropertyFile.close();
 }
-
-void Game::move(int currentPlayer)
-{
-    //This is where we will update players position
-    int i = 10;
-    int j = 10;
-    // int k = player[currentPlayer].getPlayerPos_x();
-    // int l = player[currentPlayer].getPlayerPos_y();
-    int k = 0;
-    int l = 0;
-    string playerPiece = "$";
-    // string playerPiece = player[currentPlayer].getPlayerChar();
-    if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
-    {
-        map[i][j][k][l] = playerPiece;
-    }
-    else
-    {
-        map[i][j][k][l] = ' ';
-    }
-    if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) && j != 10)
-    {
-        map[i][j][k][l] += "|";
-    }
-    else
-    {
-        map[i][j][k][l] += " ";
-    }
-    map[i][j][k][l] += " ";
-    display_MapAndPlayer();
-}
-
-void Game::display_MapAndPlayer() const
-{
-    //4d array - This allows for fixed position of character while knowing which player is on which square
-        /*arr[i][j][k][l] <-- I and J represent the number of squares in a monopoly board (11 by 11)
-            //k and l are the position of each player. This will not be change under any circumstance to change the player position use i and j
-        */
-    //This is where the map will be displayed
-    string firstRowConcatOfK, secondRowConcatOfK;
-    int topLinecounter = 20;
-    int leftLineCounter = 20;
-    int rightLineCounter = 30;
-    for(int oneLine = 0; oneLine < 11; oneLine++)
-    {
-        cout << "      " << topLinecounter; 
-        topLinecounter++;
-    }
-    cout << endl;
-    for(int i = 0; i < 11; i++)
-    {
-        for(int j = 0; j < 11; j++)
-        {
-            for(int k = 0; k < 2; k++)
-            {
-                for(int l = 0; l < 2; l++)
-                {
-                    // cout << "i: " << i << " j: " << j  << " k: " << k << " l: " << l << endl;
-                    if(k == 0) //OMG I forgot the other = and it kept on going to inf
-                    {
-                        firstRowConcatOfK += map[i][j][k][l];
-                    }
-                    else
-                    {
-                        secondRowConcatOfK += map[i][j][k][l];
-                    }
-                    
-                }
-                
-            }
-        }
-        if(rightLineCounter == 40)
-        {
-            rightLineCounter = 0;
-        }
-        cout << leftLineCounter << " | " << firstRowConcatOfK << endl << "   | " << secondRowConcatOfK << rightLineCounter << endl;
-        leftLineCounter--;
-        rightLineCounter++;
-        if(0 <= i && i < 10)
-        {
-            cout << "   ---------" << setw(80) << "---------" << endl;
-        }
-        firstRowConcatOfK = "";
-        secondRowConcatOfK = "";
-    }
-    
-    int bottomLinecounter = 10;
-    for(int oneLine = 0; oneLine < 11; oneLine++)
-    {
-        cout << "      " << bottomLinecounter << " "; 
-        bottomLinecounter--;
-    }
-    cout << endl;
-}
-
 
 void Game::getPropertyInfo(int propertyLocation_)
 {
