@@ -349,7 +349,7 @@ void Game::endTurn(string end_)
     }
 }
 
-void doubleTurn(int dice_1, int dice_2);
+void doubleTurn(int dice_1, int dice_2)
 {
     /*
 
