@@ -5,27 +5,21 @@
 
 using namespace std;
 
-void Game::endTurn(string end_)
+void luxuryTax();
 {
-    string endturn = toupper(end_);
-    if(end_ == "END")
-    {
-        currentTurn = (currentTurn % 4) + 1;
-        cout << "It is player " << currentTurn "'s turn." << endl;
-    }
+    /*
+     If the player lands on the luxury tax spot, they will have 75 dollars subtracted from their balance.
+    */
+    int amount = player[currentturn].getBalance();
+    amount = amount - 75;
+    player[currentturn].setBalance(amount);
 }
 
 
 int main()
 {
-    Game test;
-    string tester;
-    do
-    {
-        cout << "Enter in end" << endl;
-        cin >> tester;
-        test.endTurn(tester); 
-    }
-    while(tester != "quit");
+    Game testgame;
+    testgame.luxuryTax();
+    cout >> player[currentturn].getBalance() >> endl;
     return 0;
 }

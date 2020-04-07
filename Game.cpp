@@ -69,14 +69,14 @@ Game::Game()
     }
 }
 
-void Game::move(int currentPlayer)
+void Game::move(int currentTurn)
 {
     //This is where we will update players position
     int i = 10;
     int j = 10;
-    int k = player[currentPlayer].getPlayerPos_x();
-    int l = player[currentPlayer].getPlayerPos_y();
-    string playerPiece = player[currentPlayer].getPlayerChar();
+    int k = player[currentTurn - 1].getPlayerPos_x();
+    int l = player[currentTurn - 1].getPlayerPos_y();
+    string playerPiece = player[currentTurn - 1].getPlayerChar();
     // cout << "K:" << k << endl;
     // cout << "l:" << l << endl;
     // cout << "playerPiece:" << playerPiece << endl;
@@ -349,7 +349,7 @@ void Game::endTurn(string end_)
     }
 }
 
-void doubleTurn(int dice_1, int dice_2);
+void doubleTurn(int dice_1, int dice_2)
 {
     /*
     This function will allow the player to roll again if they roll two dice of the same time.
@@ -358,7 +358,7 @@ void doubleTurn(int dice_1, int dice_2);
     */
 }
 
-void endGame(string quit_);
+void endGame(string quit_)
 {
     /*
     This function will allow the users to end the game whenver they feel like it by typing in quit. This will allow for 
@@ -368,7 +368,7 @@ void endGame(string quit_);
     */
 }
 
-void buy(char y_n);
+void buy(char y_n)
 {
     /*
     This function will allow the user to buy the property that they land on if it is unknown. It will obtain the cost of 
@@ -421,7 +421,7 @@ void busRent(string propertyname);
     */
 }
 
-void luxuryTax(int balance);
+void luxuryTax();
 {
     /*
      If the player lands on the luxury tax spot, they will have 75 dollars subtracted from their balance.

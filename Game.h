@@ -42,7 +42,7 @@ class Game
         // void rent(string property);
         // void waterElectricRent(int rollone, int rolltwo, string propertyname);
         // void busRent(string propertyname);
-        // void luxuryTax(int balance);
+        void luxuryTax();
         // void incomeTax(int balance);
         // void jail(char y_n);
         // void passGo(char y_n);
