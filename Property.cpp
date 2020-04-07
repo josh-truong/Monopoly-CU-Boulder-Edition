@@ -98,7 +98,7 @@ int Property::getBuildingCost()
     return buildingCost;
 }
 
-int Property::getListOfRent()
+void Property::getListOfRentCP()
 {
     cout << setw(15) << "Rent Cost" << endl;
     cout << "-------------------------" << endl;
@@ -112,6 +112,17 @@ int Property::getListOfRent()
         {
             cout << "(" << i << ") Building(s): $" << rentArr[i] << endl;
         }
+    }
+}
+
+void Property::getListOfRentTransport()
+{
+    cout << setw(15) << "Rent Cost" << endl;
+    cout << "-------------------------" << endl;
+    for(int i = 0; i < 4; i++)
+    {
+        cout << "(" << i << ") Transports Service(s): $" << rentArr[i] << endl;
+
     }
 }
 
