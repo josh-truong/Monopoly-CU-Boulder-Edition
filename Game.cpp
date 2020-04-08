@@ -33,7 +33,7 @@ Game::Game()
 {
     dice_1 = 0;
     dice_2 = 0;
-    currentTurn = 0;
+    currentTurn = 1;
     inJail = false;
     numPlayers = 0;
     
@@ -452,18 +452,17 @@ void busRent(string propertyname)
     */
 }
 
-<<<<<<< HEAD
-void luxuryTax();
-=======
-void luxuryTax(int balance)
->>>>>>> 8d07b06f7a04bb9abe0db3698493c2fa4f07ca95
+void luxuryTax()
 {
     /*
      If the player lands on the luxury tax spot, they will have 75 dollars subtracted from their balance.
     */
+    int amount = player[currentTurn - 1].getBalance();
+    amount = amount - 75;
+    player[currentTurn - 1].setBalance(amount);
 }
 
-void incomeTax(int balance)
+void incomeTax()
 {
     /*
     If the player lands on this spot, they are given the option of paying either 200 dollars or 10% of their balance. This
