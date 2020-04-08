@@ -250,8 +250,19 @@ void Game::readProperty()
                     // ^ Those are electric company, water works,
                     //Those are cases which we can do, i have no idea how to implement the other cases
                     //when the players land on those. At least for now
-                case 0: case 2: case 4: case 7: case 10: case 12: case 17: 
-                case 20: case 22: case 27: case 30: case 33: case 36: case 38:
+                
+                case 2: case 17: case 33: //Community Chest
+                case 7: case 22: case 36: //Chance
+                {
+                    string CChest_name;
+                    getline(strm, CChest_name, ',');
+                    property[propertyLocation_int].setOwner("\x1B[93m Mr.Monopoly (Rich Uncle Pennybags) \x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m");
+                    property[propertyLocation_int].setPropertyName(CChest_name);
+                    property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
+                    break;
+                }
+                case 0: case 4: case 10: case 12:
+                case 20: case 27: case 30: case 38:
                 {
                     // cout << "IDK Cases: " << propertyLocation_int << endl;
                     //INDIVIDUAL CASES ARE NOT COMPLETED
@@ -327,27 +338,50 @@ void Game::getPropertyInfo(int propertyLocation_)
     }
     else
     {
-        cout << "[" << propertyLocation_ << "] " << property[propertyLocation_].getPropertyName() << endl;
+        cout << endl;
         cout << "--------------------------------" << endl;
-        cout << "Owner: " << property[propertyLocation_].getOwner() << endl;
-        cout << "Property Price: $" << property[propertyLocation_].getPropertyCost() << endl;
+        cout << "\x1B[97m" << "[" << propertyLocation_ << "] " << property[propertyLocation_].getPropertyName() << "\x1B[0m" << endl;
+        cout << "Owner: " << "\x1B[93m" << property[propertyLocation_].getOwner() << "\x1B[0m" << endl;
+
+
+        if(propertyLocation_ != 2 && propertyLocation_ != 17 && propertyLocation_ != 33
+            && propertyLocation_ != 7 && propertyLocation_ != 22 && propertyLocation_ != 36)
+        {
+            cout << "Property Price: \x1B[92m$" << property[propertyLocation_].getPropertyCost() << "\x1B[0m" << endl;
+        }
         
         switch(propertyLocation_)
         {
+            case 2: case 17: case 33: //Community Chest
+            case 7: case 22: case 36: //Chance
+            {
+                break;
+            }
             case 5: case 15: case 25: case 35:
             {
                 property[propertyLocation_].getListOfRentTransport();
                 break;
             }
-            default:
+            case 1: case 3: case 6: case 8: case 9: case 11: case 13: case 14: case 16: case 18: case 19: case 21: 
+            case 23: case 24: case 26: case 28: case 29: case 31: case 32: case 34: case 37: case 39:
+            {
                 cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
-                cout << "Building cost: $" << property[propertyLocation_].getBuildingCost() << endl;
+                cout << "Building cost: \x1B[92m$" << property[propertyLocation_].getBuildingCost() << "\x1B[0m" << endl;
                 property[propertyLocation_].getListOfRentCP();
                 break;
+            }
+            default:
+                cout << "Error. getPropertyInfo()" << endl;
+            
+        }
+
+        if(propertyLocation_ != 2 && propertyLocation_ != 17 && propertyLocation_ != 33
+            && propertyLocation_ != 7 && propertyLocation_ != 22 && propertyLocation_ != 36)
+        {
+            cout << "\nNumber of buildings built: \x1B[97m" << property[propertyLocation_].getNumBuildings() << "\x1B[0m" << endl;
+            cout << "Current Rent Cost: \x1B[92m$" << property[propertyLocation_].getRent() << "\x1B[0m" << endl;
         }
         
-        cout << "\nNumber of buildings built: " << property[propertyLocation_].getNumBuildings() << endl;
-        cout << "Current Rent Cost: $" << property[propertyLocation_].getRent() << endl << endl;
     }
 }
 
