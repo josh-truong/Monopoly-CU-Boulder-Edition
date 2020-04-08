@@ -6,9 +6,10 @@
 using namespace std;
 
 
+
 int main()
 {
     Game testgame;
-    testgame.luxuryTax();
+    testgame.incomeTax();
     return 0;
 }

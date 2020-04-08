@@ -468,6 +468,36 @@ void Game::incomeTax()
     If the player lands on this spot, they are given the option of paying either 200 dollars or 10% of their balance. This
     function will allow them to choose and will perform the subtractions from their balance after the player chooses.
     */
+    int repeater = 1;
+    while(repeater == 1)
+    {
+        cout << "Press 1 to pay $200. Press 2 to pay 10% of your balance." << endl;
+        int entry;
+        cin >> entry;
+        switch(entry)
+        {
+            case 1:
+            {
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 200;
+                player[currentTurn - 1].setBalance(amount);
+                repeater = 0;
+                break;
+            }
+            case 2:
+            {
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - amount * 0.1;
+                player[currentTurn - 1].setBalance(amount);
+                repeater = 0;
+                break;
+            }
+            default:
+            {
+                cout << "Invalid input" << endl;
+            }
+        }
+    }
 }
 
 void Game::jail(char y_n)

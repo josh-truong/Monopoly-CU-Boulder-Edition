@@ -31,25 +31,24 @@ class Game
         void readProperty();
         
         void roll();
-        // void doubleTurn(int dice_1, int dice_2);
+        void doubleTurn(int dice_1, int dice_2); //Incomplete
         
         void getPropertyInfo(int propertyLocation_);
-        // void endGame(string quit_);
+        void endGame(string quit_); //Incomplete
         void endTurn(string end_);
-        // void buy(char y_n);
-        // void trade(string playerName, string propertyoffered, int offer_, string propertywanted); 
-        // void buyHouse(string propertyname);
-        // void rent(string property);
-        // void waterElectricRent(int rollone, int rolltwo, string propertyname);
-        // void busRent(string propertyname);
+        void buy(char y_n); //Incomplete
+        void trade(string playerName, string propertyoffered, int offer_, string propertywanted); //Incomplete
+        void buyHouse(string propertyname); //Incomplete
+        void rent(string property); //Incomplete
+        void waterElectricRent(int rollone, int rolltwo, string propertyname); //Incomplete
+        void busRent(string propertyname); //Incomplete
         void luxuryTax();
-        // void incomeTax(int balance);
-        // void jail(char y_n);
-        // void passGo(char y_n);
+        void incomeTax();
+        void jail(char y_n); //Incomplete
+        void passGo(char y_n); //Incomplete
         
-        // void communityChest(string textfile);
-        // void chance(string textfile);
-        // void determineWinner();
+        void communityChest(string textfile); //Incomplete
+        void chance(string textfile); //Incomplete
 };
 
 #endif
