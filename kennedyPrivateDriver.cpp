@@ -5,11 +5,9 @@
 
 using namespace std;
 
-
-
 int main()
 {
     Game testgame;
-    testgame.incomeTax();
+    testgame.chance("chance.txt");
     return 0;
 }
