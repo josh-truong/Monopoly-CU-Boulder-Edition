@@ -452,7 +452,7 @@ void busRent(string propertyname)
     */
 }
 
-void luxuryTax()
+void Game::luxuryTax()
 {
     /*
      If the player lands on the luxury tax spot, they will have 75 dollars subtracted from their balance.
