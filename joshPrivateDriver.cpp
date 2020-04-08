@@ -19,10 +19,9 @@ int main()
     // cout << "Solgan: The only place in Boulder where you can get rich!" << endl;
     // monopoly.move(0);
     // monopoly.display_MapAndPlayer();
+    monopoly.getPropertyInfo(2);
     monopoly.getPropertyInfo(5);
-    monopoly.getPropertyInfo(15);
-    monopoly.getPropertyInfo(25);
-    monopoly.getPropertyInfo(35);
     monopoly.getPropertyInfo(1);
+    
     return 0;
 }
