@@ -380,7 +380,7 @@ void Game::endTurn(string end_)
     }
 }
 
-void doubleTurn(int dice_1, int dice_2)
+void Game::doubleTurn(int dice_1, int dice_2)
 {
     /*
     This function will allow the player to roll again if they roll two dice of the same time.
@@ -389,7 +389,7 @@ void doubleTurn(int dice_1, int dice_2)
     */
 }
 
-void endGame(string quit_)
+void Game::endGame(string quit_)
 {
     /*
     This function will allow the users to end the game whenver they feel like it by typing in quit. This will allow for 
@@ -399,7 +399,7 @@ void endGame(string quit_)
     */
 }
 
-void buy(char y_n)
+void Game::buy(char y_n)
 {
     /*
     This function will allow the user to buy the property that they land on if it is unknown. It will obtain the cost of 
@@ -407,7 +407,7 @@ void buy(char y_n)
     */
 }
 
-void trade(string playerName, string propertyoffer, int offer_, string propertywanted)
+void Game::trade(string playerName, string propertyoffer, int offer_, string propertywanted)
 {
     /*
     This function allows the user to offer a trade to another player. It takes the name of the player, the property you want to offer,
@@ -416,7 +416,7 @@ void trade(string playerName, string propertyoffer, int offer_, string propertyw
     */
 }
 
-void buyHouse(string propertyname)
+void Game::buyHouse(string propertyname)
 {
     /*
     This function will allow the user to buy a house for one of their properties. It will obtain the house cost from the property
@@ -424,7 +424,7 @@ void buyHouse(string propertyname)
     */
 }
 
-void rent(string property)
+void Game::rent(string property)
 {
     /*
     This function will allow it so that if the player lands on a property already owned, it will check if it is owned,
@@ -433,7 +433,7 @@ void rent(string property)
     */
 }
 
-void waterElectricRent(int rollone, int rolltwo, string propertyname)
+void Game::waterElectricRent(int rollone, int rolltwo, string propertyname)
 {
     /*
     If the player lands on a utility that someone else owns, it determines if they own one or both utility,
@@ -443,7 +443,7 @@ void waterElectricRent(int rollone, int rolltwo, string propertyname)
     */
 }
 
-void busRent(string propertyname)
+void Game::busRent(string propertyname)
 {
     /*
     If the player lands on a bus spot that is already owned by someone else, the player will be charged a rent based
@@ -462,7 +462,7 @@ void Game::luxuryTax()
     player[currentTurn - 1].setBalance(amount);
 }
 
-void incomeTax()
+void Game::incomeTax()
 {
     /*
     If the player lands on this spot, they are given the option of paying either 200 dollars or 10% of their balance. This
@@ -470,7 +470,7 @@ void incomeTax()
     */
 }
 
-void jail(char y_n)
+void Game::jail(char y_n)
 {
     /*
     This function will move a player directly to jail. It will then set a boolian to true which will remain true until three turns
@@ -478,14 +478,14 @@ void jail(char y_n)
     */
 }
 
-void passGo(char y_n)
+void Game::passGo(char y_n)
 {
     /*
     When the player passes go, this function will automatically add 200 dollars to their balance.
     */
 }
 
-void communityChest(string textfile)
+void Game::communityChest(string textfile)
 {
     /*
     This function will read the community chest textfile, generate a random number between 1 and 17, determine what message to print
@@ -493,7 +493,7 @@ void communityChest(string textfile)
     */  
 }
 
-void chance(string textfile)
+void Game::chance(string textfile)
 {
     /*
     This function will read the chance textfile, generate a random number between 1 and 16, determine what message to print

@@ -10,6 +10,5 @@ int main()
 {
     Game testgame;
     testgame.luxuryTax();
-    cout >> player[currentTurn - 1].getBalance() >> endl;
     return 0;
 }
