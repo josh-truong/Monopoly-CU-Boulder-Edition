@@ -20,8 +20,11 @@ int main()
     // monopoly.move(0);
     // monopoly.display_MapAndPlayer();
     monopoly.getPropertyInfo(2);
+    monopoly.getPropertyInfo(7);
     monopoly.getPropertyInfo(5);
     monopoly.getPropertyInfo(1);
+    monopoly.getPropertyInfo(0);
+    
     
     return 0;
 }
