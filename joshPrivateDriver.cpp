@@ -8,17 +8,17 @@ using namespace std;
 int main()
 {
     Game monopoly;
-    // bool successfulRead = monopoly.readPlayers();
+    bool successfulRead = monopoly.readPlayers();
     monopoly.readProperty();
-    // if(!successfulRead)
-    // {
-    //     successfulRead = monopoly.readPlayers();
-    // }
+    if(!successfulRead)
+    {
+        successfulRead = monopoly.readPlayers();
+    }
     // cout << "Welcome to a Game of Monopoly!" <<endl;
     // cout << "Theme: CU Boudler" << endl;
     // cout << "Solgan: The only place in Boulder where you can get rich!" << endl;
-    // monopoly.move(0);
-    // monopoly.display_MapAndPlayer();
+    monopoly.move(0);
+    monopoly.display_MapAndPlayer();
     // monopoly.getPropertyInfo(2);
     // monopoly.getPropertyInfo(7);
     // monopoly.getPropertyInfo(5);
@@ -28,10 +28,6 @@ int main()
     // monopoly.getPropertyInfo(11);
     // monopoly.getPropertyInfo(13);
     // monopoly.getPropertyInfo(14);
-    
-    for(int i = 0; i < 40; i++)
-    {
-        monopoly.getPropertyInfo(i);
-    }
+
     return 0;
 }

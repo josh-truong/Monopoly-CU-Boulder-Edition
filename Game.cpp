@@ -74,12 +74,15 @@ void Game::move(int currentTurn)
     //This is where we will update players position
     int i = 10;
     int j = 10;
-    int k = player[currentTurn - 1].getPlayerPos_x();
-    int l = player[currentTurn - 1].getPlayerPos_y();
-    string playerPiece = player[currentTurn - 1].getPlayerChar();
-    // cout << "K:" << k << endl;
-    // cout << "l:" << l << endl;
-    // cout << "playerPiece:" << playerPiece << endl;
+    // int k = player[currentTurn - 1].getPlayerPos_x();
+    // int l = player[currentTurn - 1].getPlayerPos_y();
+    // string playerPiece = player[currentTurn - 1].getPlayerChar();
+
+
+    int k = player[currentTurn].getPlayerPos_x();
+    int l = player[currentTurn].getPlayerPos_y();
+    string playerPiece = player[currentTurn].getPlayerChar() + ' ';
+    cout << "playerpiece:" << playerPiece << "- " << endl; 
     // int k = 0;
     // int l = 0;
     // string playerPiece = "$";
@@ -166,6 +169,8 @@ void Game::display_MapAndPlayer() const
     }
     cout << endl;
 }
+
+
 
 bool Game::readPlayers()
 {
