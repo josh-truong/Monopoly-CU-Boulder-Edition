@@ -246,24 +246,28 @@ void Game::readProperty()
             switch(propertyLocation_int)
             {
                 //All these cases 
-                // Note that cases 12, 27
+                // Note that cases 12, 28
                     // ^ Those are electric company, water works,
                     //Those are cases which we can do, i have no idea how to implement the other cases
                     //when the players land on those. At least for now
                 
-                case 2: case 17: case 33: //Community Chest
-                case 7: case 22: case 36: //Chance
+                // 2, 17, 33 C_Chest| 7, 22, 36 Chance| 0, 4, 10, 20, 33, 38 Non-Ownables
+                case 0: case 2: case 4: case 7: case 10: case 17:
+                case 20: case 22: case 30: case 33: case 36: case 38: 
                 {
-                    string CChest_name;
-                    getline(strm, CChest_name, ',');
+                    string NON_OP;
+                    getline(strm, NON_OP, ',');
                     property[propertyLocation_int].setOwner("\x1B[93m Mr.Monopoly (Rich Uncle Pennybags) \x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m");
-                    property[propertyLocation_int].setPropertyName(CChest_name);
+                    property[propertyLocation_int].setPropertyName(NON_OP);
                     property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
                     break;
                 }
-                case 0: case 4: case 10: case 12:
-                case 20: case 27: case 30: case 38:
+                case 12: case 28: // electric company and water works
                 {
+                    string company;
+                    getline(strm, company, ',');
+                    property[propertyLocation_int].setPropertyName(company);
+                    property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
                     // cout << "IDK Cases: " << propertyLocation_int << endl;
                     //INDIVIDUAL CASES ARE NOT COMPLETED
                     break;
@@ -286,7 +290,7 @@ void Game::readProperty()
                     break;
                 }
                 case 1: case 3: case 6: case 8: case 9: case 11: case 13: case 14: case 16: case 18: case 19: case 21: 
-                case 23: case 24: case 26: case 28: case 29: case 31: case 32: case 34: case 37: case 39:
+                case 23: case 24: case 26: case 27: case 29: case 31: case 32: case 34: case 37: case 39:
                 {
                     // cout << "Colored Property: " << propertyLocation_int << endl;
                     string propertyName_, property_cost_, building_cost_;
@@ -336,28 +340,26 @@ void Game::getPropertyInfo(int propertyLocation_)
     
     switch(propertyLocation_)
     {
-        
-        case 2: case 17: case 33: //Community Chest
-        case 7: case 22: case 36: //Chance
+        // 2, 17, 33 C_Chest| 7, 22, 36 Chance| 0, 4, 10, 20, 33, 38 Non-Ownables
+        case 0: case 2: case 4: case 7: case 10: case 17:
+        case 20: case 22: case 30: case 33: case 36: case 38: 
         {
-            // There's nothing to print from community chest/chance
+            // There's nothing extra to print
             break;
         }
-        case 0: case 4: case 10: case 12:
-        case 20: case 27: case 30: case 38:
-        {
-            cout << "Case is incomplete" << endl;
+        case 12: case 28: //Electric and water works
+        {                                                                                                                                               
             //INDIVIDUAL CASES ARE NOT COMPLETED
             break;
         }
-        case 5: case 15: case 25: case 35:
+        case 5: case 15: case 25: case 35: //Transports
         {
             cout << "Number of transport services owned: \x1B[97m" << property[propertyLocation_].getNumBuildings() << "\x1B[0m" << endl;
             property[propertyLocation_].getListOfRentTransport();
             break;
         }
         case 1: case 3: case 6: case 8: case 9: case 11: case 13: case 14: case 16: case 18: case 19: case 21: 
-        case 23: case 24: case 26: case 28: case 29: case 31: case 32: case 34: case 37: case 39:
+        case 23: case 24: case 26: case 27: case 29: case 31: case 32: case 34: case 37: case 39:
         {
             cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
             cout << "Building cost: \x1B[92m$" << property[propertyLocation_].getBuildingCost() << "\x1B[0m" << endl;
