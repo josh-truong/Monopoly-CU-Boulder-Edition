@@ -294,9 +294,13 @@ void Game::readProperty()
                     property[propertyLocation_int].setPropertyCost(stoi(transportCost_));
                     break;
                 }
+<<<<<<< HEAD
                 case 1: case 3: case 6: case 8: case 9: case 11: case 13: case 14: case 16: case 18: case 19: case 21: 
                 case 23: case 24: case 26: case 27: case 29: case 31: case 32: case 34: case 37: case 39:
                 {
+=======
+                default:
+>>>>>>> parent of 264d292... Removed Redundant
                     // cout << "Colored Property: " << propertyLocation_int << endl;
                     string propertyName_, property_cost_, building_cost_;
                     // string rent_,house1_,house2_,house3_,house4_,hotel_, color_;
@@ -311,18 +315,29 @@ void Game::readProperty()
                         property[propertyLocation_int].setRentAt(i, stoi(rent_));
                     }
                     getline(strm, color_, ',');
+                    // getline(strm, rent_, ',');
+                    // getline(strm, house1_, ',');
+                    // getline(strm, house2_, ',');
+                    // getline(strm, house3_, ',');
+                    // getline(strm, house4_, ',');
+                    // getline(strm, hotel_, ',');
+
+                    
                     
                     property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
                     property[propertyLocation_int].setPropertyName(propertyName_);
                     property[propertyLocation_int].setPropertyCost(stoi(property_cost_));
                     property[propertyLocation_int].setBuildingCost(stoi(building_cost_));
+
+                    // property[propertyLocation_int].setRentAt(0, stoi(rent_));
+                    // property[propertyLocation_int].setRentAt(1, stoi(house1_));
+                    // property[propertyLocation_int].setRentAt(2, stoi(house2_));
+                    // property[propertyLocation_int].setRentAt(3, stoi(house3_));
+                    // property[propertyLocation_int].setRentAt(4, stoi(house4_));
+                    // property[propertyLocation_int].setRentAt(5, stoi(hotel_));
+
                     property[propertyLocation_int].setColor(color_);
                     break;
-                }
-                default:
-                    cout << "ERROR. For loop is out of sync" << endl;
-                    break;
-                    
             }
         }
     }
@@ -331,20 +346,14 @@ void Game::readProperty()
 
 void Game::getPropertyInfo(int propertyLocation_)
 {
-    cout << endl;
-    cout << "--------------------------------" << endl;
-    cout << "\x1B[97m" << "[" << propertyLocation_ << "] " << property[propertyLocation_].getPropertyName() << "\x1B[0m" << endl;
-    cout << "Owner: " << "\x1B[93m" << property[propertyLocation_].getOwner() << "\x1B[0m" << endl;
-    
-    if(propertyLocation_ != 2 && propertyLocation_ != 17 && propertyLocation_ != 33
-        && propertyLocation_ != 7 && propertyLocation_ != 22 && propertyLocation_ != 36)
+    //Issue how will we deal with non properties
+    if(!(0 <= propertyLocation_ && propertyLocation_ <= 39))
     {
-        cout << "Property Price: \x1B[92m$" << property[propertyLocation_].getPropertyCost() << "\x1B[0m" << endl;
-        cout << "Current Rent Cost: \x1B[92m$" << property[propertyLocation_].getRent() << "\x1B[0m" << endl;
+        cout << "[Error -- getPropertyInfo: Out of bounds]" << endl;
     }
-    
-    switch(propertyLocation_)
+    else
     {
+<<<<<<< HEAD
         // 2, 17, 33 C_Chest| 7, 22, 36 Chance| 0, 4, 10, 20, 33, 38 Non-Ownables
         case 0: case 2: case 4: case 7: case 10: case 17:
         case 20: case 22: case 30: case 33: case 36: case 38: 
@@ -358,25 +367,57 @@ void Game::getPropertyInfo(int propertyLocation_)
             break;
         }
         case 5: case 15: case 25: case 35: //Transports
+=======
+        cout << endl;
+        cout << "--------------------------------" << endl;
+        cout << "\x1B[97m" << "[" << propertyLocation_ << "] " << property[propertyLocation_].getPropertyName() << "\x1B[0m" << endl;
+        cout << "Owner: " << "\x1B[93m" << property[propertyLocation_].getOwner() << "\x1B[0m" << endl;
+
+
+        if(propertyLocation_ != 2 && propertyLocation_ != 17 && propertyLocation_ != 33
+            && propertyLocation_ != 7 && propertyLocation_ != 22 && propertyLocation_ != 36)
         {
-            cout << "Number of transport services owned: \x1B[97m" << property[propertyLocation_].getNumBuildings() << "\x1B[0m" << endl;
-            property[propertyLocation_].getListOfRentTransport();
-            break;
+            cout << "Property Price: \x1B[92m$" << property[propertyLocation_].getPropertyCost() << "\x1B[0m" << endl;
         }
+        
+        switch(propertyLocation_)
+>>>>>>> parent of 264d292... Removed Redundant
+        {
+            case 2: case 17: case 33: //Community Chest
+            case 7: case 22: case 36: //Chance
+            {
+                break;
+            }
+            case 5: case 15: case 25: case 35:
+            {
+                property[propertyLocation_].getListOfRentTransport();
+                break;
+            }
+            case 1: case 3: case 6: case 8: case 9: case 11: case 13: case 14: case 16: case 18: case 19: case 21: 
+            case 23: case 24: case 26: case 28: case 29: case 31: case 32: case 34: case 37: case 39:
+            {
+                cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
+                cout << "Building cost: \x1B[92m$" << property[propertyLocation_].getBuildingCost() << "\x1B[0m" << endl;
+                property[propertyLocation_].getListOfRentCP();
+                break;
+            }
+            default:
+                cout << "Error. getPropertyInfo()" << endl;
+            
+        }
+<<<<<<< HEAD
         case 1: case 3: case 6: case 8: case 9: case 11: case 13: case 14: case 16: case 18: case 19: case 21: 
         case 23: case 24: case 26: case 27: case 29: case 31: case 32: case 34: case 37: case 39:
+=======
+
+        if(propertyLocation_ != 2 && propertyLocation_ != 17 && propertyLocation_ != 33
+            && propertyLocation_ != 7 && propertyLocation_ != 22 && propertyLocation_ != 36)
+>>>>>>> parent of 264d292... Removed Redundant
         {
-            cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
-            cout << "Building cost: \x1B[92m$" << property[propertyLocation_].getBuildingCost() << "\x1B[0m" << endl;
-            cout << "Number of buildings built: \x1B[97m" << property[propertyLocation_].getNumBuildings() << "\x1B[0m" << endl;
-            property[propertyLocation_].getListOfRentCP();
-            break;
+            cout << "\nNumber of buildings built: \x1B[97m" << property[propertyLocation_].getNumBuildings() << "\x1B[0m" << endl;
+            cout << "Current Rent Cost: \x1B[92m$" << property[propertyLocation_].getRent() << "\x1B[0m" << endl;
         }
-        default:
-            cout << "Error @ getPropertyInfo()" << endl;
-            cout << "Possible Error" << endl;
-            cout << "Your request for property " << propertyLocation_ << " does not exist" << endl;
-            cout << "The property you requested does not have a case and is still in the works" << endl;
+        
     }
 }
 
