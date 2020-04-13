@@ -17,6 +17,7 @@ int main()
     // cout << "Welcome to a Game of Monopoly!" <<endl;
     // cout << "Theme: CU Boudler" << endl;
     // cout << "Solgan: The only place in Boulder where you can get rich!" << endl;
+
     monopoly.move(1);
     monopoly.move(2);
     monopoly.move(3);
