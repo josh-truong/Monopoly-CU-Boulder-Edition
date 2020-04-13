@@ -416,7 +416,7 @@ void Game::trade(string playerName, string propertyoffer, int offer_, string pro
     */
 }
 
-void Game::buyHouse(string propertyname)
+void Game::buyHouse(string property_, char y_n)
 {
     /*
     This function will allow the user to buy a house for one of their properties. It will obtain the house cost from the property
@@ -424,7 +424,7 @@ void Game::buyHouse(string propertyname)
     */
 }
 
-void Game::rent(string property)
+void Game::rent(string property, char y_n)
 {
     /*
     This function will allow it so that if the player lands on a property already owned, it will check if it is owned,
@@ -433,7 +433,7 @@ void Game::rent(string property)
     */
 }
 
-void Game::waterElectricRent(int rollone, int rolltwo, string propertyname)
+void Game::waterElectricRent(int rollone, int rolltwo, string propertyname, char y_n)
 {
     /*
     If the player lands on a utility that someone else owns, it determines if they own one or both utility,
@@ -443,7 +443,7 @@ void Game::waterElectricRent(int rollone, int rolltwo, string propertyname)
     */
 }
 
-void Game::busRent(string propertyname)
+void Game::busRent(string propertyname, char y_n)
 {
     /*
     If the player lands on a bus spot that is already owned by someone else, the player will be charged a rent based
