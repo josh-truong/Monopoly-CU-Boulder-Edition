@@ -55,7 +55,7 @@ string Player::getName() const
     return playerName;
 }
 
-int Player::getBoardLocation();
+int Player::getBoardLocation()
 {
     return boardlocation;
 }
