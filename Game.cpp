@@ -72,23 +72,34 @@ Game::Game()
 void Game::move(int currentTurn)
 {
     string playerPieces[4] = {"$","%","~","&"};
-    //This is where we will update players position
-    int i = 10; //y
-    int j = 9; //x
     // int k = player[currentTurn - 1].getPlayerPos_x();
     // int l = player[currentTurn - 1].getPlayerPos_y();
     // string playerPiece = player[currentTurn - 1].getPlayerChar();
     
-
+    int i; // Row (x)
+    int j; // Column (y)
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
     string playerPiece = playerPieces[currentTurn - 1];
-    // cout << "playerpiece:" << playerPiece << "- " << endl; 
-    // int k = 0;
-    // int l = 0;
-    // string playerPiece = "$";
     
-    
+
+    if(i < 10 && j == 0)
+    {
+
+    }
+    else if(i == 10 && j < 10)
+    {
+
+    }
+    else if(i > 0 && j == 10)
+    {
+
+    }
+    else if(i == 0 && j > 0)
+    {
+
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
     {
         map[i][j][k][l] = playerPiece;
