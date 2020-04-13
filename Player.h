@@ -11,6 +11,7 @@ class Player
     private:
         string playerName;
         string playerChar;
+        int boardlocation;
         int balance;
         int playerPos_x;
         int playerPos_y;
@@ -28,10 +29,12 @@ class Player
         
         //We must only use this function when we have determined that the player is bankrupted or has decided to quit
         void setBankruptStatusTrue();
+        void setBoardLocation(int);
         
         string getName() const; //Get player name
         string getPlayerChar() const;
         int getBalance() const; //Get balance
+        int getBoardLocation();
         int getPlayerPos_x() const;
         int getPlayerPos_y() const;
         bool getStatus() const; // We must use this function to check if the player can play

@@ -79,9 +79,9 @@ void Game::move(int currentTurn)
     // string playerPiece = player[currentTurn - 1].getPlayerChar();
 
 
-    int k = player[currentTurn].getPlayerPos_x();
-    int l = player[currentTurn].getPlayerPos_y();
-    string playerPiece = player[currentTurn].getPlayerChar() + ' ';
+    int k = player[currentTurn - 1].getPlayerPos_x();
+    int l = player[currentTurn - 1].getPlayerPos_y();
+    string playerPiece = player[currentTurn - 1].getPlayerChar() + ' ';
     cout << "playerpiece:" << playerPiece << "- " << endl; 
     // int k = 0;
     // int l = 0;
@@ -104,6 +104,9 @@ void Game::move(int currentTurn)
         map[i][j][k][l] += " ";
     }
     map[i][j][k][l] += " ";
+    int tempposition = player[currentTurn - 1].getBoardLocation();
+    player[currentTurn - 1] = setBoardLocation(tempposition + dice_1 + dice_1);
+    
 }
 
 void Game::display_MapAndPlayer() const
@@ -445,7 +448,7 @@ void Game::trade(string playerName, string propertyoffer, int offer_, string pro
     */
 }
 
-void Game::buyHouse(string property_, char y_n)
+void Game::buyHouse(string property_)
 {
     /*
     This function will allow the user to buy a house for one of their properties. It will obtain the house cost from the property

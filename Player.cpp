@@ -8,6 +8,7 @@ using namespace std;
 Player::Player()
 {
     balance = 1500;
+    int boardlocation = 0;
     playerPos_x = 0;
     playerPos_y = 0;
     bankrupt = false;
@@ -23,6 +24,11 @@ void Player::setBalance(int balance_)
 {
     balance = balance_;
     // cout << "balance: " << balance << endl;
+}
+
+void Player::setBoardLocation(int boardlocation_)
+{
+    boardlocation = boardlocation_ % 40;
 }
 
 void Player::setPlayerPos(int x, int y)
@@ -47,6 +53,11 @@ void Player::setBankruptStatusTrue()
 string Player::getName() const
 {
     return playerName;
+}
+
+int Player::getBoardLocation();
+{
+    return boardlocation;
 }
 
 string Player::getPlayerChar() const
