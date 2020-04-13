@@ -19,11 +19,12 @@ class Game
         int currentTurn;
         Player player[4]; //<-- Max of 4 players
         Property property[40];
+        
 
     public:
         Game();
         void display_MapAndPlayer() const;
-        void move(int currentPlayer); //Player 1,2,3,4
+        void move(int currentPlayer); //Player 1,2,3,4 //Incomplete
         
         //File readers <-- There is no need to have user input filenames, but would be a 
         //great idea if they want to customize their own board

@@ -8,8 +8,8 @@ using namespace std;
 Player::Player()
 {
     balance = 1500;
-    playerPos_x = 0;
-    playerPos_y = 0;
+    playerPos_Fixed_x = 0;
+    playerPos_Fixed_y = 0;
     bankrupt = false;
 }
 

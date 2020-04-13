@@ -12,8 +12,8 @@ class Player
         string playerName;
         string playerChar;
         int balance;
-        int playerPos_x;
-        int playerPos_y;
+        int playerPos_Fixed_x;
+        int playerPos_Fixed_y;
         bool bankrupt;
         
     public:
