@@ -45,8 +45,8 @@ class Game
         void busRent(string propertyname); //Incomplete
         void luxuryTax();
         void incomeTax();
-        void jail(char y_n); //Incomplete
-        void passGo(char y_n); //Incomplete
+        void jail(); //Incomplete
+        void passGo(); //Incomplete
         
         void communityChest(string textfile); //Incomplete
         void chance(string textfile); //Incomplete

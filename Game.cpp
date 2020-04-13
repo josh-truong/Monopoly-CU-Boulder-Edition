@@ -534,7 +534,7 @@ void Game::incomeTax()
     }
 }
 
-void Game::jail(char y_n)
+void Game::jail()
 {
     /*
     This function will move a player directly to jail. It will then set a boolian to true which will remain true until three turns
@@ -542,7 +542,7 @@ void Game::jail(char y_n)
     */
 }
 
-void Game::passGo(char y_n)
+void Game::passGo()
 {
     /*
     When the player passes go, this function will automatically add 200 dollars to their balance.
