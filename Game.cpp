@@ -46,12 +46,15 @@ Game::Game()
             {
                 for(int l = 0; l < 2; l++)
                 {
+                    //Fills outer board with #
                     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
                     {
                         map[i][j][k][l] = '#';
                     }
                     else
                     {
+                        // Empty space of the board
+                        // A 9 by 9 empty space
                         map[i][j][k][l] = ' ';
                     }
                     if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
@@ -76,8 +79,10 @@ void Game::move(int currentTurn)
     // int l = player[currentTurn - 1].getPlayerPos_y();
     // string playerPiece = player[currentTurn - 1].getPlayerChar();
     
-    int i; // Row (x)
-    int j; // Column (y)
+    int i = 5; // Row (x)
+    int j = 0; // Column (y)
+
+    
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
     string playerPiece = playerPieces[currentTurn - 1];
@@ -108,7 +113,7 @@ void Game::move(int currentTurn)
     {
         map[i][j][k][l] = ' ';
     }
-    if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) && j != 10)
+    if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
     {
         map[i][j][k][l] += " |";
     }
