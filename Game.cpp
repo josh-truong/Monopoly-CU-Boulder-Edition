@@ -74,7 +74,7 @@ Game::Game()
 
 void Game::move(int currentTurn)
 {
-    string playerPieces[4] = {"$","%","~","&"};
+    string playerPieces[4] = {"\x1B[92m$\x1B[0m",    "\x1B[92m%\x1B[0m",     "\x1B[92m*\x1B[0m",     "\x1B[92m&\x1B[0m"};
 
     int i,j;
     player[currentTurn - 1].setBoardLocation(player[currentTurn - 1].getBoardLocation() + dice_1 + dice_2);
