@@ -458,7 +458,7 @@ void Game::buyHouse(string property_)
     */
 }
 
-void Game::rent(string property, char y_n)
+void Game::rent(string property)
 {
     /*
     This function will allow it so that if the player lands on a property already owned, it will check if it is owned,
@@ -467,7 +467,7 @@ void Game::rent(string property, char y_n)
     */
 }
 
-void Game::waterElectricRent(int rollone, int rolltwo, string propertyname, char y_n)
+void Game::waterElectricRent(int rollone, int rolltwo, string propertyname)
 {
     /*
     If the player lands on a utility that someone else owns, it determines if they own one or both utility,
@@ -477,7 +477,7 @@ void Game::waterElectricRent(int rollone, int rolltwo, string propertyname, char
     */
 }
 
-void Game::busRent(string propertyname, char y_n)
+void Game::busRent(string propertyname)
 {
     /*
     If the player lands on a bus spot that is already owned by someone else, the player will be charged a rent based
