@@ -13,8 +13,8 @@ class Player
         string playerChar;
         int boardlocation;
         int balance;
-        int playerPos_x;
-        int playerPos_y;
+        int playerPos_Fixed_x;
+        int playerPos_Fixed_y;
         bool bankrupt;
         
     public:

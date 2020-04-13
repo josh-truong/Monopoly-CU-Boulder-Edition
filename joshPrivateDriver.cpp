@@ -17,7 +17,10 @@ int main()
     // cout << "Welcome to a Game of Monopoly!" <<endl;
     // cout << "Theme: CU Boudler" << endl;
     // cout << "Solgan: The only place in Boulder where you can get rich!" << endl;
-    monopoly.move(0);
+    monopoly.move(1);
+    monopoly.move(2);
+    monopoly.move(3);
+    monopoly.move(4);
     monopoly.display_MapAndPlayer();
     // monopoly.getPropertyInfo(2);
     // monopoly.getPropertyInfo(7);
@@ -27,7 +30,5 @@ int main()
 
     // monopoly.getPropertyInfo(11);
     // monopoly.getPropertyInfo(13);
-    // monopoly.getPropertyInfo(14);
-
     return 0;
 }

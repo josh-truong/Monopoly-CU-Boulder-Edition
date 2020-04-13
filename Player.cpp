@@ -8,9 +8,14 @@ using namespace std;
 Player::Player()
 {
     balance = 1500;
+<<<<<<< HEAD
     int boardlocation = 0;
     playerPos_x = 0;
     playerPos_y = 0;
+=======
+    playerPos_Fixed_x = 0;
+    playerPos_Fixed_y = 0;
+>>>>>>> 715fc71110694e6f438d37a26010639ea6b266ab
     bankrupt = false;
 }
 
