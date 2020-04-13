@@ -77,7 +77,7 @@ void Game::move(int currentTurn)
     string playerPieces[4] = {"$","%","~","&"};
 
     int i,j;
-    
+    player[currentTurn - 1].setBoardLocation(player[currentTurn - 1].getBoardLocation() + dice_1 + dice_2);
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
     string playerPiece = playerPieces[currentTurn - 1];
@@ -125,8 +125,6 @@ void Game::move(int currentTurn)
         map[i][j][k][l] += " ";
     }
     map[i][j][k][l] += " ";
-    int tempposition = player[currentTurn - 1].getBoardLocation();
-    player[currentTurn - 1].setBoardLocation(tempposition + dice_1 + dice_1);
 }
 
 void Game::display_MapAndPlayer() const
