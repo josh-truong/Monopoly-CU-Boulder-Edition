@@ -433,7 +433,7 @@ void Game::endGame(string quit_)
     */
 }
 
-void Game::buy(char y_n)
+void Game::buy()
 {
     /*
     This function will allow the user to buy the property that they land on if it is unknown. It will obtain the cost of 

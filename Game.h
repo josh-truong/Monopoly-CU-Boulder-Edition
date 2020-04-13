@@ -37,7 +37,7 @@ class Game
         void getPropertyInfo(int propertyLocation_);
         void endGame(string quit_); //Incomplete
         void endTurn(string end_);
-        void buy(char y_n); //Incomplete
+        void buy(); //Incomplete
         void trade(string playerName, string propertyoffered, int offer_, string propertywanted); //Incomplete
         void buyHouse(string propertyname); //Incomplete
         void rent(string property); //Incomplete
