@@ -100,30 +100,28 @@ int Property::getBuildingCost()
 
 void Property::getListOfRentCP()
 {
-    cout << setw(15) << "Rent Cost" << endl;
-    cout << "-------------------------" << endl;
+    cout << setw(70) << "------------------" << "\x1B[31m" << "Rent Cost" << "\x1B[0m" << "------------------" << endl;
     for(int i = 0; i < 6; i++)
     {
         if(i == 5)
         {
-            cout << "(5) Building (Hotel): $" << rentArr[5] << endl;
+            cout << "(5) Building (Hotel):\x1B[92m $" << rentArr[5] << "\x1B[0m" << endl;
         }
         else
         {
-            cout << "(" << i << ") Building(s): $" << rentArr[i] << endl;
+            cout << "(" << i << ") Building(s):\x1B[92m $" << rentArr[i] << "\x1B[0m" << setw(5);
         }
     }
 }
 
 void Property::getListOfRentTransport()
 {
-    cout << setw(15) << "Rent Cost" << endl;
-    cout << "-------------------------" << endl;
+    cout << setw(70) << "------------------" << "\x1B[31m" << "Rent Cost" << "\x1B[0m" << "------------------" << endl;
     for(int i = 0; i < 4; i++)
     {
-        cout << "(" << i << ") Transports Service(s): $" << rentArr[i] << endl;
-
+        cout << "(" << i + 1 << ") Transports Service(s):\x1B[92m $" << rentArr[i] << "\x1B[0m" << setw(5);
     }
+    cout << endl;
 }
 
 int Property::getRent()

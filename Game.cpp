@@ -74,12 +74,15 @@ void Game::move(int currentTurn)
     //This is where we will update players position
     int i = 10;
     int j = 10;
-    int k = player[currentTurn - 1].getPlayerPos_x();
-    int l = player[currentTurn - 1].getPlayerPos_y();
-    string playerPiece = player[currentTurn - 1].getPlayerChar();
-    // cout << "K:" << k << endl;
-    // cout << "l:" << l << endl;
-    // cout << "playerPiece:" << playerPiece << endl;
+    // int k = player[currentTurn - 1].getPlayerPos_x();
+    // int l = player[currentTurn - 1].getPlayerPos_y();
+    // string playerPiece = player[currentTurn - 1].getPlayerChar();
+
+
+    int k = player[currentTurn].getPlayerPos_x();
+    int l = player[currentTurn].getPlayerPos_y();
+    string playerPiece = player[currentTurn].getPlayerChar() + ' ';
+    cout << "playerpiece:" << playerPiece << "- " << endl; 
     // int k = 0;
     // int l = 0;
     // string playerPiece = "$";
@@ -167,6 +170,8 @@ void Game::display_MapAndPlayer() const
     cout << endl;
 }
 
+
+
 bool Game::readPlayers()
 {
     cout << "How many players? (2-4): " << endl;
@@ -246,13 +251,28 @@ void Game::readProperty()
             switch(propertyLocation_int)
             {
                 //All these cases 
-                // Note that cases 12, 27
+                // Note that cases 12, 28
                     // ^ Those are electric company, water works,
                     //Those are cases which we can do, i have no idea how to implement the other cases
                     //when the players land on those. At least for now
-                case 0: case 2: case 4: case 7: case 10: case 12: case 17: 
-                case 20: case 22: case 27: case 30: case 33: case 36: case 38:
+                
+                // 2, 17, 33 C_Chest| 7, 22, 36 Chance| 0, 4, 10, 20, 33, 38 Non-Ownables
+                case 0: case 2: case 4: case 7: case 10: case 17:
+                case 20: case 22: case 30: case 33: case 36: case 38: 
                 {
+                    string NON_OP;
+                    getline(strm, NON_OP, ',');
+                    property[propertyLocation_int].setOwner("\x1B[93m Mr.Monopoly (Rich Uncle Pennybags) \x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m");
+                    property[propertyLocation_int].setPropertyName(NON_OP);
+                    property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
+                    break;
+                }
+                case 12: case 28: // electric company and water works
+                {
+                    string company;
+                    getline(strm, company, ',');
+                    property[propertyLocation_int].setPropertyName(company);
+                    property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
                     // cout << "IDK Cases: " << propertyLocation_int << endl;
                     //INDIVIDUAL CASES ARE NOT COMPLETED
                     break;
@@ -274,7 +294,9 @@ void Game::readProperty()
                     property[propertyLocation_int].setPropertyCost(stoi(transportCost_));
                     break;
                 }
-                default:
+                case 1: case 3: case 6: case 8: case 9: case 11: case 13: case 14: case 16: case 18: case 19: case 21: 
+                case 23: case 24: case 26: case 27: case 29: case 31: case 32: case 34: case 37: case 39:
+                {
                     // cout << "Colored Property: " << propertyLocation_int << endl;
                     string propertyName_, property_cost_, building_cost_;
                     // string rent_,house1_,house2_,house3_,house4_,hotel_, color_;
@@ -289,29 +311,18 @@ void Game::readProperty()
                         property[propertyLocation_int].setRentAt(i, stoi(rent_));
                     }
                     getline(strm, color_, ',');
-                    // getline(strm, rent_, ',');
-                    // getline(strm, house1_, ',');
-                    // getline(strm, house2_, ',');
-                    // getline(strm, house3_, ',');
-                    // getline(strm, house4_, ',');
-                    // getline(strm, hotel_, ',');
-
-                    
                     
                     property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
                     property[propertyLocation_int].setPropertyName(propertyName_);
                     property[propertyLocation_int].setPropertyCost(stoi(property_cost_));
                     property[propertyLocation_int].setBuildingCost(stoi(building_cost_));
-
-                    // property[propertyLocation_int].setRentAt(0, stoi(rent_));
-                    // property[propertyLocation_int].setRentAt(1, stoi(house1_));
-                    // property[propertyLocation_int].setRentAt(2, stoi(house2_));
-                    // property[propertyLocation_int].setRentAt(3, stoi(house3_));
-                    // property[propertyLocation_int].setRentAt(4, stoi(house4_));
-                    // property[propertyLocation_int].setRentAt(5, stoi(hotel_));
-
                     property[propertyLocation_int].setColor(color_);
                     break;
+                }
+                default:
+                    cout << "ERROR. For loop is out of sync" << endl;
+                    break;
+                    
             }
         }
     }
@@ -320,34 +331,52 @@ void Game::readProperty()
 
 void Game::getPropertyInfo(int propertyLocation_)
 {
-    //Issue how will we deal with non properties
-    if(!(0 <= propertyLocation_ && propertyLocation_ <= 39))
+    cout << endl;
+    cout << "--------------------------------" << endl;
+    cout << "\x1B[97m" << "[" << propertyLocation_ << "] " << property[propertyLocation_].getPropertyName() << "\x1B[0m" << endl;
+    cout << "Owner: " << "\x1B[93m" << property[propertyLocation_].getOwner() << "\x1B[0m" << endl;
+    
+    if(propertyLocation_ != 2 && propertyLocation_ != 17 && propertyLocation_ != 33
+        && propertyLocation_ != 7 && propertyLocation_ != 22 && propertyLocation_ != 36)
     {
-        cout << "[Error -- getPropertyInfo: Out of bounds]" << endl;
+        cout << "Property Price: \x1B[92m$" << property[propertyLocation_].getPropertyCost() << "\x1B[0m" << endl;
+        cout << "Current Rent Cost: \x1B[92m$" << property[propertyLocation_].getRent() << "\x1B[0m" << endl;
     }
-    else
+    
+    switch(propertyLocation_)
     {
-        cout << "[" << propertyLocation_ << "] " << property[propertyLocation_].getPropertyName() << endl;
-        cout << "--------------------------------" << endl;
-        cout << "Owner: " << property[propertyLocation_].getOwner() << endl;
-        cout << "Property Price: $" << property[propertyLocation_].getPropertyCost() << endl;
-        
-        switch(propertyLocation_)
+        // 2, 17, 33 C_Chest| 7, 22, 36 Chance| 0, 4, 10, 20, 33, 38 Non-Ownables
+        case 0: case 2: case 4: case 7: case 10: case 17:
+        case 20: case 22: case 30: case 33: case 36: case 38: 
         {
-            case 5: case 15: case 25: case 35:
-            {
-                property[propertyLocation_].getListOfRentTransport();
-                break;
-            }
-            default:
-                cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
-                cout << "Building cost: $" << property[propertyLocation_].getBuildingCost() << endl;
-                property[propertyLocation_].getListOfRentCP();
-                break;
+            // There's nothing extra to print
+            break;
         }
-        
-        cout << "\nNumber of buildings built: " << property[propertyLocation_].getNumBuildings() << endl;
-        cout << "Current Rent Cost: $" << property[propertyLocation_].getRent() << endl << endl;
+        case 12: case 28: //Electric and water works
+        {                                                                                                                                               
+            //INDIVIDUAL CASES ARE NOT COMPLETED
+            break;
+        }
+        case 5: case 15: case 25: case 35: //Transports
+        {
+            cout << "Number of transport services owned: \x1B[97m" << property[propertyLocation_].getNumBuildings() << "\x1B[0m" << endl;
+            property[propertyLocation_].getListOfRentTransport();
+            break;
+        }
+        case 1: case 3: case 6: case 8: case 9: case 11: case 13: case 14: case 16: case 18: case 19: case 21: 
+        case 23: case 24: case 26: case 27: case 29: case 31: case 32: case 34: case 37: case 39:
+        {
+            cout << "Property Color: " << property[propertyLocation_].getColor() << endl;
+            cout << "Building cost: \x1B[92m$" << property[propertyLocation_].getBuildingCost() << "\x1B[0m" << endl;
+            cout << "Number of buildings built: \x1B[97m" << property[propertyLocation_].getNumBuildings() << "\x1B[0m" << endl;
+            property[propertyLocation_].getListOfRentCP();
+            break;
+        }
+        default:
+            cout << "Error @ getPropertyInfo()" << endl;
+            cout << "Possible Error" << endl;
+            cout << "Your request for property " << propertyLocation_ << " does not exist" << endl;
+            cout << "The property you requested does not have a case and is still in the works" << endl;
     }
 }
 
