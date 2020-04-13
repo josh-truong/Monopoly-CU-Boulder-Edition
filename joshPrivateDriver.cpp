@@ -19,13 +19,28 @@ int main()
     // cout << "Solgan: The only place in Boulder where you can get rich!" << endl;
     monopoly.roll();
     monopoly.move(1);
-
+    int entry = 0;
+    do
+    {
+        cout << "Enter 1" << endl;
+        cin >> entry;
+    } while(entry != 1);
     monopoly.roll();
     monopoly.move(2);
-
+    entry = 0;
+    do
+    {
+        cout << "Enter 1" << endl;
+        cin >> entry;
+    } while(entry != 1);
     monopoly.roll();
     monopoly.move(3);
-
+    entry = 0;
+    do
+    {
+        cout << "Enter 1" << endl;
+        cin >> entry;
+    } while(entry != 1);
     monopoly.roll();
     monopoly.move(4);
     
