@@ -107,7 +107,7 @@ void Game::move(int currentTurn)
     }
     map[i][j][k][l] += " ";
     int tempposition = player[currentTurn - 1].getBoardLocation();
-    player[currentTurn - 1] = setBoardLocation(tempposition + dice_1 + dice_1);
+    player[currentTurn - 1].setBoardLocation(tempposition + dice_1 + dice_1);
     
 }
 
