@@ -46,12 +46,15 @@ Game::Game()
             {
                 for(int l = 0; l < 2; l++)
                 {
+                    //Fills outer board with #
                     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
                     {
                         map[i][j][k][l] = '#';
                     }
                     else
                     {
+                        // Empty space of the board
+                        // A 9 by 9 empty space
                         map[i][j][k][l] = ' ';
                     }
                     if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
@@ -72,23 +75,39 @@ Game::Game()
 void Game::move(int currentTurn)
 {
     string playerPieces[4] = {"$","%","~","&"};
-    //This is where we will update players position
-    int i = 10; //y
-    int j = 9; //x
-    // int k = player[currentTurn - 1].getPlayerPos_x();
-    // int l = player[currentTurn - 1].getPlayerPos_y();
-    // string playerPiece = player[currentTurn - 1].getPlayerChar();
-    
 
+    int i,j;
+    player[currentTurn - 1].setBoardLocation(player[currentTurn - 1].getBoardLocation() + dice_1 + dice_2);
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
     string playerPiece = playerPieces[currentTurn - 1];
-    // cout << "playerpiece:" << playerPiece << "- " << endl; 
-    // int k = 0;
-    // int l = 0;
-    // string playerPiece = "$";
-    
-    
+
+    if((player[currentTurn - 1].getBoardLocation() / 10) == 0)
+    {
+        //Bottom Board
+        i = 10;
+        j = 10 - (player[currentTurn - 1].getBoardLocation() % 10);
+    }
+    else if((player[currentTurn - 1].getBoardLocation() / 10) == 1)
+    {
+        //Left Board
+        cout << player[currentTurn - 1].getBoardLocation() << " % " << 11 << " | " << player[currentTurn - 1].getBoardLocation() % 11 << endl;
+        i = 10 - player[currentTurn - 1].getBoardLocation() % 10;
+        j = 0;
+    }
+    else if((player[currentTurn - 1].getBoardLocation() / 10) == 2)
+    {
+        //Top Board
+        i = 0;
+        j = player[currentTurn - 1].getBoardLocation() % 10;
+    }
+    else if((player[currentTurn - 1].getBoardLocation() / 10) == 3)
+    {
+        //Right Board
+        i = player[currentTurn - 1].getBoardLocation() % 10;
+        j = 10;
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
     {
         map[i][j][k][l] = playerPiece;
@@ -97,7 +116,7 @@ void Game::move(int currentTurn)
     {
         map[i][j][k][l] = ' ';
     }
-    if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) && j != 10)
+    if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
     {
         map[i][j][k][l] += " |";
     }
@@ -106,9 +125,6 @@ void Game::move(int currentTurn)
         map[i][j][k][l] += " ";
     }
     map[i][j][k][l] += " ";
-    int tempposition = player[currentTurn - 1].getBoardLocation();
-    player[currentTurn - 1].setBoardLocation(tempposition + dice_1 + dice_1);
-    
 }
 
 void Game::display_MapAndPlayer() const
