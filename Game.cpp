@@ -75,34 +75,37 @@ Game::Game()
 void Game::move(int currentTurn)
 {
     string playerPieces[4] = {"$","%","~","&"};
-    // int k = player[currentTurn - 1].getPlayerPos_x();
-    // int l = player[currentTurn - 1].getPlayerPos_y();
-    // string playerPiece = player[currentTurn - 1].getPlayerChar();
-    
-    int i = 5; // Row (x)
-    int j = 0; // Column (y)
 
+    int i,j;
     
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
     string playerPiece = playerPieces[currentTurn - 1];
-    
 
-    if(i < 10 && j == 0)
+    if((player[currentTurn - 1].getBoardLocation() / 10) == 0)
     {
-
+        //Bottom Board
+        i = 10;
+        j = 10 - (player[currentTurn - 1].getBoardLocation() % 10);
     }
-    else if(i == 10 && j < 10)
+    else if((player[currentTurn - 1].getBoardLocation() / 10) == 1)
     {
-
+        //Left Board
+        cout << player[currentTurn - 1].getBoardLocation() << " % " << 11 << " | " << player[currentTurn - 1].getBoardLocation() % 11 << endl;
+        i = 10 - player[currentTurn - 1].getBoardLocation() % 10;
+        j = 0;
     }
-    else if(i > 0 && j == 10)
+    else if((player[currentTurn - 1].getBoardLocation() / 10) == 2)
     {
-
+        //Top Board
+        i = 0;
+        j = player[currentTurn - 1].getBoardLocation() % 10;
     }
-    else if(i == 0 && j > 0)
+    else if((player[currentTurn - 1].getBoardLocation() / 10) == 3)
     {
-
+        //Right Board
+        i = player[currentTurn - 1].getBoardLocation() % 10;
+        j = 10;
     }
 //////////////////////////////////////////////////////////////////////////////////////////////
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
@@ -124,7 +127,6 @@ void Game::move(int currentTurn)
     map[i][j][k][l] += " ";
     int tempposition = player[currentTurn - 1].getBoardLocation();
     player[currentTurn - 1].setBoardLocation(tempposition + dice_1 + dice_1);
-    
 }
 
 void Game::display_MapAndPlayer() const
