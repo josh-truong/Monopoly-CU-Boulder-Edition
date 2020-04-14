@@ -50,6 +50,10 @@ class Game
         
         void communityChest(string textfile); //Incomplete
         void chance(string textfile); //Incomplete
+
+        string getPlayerUsername_GAME(int i);
+        void checkOwnership(int currentPlayer);
+        bool checkForExceptions(int boardLocation);
 };
 
 #endif

@@ -1,5 +1,3 @@
-//Note this is a public driver, if you want to test your own code, then create your own driver and call the neccessary files
-//This is the brains of the program don't f*** this one up
 #include <iostream>
 #include "Game.h"
 #include "Player.h"
@@ -17,34 +15,20 @@ int main()
     // cout << "Welcome to a Game of Monopoly!" <<endl;
     // cout << "Theme: CU Boudler" << endl;
     // cout << "Solgan: The only place in Boulder where you can get rich!" << endl;
-    monopoly.roll();
-    monopoly.move(1);
-    int entry = 0;
-    do
+
+    string uI;
+    for(int i = 1; i <= 4; i++)
     {
-        cout << "Enter 1" << endl;
-        cin >> entry;
-    } while(entry != 1);
-    monopoly.roll();
-    monopoly.move(2);
-    entry = 0;
-    do
-    {
-        cout << "Enter 1" << endl;
-        cin >> entry;
-    } while(entry != 1);
-    monopoly.roll();
-    monopoly.move(3);
-    entry = 0;
-    do
-    {
-        cout << "Enter 1" << endl;
-        cin >> entry;
-    } while(entry != 1);
-    monopoly.roll();
-    monopoly.move(4);
+        cout << "Player: " << "\x1B[92m"<< monopoly.getPlayerUsername_GAME(i) << "\x1B[0m" << " turn" << endl;
+        cout << "Enter " << "\x1B[91m" << "ROLL" << "\x1B[0m" << ": " << endl;
+        cin >> uI;
+        monopoly.roll();
+        monopoly.move(i);
+        monopoly.display_MapAndPlayer();
+        monopoly.checkOwnership(i);
+    }
     
-    monopoly.display_MapAndPlayer();
+    
     // monopoly.getPropertyInfo(2);
     // monopoly.getPropertyInfo(7);
     // monopoly.getPropertyInfo(5);
