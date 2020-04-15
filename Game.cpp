@@ -72,115 +72,95 @@ Game::Game()
     }
 }
 
-void Game::move(int currentTurn)
+void Game::setAndReplace(int boardLocation, string playerPiece, int currentTurn)
 {
-    string playerPieces[4] = {"\x1B[92m$\x1B[0m",    "\x1B[92m%\x1B[0m",     "\x1B[92m*\x1B[0m",     "\x1B[92m&\x1B[0m"};
-
+    cout << "1" << endl;
     int i,j;
-    player[currentTurn - 1].setBoardLocation(player[currentTurn - 1].getBoardLocation() + dice_1 + dice_2);
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
-    string playerPiece = playerPieces[currentTurn - 1];
-
     //Converts boardLocation into x and y coordinates
-    if((player[currentTurn - 1].getBoardLocation() / 10) == 0)
+    if((boardLocation / 10) == 0)
     {
+        cout << "2" << endl;
         //Bottom Board
         i = 10;
-        j = 10 - (player[currentTurn - 1].getBoardLocation() % 10);
+        j = 10 - (boardLocation % 10);
     }
-    else if((player[currentTurn - 1].getBoardLocation() / 10) == 1)
+    else if((boardLocation / 10) == 1)
     {
+        cout << "3" << endl;
         //Left Board
-        i = 10 - player[currentTurn - 1].getBoardLocation() % 10;
+        i = 10 - boardLocation % 10;
         j = 0;
     }
-    else if((player[currentTurn - 1].getBoardLocation() / 10) == 2)
+    else if((boardLocation / 10) == 2)
     {
+        cout << "4" << endl;
         //Top Board
         i = 0;
-        j = player[currentTurn - 1].getBoardLocation() % 10;
+        j = boardLocation % 10;
     }
-    else if((player[currentTurn - 1].getBoardLocation() / 10) == 3)
+    else if((boardLocation / 10) == 3)
     {
+        cout << "5" << endl;
         //Right Board
-        i = player[currentTurn - 1].getBoardLocation() % 10;
+        i = boardLocation % 10;
         j = 10;
     }
-//////////////////////////////////////////////////////////////////////////////////////////////
-    //Set new piece location
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    //Set piece into location
+    cout << "6" << endl;
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
     {
+        cout << "7" << endl;
         map[i][j][k][l] = playerPiece;
     }
     else
     {
+        cout << "8" << endl;
         map[i][j][k][l] = ' ';
     }
     if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
     {
+        cout << "9" << endl;
         map[i][j][k][l] += " |";
     }
     else
     {
-        map[i][j][k][l] += " ";
+        cout << "10" << endl;
+        map[i][j][k][l] += "  ";
     }
     map[i][j][k][l] += " ";
-    
-    //It's a lot of redundant and will look into reduceing these lines of code
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
-    bool resetPosition = player[currentTurn - 1].getResetLocation_Status();
-    if(resetPosition)
-    {
-        //Converts old boardLocation into x and y coordinates
-        int oldBoardLocation = player[currentTurn - 1].getBoardLocation() - dice_1 - dice_2;
-        
-        if((oldBoardLocation / 10) == 0)
-        {
-            //Bottom Board
-            i = 10;
-            j = 10 - (oldBoardLocation % 10);
-        }
-        else if((oldBoardLocation / 10) == 1)
-        {
-            //Left Board
-            i = 10 - (oldBoardLocation % 10);
-            j = 0;
-        }
-        else if((oldBoardLocation / 10) == 2)
-        {
-            //Top Board
-            i = 0;
-            j = oldBoardLocation % 10;
-        }
-        else if((oldBoardLocation / 10) == 3)
-        {
-            //Right Board
-            i = oldBoardLocation % 10;
-            j = 10;
-        }
+    cout << "11" << endl;
+}
 
-        //Set REPLACE piece location with #
-        if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
+void Game::move(int currentTurn)
+{
+    int boardLocation;
+    string playerPiece;
+    bool resetPosition = player[currentTurn - 1].getResetLocation_Status();
+
+    for(int i = 1; i <= 2; i++)
+    {
+        if(i == 1)
         {
-            map[i][j][k][l] = "#";
+            string playerPieces[4] = {"\x1B[92m$\x1B[0m",    "\x1B[92m%\x1B[0m",     "\x1B[92m*\x1B[0m",     "\x1B[92m&\x1B[0m"};
+            player[currentTurn - 1].setBoardLocation(player[currentTurn - 1].getBoardLocation() + dice_1 + dice_2);
+            playerPiece = playerPieces[currentTurn - 1];
+            int newBoardLocation = player[currentTurn - 1].getBoardLocation();
+            boardLocation = newBoardLocation;
+            setAndReplace(boardLocation, playerPiece, currentTurn);
         }
-        else
+        if(resetPosition && (i == 2))
         {
-            map[i][j][k][l] = ' ';
+            //Replace and reset Player Previous Location with an octothrop
+            playerPiece = "#";
+            int oldBoardLocation = player[currentTurn - 1].getBoardLocation() - dice_1 - dice_2;
+            boardLocation = oldBoardLocation;
+            setAndReplace(boardLocation, playerPiece, currentTurn);
         }
-        if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
-        {
-            map[i][j][k][l] += " |";
-        }
-        else
-        {
-            map[i][j][k][l] += " ";
-        }
-        map[i][j][k][l] += " ";
     }
-    
     player[currentTurn - 1].setResetLocation_TRUE();
 }
 

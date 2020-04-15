@@ -25,6 +25,7 @@ class Game
         Game();
         void display_MapAndPlayer() const;
         void move(int currentPlayer); //Player 1,2,3,4 //Incomplete
+        void setAndReplace(int boardLocation, string playerPiece, int currentTurn);
 
         
         //File readers <-- There is no need to have user input filenames, but would be a 

@@ -8,7 +8,7 @@ using namespace std;
 Player::Player()
 {
     balance = 1500;
-    boardlocation = 0;
+    boardlocation = 30;
     playerPos_x = 0;
     playerPos_y = 0;
     bankrupt = false;
@@ -39,7 +39,15 @@ void Player::setBalance(int balance_)
 
 void Player::setBoardLocation(int boardlocation_)
 {
-    boardlocation = boardlocation_ % 40;
+    if(boardlocation_ <= 39)
+    {
+        boardlocation = boardlocation_;
+    }
+    else
+    {
+        boardlocation = 0;
+    }
+    
 }
 
 void Player::setPlayerPos(int x, int y)
