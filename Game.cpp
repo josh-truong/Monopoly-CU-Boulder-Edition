@@ -877,7 +877,7 @@ void Game::checkOwnership(int currentPlayer)
             }
             if(property[propertyLocationAndPlayer].getOwner() == "none" && (morgagePropertyResponse == "y" || morgagePropertyResponse == "Y"))
             {
-                cout << "\x1B[91m" << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << "\x1B[0m" << endl;
+                cout << "\x1B[91m" << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << "\x1B[0m" << endl;
                 getPropertyInfo(propertyLocationAndPlayer);
                 cout << "-----------------Buy Property-----------------" << endl;
                 cout << "Current Balance: " << "\x1B[92m" << "$" << playerBalance << endl;
