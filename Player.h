@@ -12,6 +12,7 @@ class Player
         string playerName;
         string playerChar;
         int boardlocation;
+        int previousBoardLocation;
         int balance;
         int playerPos_x;
         int playerPos_y;
@@ -41,5 +42,6 @@ class Player
         int getPlayerPos_x() const;
         int getPlayerPos_y() const;
         bool getBankruptStatus() const; // We must use this function to check if the player can play
+        int getPreviousBoardLocation();
 };
 #endif

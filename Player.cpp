@@ -39,14 +39,8 @@ void Player::setBalance(int balance_)
 
 void Player::setBoardLocation(int boardlocation_)
 {
-    if(boardlocation_ <= 39)
-    {
-        boardlocation = boardlocation_;
-    }
-    else
-    {
-        boardlocation = 0;
-    }
+    previousBoardLocation = boardlocation;
+    boardlocation = boardlocation_ % 39;
     
 }
 
@@ -102,4 +96,9 @@ int Player::getPlayerPos_y() const
 bool Player::getBankruptStatus() const
 {
     return bankrupt;
+}
+
+int Player::getPreviousBoardLocation()
+{
+    return previousBoardLocation;
 }

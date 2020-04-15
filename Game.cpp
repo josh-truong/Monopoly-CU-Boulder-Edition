@@ -143,6 +143,15 @@ void Game::move(int currentTurn)
 
     for(int i = 1; i <= 2; i++)
     {
+        if(resetPosition && (i == 2))
+        {
+            //Replace and reset Player Previous Location with an octothrop
+            playerPiece = "#";
+            int oldBoardLocation = player[currentTurn - 1].getPreviousBoardLocation();
+            boardLocation = oldBoardLocation;
+            setAndReplace(boardLocation, playerPiece, currentTurn);
+        }
+
         if(i == 1)
         {
             string playerPieces[4] = {"\x1B[92m$\x1B[0m",    "\x1B[92m%\x1B[0m",     "\x1B[92m*\x1B[0m",     "\x1B[92m&\x1B[0m"};
@@ -152,14 +161,7 @@ void Game::move(int currentTurn)
             boardLocation = newBoardLocation;
             setAndReplace(boardLocation, playerPiece, currentTurn);
         }
-        if(resetPosition && (i == 2))
-        {
-            //Replace and reset Player Previous Location with an octothrop
-            playerPiece = "#";
-            int oldBoardLocation = player[currentTurn - 1].getBoardLocation() - dice_1 - dice_2;
-            boardLocation = oldBoardLocation;
-            setAndReplace(boardLocation, playerPiece, currentTurn);
-        }
+
     }
     player[currentTurn - 1].setResetLocation_TRUE();
 }
