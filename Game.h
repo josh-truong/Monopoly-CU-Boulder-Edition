@@ -25,11 +25,14 @@ class Game
         Game();
         void display_MapAndPlayer() const;
         void move(int currentPlayer); //Player 1,2,3,4 //Incomplete
+
         
         //File readers <-- There is no need to have user input filenames, but would be a 
         //great idea if they want to customize their own board
         bool readPlayers();
         void readProperty();
+
+        int getNumPlayers();
         
         void roll();
         void doubleTurn(int dice_1, int dice_2); //Incomplete
@@ -52,8 +55,10 @@ class Game
         void chance(string textfile); //Incomplete
 
         string getPlayerUsername_GAME(int i);
+        string getPlayerCharacter(int i);
         void checkOwnership(int currentPlayer);
         bool checkForExceptions(int boardLocation);
+        
 };
 
 #endif

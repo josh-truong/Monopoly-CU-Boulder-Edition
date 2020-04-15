@@ -82,6 +82,7 @@ void Game::move(int currentTurn)
     int l = player[currentTurn - 1].getPlayerPos_y();
     string playerPiece = playerPieces[currentTurn - 1];
 
+    //Converts boardLocation into x and y coordinates
     if((player[currentTurn - 1].getBoardLocation() / 10) == 0)
     {
         //Bottom Board
@@ -107,6 +108,7 @@ void Game::move(int currentTurn)
         j = 10;
     }
 //////////////////////////////////////////////////////////////////////////////////////////////
+    //Set new piece location
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
     {
         map[i][j][k][l] = playerPiece;
@@ -124,6 +126,62 @@ void Game::move(int currentTurn)
         map[i][j][k][l] += " ";
     }
     map[i][j][k][l] += " ";
+    
+    //It's a lot of redundant and will look into reduceing these lines of code
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+    bool resetPosition = player[currentTurn - 1].getResetLocation_Status();
+    if(resetPosition)
+    {
+        //Converts old boardLocation into x and y coordinates
+        int oldBoardLocation = player[currentTurn - 1].getBoardLocation() - dice_1 - dice_2;
+        
+        if((oldBoardLocation / 10) == 0)
+        {
+            //Bottom Board
+            i = 10;
+            j = 10 - (oldBoardLocation % 10);
+        }
+        else if((oldBoardLocation / 10) == 1)
+        {
+            //Left Board
+            i = 10 - (oldBoardLocation % 10);
+            j = 0;
+        }
+        else if((oldBoardLocation / 10) == 2)
+        {
+            //Top Board
+            i = 0;
+            j = oldBoardLocation % 10;
+        }
+        else if((oldBoardLocation / 10) == 3)
+        {
+            //Right Board
+            i = oldBoardLocation % 10;
+            j = 10;
+        }
+
+        //Set REPLACE piece location with #
+        if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
+        {
+            map[i][j][k][l] = "#";
+        }
+        else
+        {
+            map[i][j][k][l] = ' ';
+        }
+        if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
+        {
+            map[i][j][k][l] += " |";
+        }
+        else
+        {
+            map[i][j][k][l] += " ";
+        }
+        map[i][j][k][l] += " ";
+    }
+    
+    player[currentTurn - 1].setResetLocation_TRUE();
 }
 
 void Game::display_MapAndPlayer() const
@@ -223,7 +281,7 @@ bool Game::readPlayers()
                 getline(strm, playerChar_, ',');
                 if(i != 0)
                 {
-                    cout << "\n(" << i << ") Enter a player name: " << endl;
+                    cout << "\n(" << i << ") Enter a player name: ";
                     cin >> playerName;
                     
                     player[i - 1].setName(playerName);
@@ -243,6 +301,11 @@ bool Game::readPlayers()
         }
         
     }
+}
+
+int Game::getNumPlayers()
+{
+    return numPlayers;
 }
 
 //Will intialize the property of the board after reading the file
@@ -788,6 +851,12 @@ void Game::chance(string textfile)
 string Game::getPlayerUsername_GAME(int i)
 {
     return player[i - 1].getName();
+}
+
+string Game::getPlayerCharacter(int i)
+{
+    string playerPieces[4] = {"$","%","*","&"};
+    return playerPieces[i - 1];
 }
 
 bool Game::checkForExceptions(int boardLocation_)

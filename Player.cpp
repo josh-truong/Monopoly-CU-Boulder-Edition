@@ -12,6 +12,17 @@ Player::Player()
     playerPos_x = 0;
     playerPos_y = 0;
     bankrupt = false;
+    resetLocation = false;
+}
+
+void Player::setResetLocation_TRUE()
+{
+    resetLocation = true;
+}
+
+bool Player::getResetLocation_Status()
+{
+    return resetLocation;
 }
 
 void Player::setName(string playerName_)
@@ -80,7 +91,7 @@ int Player::getPlayerPos_y() const
     return playerPos_y;
 }
 
-bool Player::getStatus() const
+bool Player::getBankruptStatus() const
 {
     return bankrupt;
 }
