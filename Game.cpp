@@ -74,35 +74,30 @@ Game::Game()
 
 void Game::setAndReplace(int boardLocation, string playerPiece, int currentTurn)
 {
-    cout << "1" << endl;
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
     //Converts boardLocation into x and y coordinates
     if((boardLocation / 10) == 0)
     {
-        cout << "2" << endl;
         //Bottom Board
         i = 10;
         j = 10 - (boardLocation % 10);
     }
     else if((boardLocation / 10) == 1)
     {
-        cout << "3" << endl;
         //Left Board
         i = 10 - boardLocation % 10;
         j = 0;
     }
     else if((boardLocation / 10) == 2)
     {
-        cout << "4" << endl;
         //Top Board
         i = 0;
         j = boardLocation % 10;
     }
     else if((boardLocation / 10) == 3)
     {
-        cout << "5" << endl;
         //Right Board
         i = boardLocation % 10;
         j = 10;
@@ -110,7 +105,6 @@ void Game::setAndReplace(int boardLocation, string playerPiece, int currentTurn)
     //////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////
     //Set piece into location
-    cout << "6" << endl;
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
     {
         cout << "7" << endl;
@@ -118,21 +112,17 @@ void Game::setAndReplace(int boardLocation, string playerPiece, int currentTurn)
     }
     else
     {
-        cout << "8" << endl;
         map[i][j][k][l] = ' ';
     }
     if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
     {
-        cout << "9" << endl;
         map[i][j][k][l] += " |";
     }
     else
     {
-        cout << "10" << endl;
         map[i][j][k][l] += "  ";
     }
     map[i][j][k][l] += " ";
-    cout << "11" << endl;
 }
 
 void Game::move(int currentTurn)
