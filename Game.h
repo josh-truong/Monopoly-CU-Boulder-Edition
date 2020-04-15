@@ -25,15 +25,19 @@ class Game
         Game();
         void display_MapAndPlayer() const;
         void move(int currentPlayer); //Player 1,2,3,4 //Incomplete
+<<<<<<< HEAD
+<<<<<<< HEAD
         void setAndReplace(int boardLocation, string playerPiece, int currentTurn);
+=======
+>>>>>>> parent of 2af5585... There's an error when board pass 39
 
+=======
+>>>>>>> parent of a99229b... Fixed bug
         
         //File readers <-- There is no need to have user input filenames, but would be a 
         //great idea if they want to customize their own board
         bool readPlayers();
         void readProperty();
-
-        int getNumPlayers();
         
         void roll();
         void doubleTurn(int dice_1, int dice_2); //Incomplete
@@ -56,10 +60,8 @@ class Game
         void chance(string textfile); //Incomplete
 
         string getPlayerUsername_GAME(int i);
-        string getPlayerCharacter(int i);
         void checkOwnership(int currentPlayer);
         bool checkForExceptions(int boardLocation);
-        
 };
 
 #endif

@@ -8,21 +8,10 @@ using namespace std;
 Player::Player()
 {
     balance = 1500;
-    boardlocation = 30;
+    boardlocation = 0;
     playerPos_x = 0;
     playerPos_y = 0;
     bankrupt = false;
-    resetLocation = false;
-}
-
-void Player::setResetLocation_TRUE()
-{
-    resetLocation = true;
-}
-
-bool Player::getResetLocation_Status()
-{
-    return resetLocation;
 }
 
 void Player::setName(string playerName_)
@@ -39,15 +28,7 @@ void Player::setBalance(int balance_)
 
 void Player::setBoardLocation(int boardlocation_)
 {
-    if(boardlocation_ <= 39)
-    {
-        boardlocation = boardlocation_;
-    }
-    else
-    {
-        boardlocation = 0;
-    }
-    
+    boardlocation = boardlocation_ % 40;
 }
 
 void Player::setPlayerPos(int x, int y)
@@ -99,7 +80,7 @@ int Player::getPlayerPos_y() const
     return playerPos_y;
 }
 
-bool Player::getBankruptStatus() const
+bool Player::getStatus() const
 {
     return bankrupt;
 }

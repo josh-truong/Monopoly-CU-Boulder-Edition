@@ -16,12 +16,10 @@ class Player
         int playerPos_x;
         int playerPos_y;
         bool bankrupt;
-        bool resetLocation;
         
     public:
         Player();
         
-        void setResetLocation_TRUE();
         void setName(string playerName_); // Set player name
         void setPlayerChar(string playerChar_);
         // NOTE: We can only set the balance and not update it(ADD/SUBTRACT)
@@ -33,13 +31,12 @@ class Player
         void setBankruptStatusTrue();
         void setBoardLocation(int);
         
-        bool getResetLocation_Status();
         string getName() const; //Get player name
         string getPlayerChar() const;
         int getBalance() const; //Get balance
         int getBoardLocation();
         int getPlayerPos_x() const;
         int getPlayerPos_y() const;
-        bool getBankruptStatus() const; // We must use this function to check if the player can play
+        bool getStatus() const; // We must use this function to check if the player can play
 };
 #endif

@@ -78,8 +78,14 @@ void Game::setAndReplace(int boardLocation, string playerPiece, int currentTurn)
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
+<<<<<<< HEAD
     //Converts boardLocation into x and y coordinates
     if((boardLocation / 10) == 0)
+=======
+    string playerPiece = playerPieces[currentTurn - 1];
+
+    if((player[currentTurn - 1].getBoardLocation() / 10) == 0)
+>>>>>>> parent of a99229b... Fixed bug
     {
         cout << "2" << endl;
         //Bottom Board
@@ -107,10 +113,14 @@ void Game::setAndReplace(int boardLocation, string playerPiece, int currentTurn)
         i = boardLocation % 10;
         j = 10;
     }
+<<<<<<< HEAD
     //////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////
     //Set piece into location
     cout << "6" << endl;
+=======
+//////////////////////////////////////////////////////////////////////////////////////////////
+>>>>>>> parent of a99229b... Fixed bug
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
     {
         cout << "7" << endl;
@@ -132,6 +142,7 @@ void Game::setAndReplace(int boardLocation, string playerPiece, int currentTurn)
         map[i][j][k][l] += "  ";
     }
     map[i][j][k][l] += " ";
+<<<<<<< HEAD
     cout << "11" << endl;
 }
 
@@ -162,6 +173,8 @@ void Game::move(int currentTurn)
         }
     }
     player[currentTurn - 1].setResetLocation_TRUE();
+=======
+>>>>>>> parent of a99229b... Fixed bug
 }
 
 void Game::display_MapAndPlayer() const
@@ -261,7 +274,7 @@ bool Game::readPlayers()
                 getline(strm, playerChar_, ',');
                 if(i != 0)
                 {
-                    cout << "\n(" << i << ") Enter a player name: ";
+                    cout << "\n(" << i << ") Enter a player name: " << endl;
                     cin >> playerName;
                     
                     player[i - 1].setName(playerName);
@@ -281,11 +294,6 @@ bool Game::readPlayers()
         }
         
     }
-}
-
-int Game::getNumPlayers()
-{
-    return numPlayers;
 }
 
 //Will intialize the property of the board after reading the file
@@ -831,12 +839,6 @@ void Game::chance(string textfile)
 string Game::getPlayerUsername_GAME(int i)
 {
     return player[i - 1].getName();
-}
-
-string Game::getPlayerCharacter(int i)
-{
-    string playerPieces[4] = {"$","%","*","&"};
-    return playerPieces[i - 1];
 }
 
 bool Game::checkForExceptions(int boardLocation_)
