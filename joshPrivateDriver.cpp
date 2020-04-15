@@ -17,25 +17,19 @@ int main()
     // cout << "Solgan: The only place in Boulder where you can get rich!" << endl;
 
     string uI;
-    for(int i = 1; i <= 4; i++)
+    do
     {
-        cout << "Player: " << "\x1B[92m"<< monopoly.getPlayerUsername_GAME(i) << "\x1B[0m" << " turn" << endl;
-        cout << "Enter " << "\x1B[91m" << "ROLL" << "\x1B[0m" << ": " << endl;
-        cin >> uI;
-        monopoly.roll();
-        monopoly.move(i);
-        monopoly.display_MapAndPlayer();
-        monopoly.checkOwnership(i);
-    }
+        for(int i = 1; i <= monopoly.getNumPlayers(); i++)
+        {
+            cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(i) << "][" << monopoly.getPlayerCharacter(i) << "] TURN" << "\x1B[0m" << endl;
+            cout << "Enter " << "\x1B[91m" << "ROLL" << "\x1B[0m" << ": " << endl;
+            cin >> uI;
+            monopoly.roll();
+            monopoly.move(i);
+            monopoly.display_MapAndPlayer();
+            monopoly.checkOwnership(i);
+        }
+    }while(uI != "Quit");
     
-    
-    // monopoly.getPropertyInfo(2);
-    // monopoly.getPropertyInfo(7);
-    // monopoly.getPropertyInfo(5);
-    // monopoly.getPropertyInfo(1);
-    // monopoly.getPropertyInfo(0);
-
-    // monopoly.getPropertyInfo(11);
-    // monopoly.getPropertyInfo(13);
     return 0;
 }

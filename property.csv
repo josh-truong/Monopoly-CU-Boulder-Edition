@@ -26,12 +26,12 @@ location,transport_name,transport_Cost,1Rail,2Rail,3Rail,4Rail,,,,
 23,Indiana Avenue,220,150,18,90,250,700,875,1050,red
 24,Illinois Avenue,240,150,20,100,300,750,925,1100,red
 25,B & O Railroad,200,25,50,100,200,,,,
-26,Atlantic Avenue ,260,150,22,110,330,800,975,1150,yellow
-27,Ventnor Avenue ,260,150,22,110,330,800,975,1150,yellow
+26,Atlantic Avenue,260,150,22,110,330,800,975,1150,yellow
+27,Ventnor Avenue,260,150,22,110,330,800,975,1150,yellow
 28,WATER WORKS,,,,,,,,,
 29,Marvin Gardens,280,150,24,120,360,850,1025,1200,yellow
 30,GO TO JAIL,,,,,,,,,
-31,Pacific Avenue ,300,200,26,130,390,900,1100,1275,green
+31,Pacific Avenue,300,200,26,130,390,900,1100,1275,green
 32,North Carolina Avenue ,300,200,26,130,390,900,1100,1275,green
 33,COMMUNITY CHEST,,,,,,,,,
 34,Pennsylvania Avenue,320,200,28,150,450,1000,1200,1400,green
