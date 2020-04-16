@@ -650,7 +650,7 @@ void Game::waterElectricRent(int rollone, int rolltwo, int propertyLocation)
                         player[i].setBalance(fortunate_player_bal);
                         // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
 
-                        cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
+                        cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << 10 * (rollone + rolltwo) << "\x1B[0m" << endl;
                         unfortunate_player_bal -= 10 * (rollone + rolltwo);
                         player[currentTurn - 1].setBalance(unfortunate_player_bal);
                         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;
@@ -671,7 +671,7 @@ void Game::waterElectricRent(int rollone, int rolltwo, int propertyLocation)
                         player[i].setBalance(fortunate_player_bal);
                         // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
 
-                        cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
+                        cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << 4 * (rollone + rolltwo) << "\x1B[0m" << endl;
                         unfortunate_player_bal -= 4 * (rollone + rolltwo);
                         player[currentTurn - 1].setBalance(unfortunate_player_bal);
                         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;  
