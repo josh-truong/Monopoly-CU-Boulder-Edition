@@ -619,7 +619,7 @@ void Game::rent(int propertyLocation, int currentPlayer)
    }
 }
 
-void Game::waterElectricRent(int rollone, int rolltwo, int propertylocation)
+void Game::waterElectricRent(int rollone, int rolltwo, int propertyLocation)
 {
     /*
     If the player lands on a utility that someone else owns, it determines if they own one or both utility,
