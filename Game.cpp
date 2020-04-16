@@ -682,15 +682,6 @@ void Game::waterElectricRent(int rollone, int rolltwo, int propertyLocation)
    }
 }
 
-void Game::busRent(string propertyname)
-{
-    /*
-    If the player lands on a bus spot that is already owned by someone else, the player will be charged a rent based
-    on how many buses the onwer has. This function will determine how many buses the owner has and determine the rent. 
-    The player will lose that amount and the owner will gain that amount.
-    */
-}
-
 void Game::luxuryTax()
 {
     /*
