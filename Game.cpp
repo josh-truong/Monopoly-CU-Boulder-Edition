@@ -492,11 +492,10 @@ void Game::trade(string playerName, string propertyoffer, int offer_, string pro
     */
 }
 
-void Game::buyHouse(int propertyLocation, int currentPlayer)
+void Game::buy(int propertyLocation, int currentPlayer)
 {
     /*
-    This function will allow the user to buy a house for one of their properties. It will obtain the house cost from the property
-    array and move the rent array down one position. It will also subtract the house cost from the player's balance.
+    This allows players to buy properties that they have landed on if there is no ownership
     */
     string playerResponse;
     string morgagePropertyResponse = "Y";
@@ -539,7 +538,7 @@ void Game::buyHouse(int propertyLocation, int currentPlayer)
         else
         {
             cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " I'm sorry, looks like you responded incorrectly. Type " << "\x1B[93m" << "y" << "\x1B[0m" << " for yes and " << "\x1B[92m" << "n" << "\x1B[0m" << " for no." << endl;
-            buyHouse(propertyLocation, currentPlayer);
+            buy(propertyLocation, currentPlayer);
         }
     }
     else if (toupper(morgagePropertyResponse) == "N")
@@ -547,6 +546,15 @@ void Game::buyHouse(int propertyLocation, int currentPlayer)
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " I'm sorry to hear that." << endl;
         //WARNING -- We need to create and call an auction property
     }
+}
+
+void Game::buyHouse(int propertyLocation, int currentPlayer)
+{
+    /*
+    This function will allow the user to buy a house for one of their properties. It will obtain the house cost from the property
+    array and move the rent array down one position. It will also subtract the house cost from the player's balance.
+    */
+    
 }
 
 void Game::rent(int propertyLocation, int currentPlayer)
@@ -563,7 +571,6 @@ void Game::rent(int propertyLocation, int currentPlayer)
    {
        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to sell some houses to pay off that rent." << endl;
        // Morgage Function here
-
    }
    if((unfortunate_player_bal - rentCost) >= 0)
    {
@@ -582,9 +589,6 @@ void Game::rent(int propertyLocation, int currentPlayer)
             }
         }
    }
-   
-   
-
 }
 
 void Game::waterElectricRent(int rollone, int rolltwo, string propertyname)
@@ -935,7 +939,7 @@ void Game::checkOwnership(int currentPlayer)
     {
         if(ownership_status == "none")
         {
-            buyHouse(playerLocation, currentPlayer);
+            buy(playerLocation, currentPlayer);
         }
         else
         {
