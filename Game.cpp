@@ -556,6 +556,29 @@ void Game::buy(int propertyLocation, int currentPlayer)
             //update player balance
             property[propertyLocation].setOwner(player[currentPlayer - 1].getName());
             player[currentPlayer - 1].setBalance(difference);
+            if(propertyLocation == 5 || propertyLocation == 15 || propertyLocation == 25 || propertyLocation == 35)
+            {
+                if(propertyLocation != 5 && property[propertyLocation].getOwner() == property[5].getOwner())
+                {
+                    property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
+                    property[5].setNumBuildings(property[5].getNumBuildings() + 1);
+                }
+                if(propertyLocation != 15 && property[propertyLocation].getOwner() == property[15].getOwner())
+                {
+                    property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
+                    property[15].setNumBuildings(property[15].getNumBuildings() + 1);
+                }
+                if(propertyLocation != 25 && property[propertyLocation].getOwner() == property[25].getOwner())
+                {
+                    property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
+                    property[25].setNumBuildings(property[25].getNumBuildings() + 1);
+                }
+                if(propertyLocation != 35 && property[propertyLocation].getOwner() == property[35].getOwner())
+                {
+                    property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
+                    property[35].setNumBuildings(property[35].getNumBuildings() + 1);
+                }
+            }
             cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Congratulations, " << property[propertyLocation].getOwner() << "! You're the proud owner of " << property[propertyLocation].getPropertyName() << "." << endl;
         }
         else if(toupper(playerResponse) == "N")
