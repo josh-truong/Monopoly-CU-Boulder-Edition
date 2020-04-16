@@ -689,6 +689,9 @@ void Game::passGo()
     /*
     When the player passes go, this function will automatically add 200 dollars to their balance.
     */
+    int amount = player[currentTurn - 1].getBalance();
+    amount = amount + 200;
+    player[currentTurn - 1].setBalance(amount);
 }
 
 void Game::communityChest(string textfile)
@@ -867,9 +870,7 @@ void Game::chance(string textfile)
                 cout << line << endl;
                 setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
-                int amount = player[currentTurn - 1].getBalance();
-                amount = amount + 200;
-                player[currentTurn - 1].setBalance(amount);
+                passGo();
                 break;
             }
             case 2:
@@ -879,9 +880,7 @@ void Game::chance(string textfile)
                 {
                     setPiece(24, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
-                    int amount = player[currentTurn - 1].getBalance();
-                    amount = amount + 200;
-                    player[currentTurn - 1].setBalance(amount);
+                    passGo();
                 }
                 else
                 {
@@ -897,9 +896,7 @@ void Game::chance(string textfile)
                 {
                     setPiece(11, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
-                    int amount = player[currentTurn - 1].getBalance();
-                    amount = amount + 200;
-                    player[currentTurn - 1].setBalance(amount);
+                    passGo();
                 }
                 else
                 {
