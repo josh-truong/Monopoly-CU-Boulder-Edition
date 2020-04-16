@@ -851,7 +851,7 @@ void Game::chance(string textfile)
             case 1:
             {
                 cout << line << endl;
-                setPiece(0,player[currenTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 int amount = player[currentTurn - 1].getBalance();
                 amount = amount + 200;
@@ -863,7 +863,7 @@ void Game::chance(string textfile)
                 cout << line  << endl;
                 if(player[currentTurn - 1].getBoardLocation() > 24)
                 {
-                    setPiece(24, player[currenTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(24, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
                     int amount = player[currentTurn - 1].getBalance();
                     amount = amount + 200;
@@ -871,7 +871,7 @@ void Game::chance(string textfile)
                 }
                 else
                 {
-                    setPiece(24, player[currenTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(24, player[currentTurn - 1].getPlayerChar(), currentTurn)
                     erase(currentTurn);
                 }
                 break;
@@ -881,7 +881,7 @@ void Game::chance(string textfile)
                 cout << line  << endl;
                 if(player[currentTurn - 1].getBoardLocation() > 11)
                 {
-                    setPiece(11, player[currenTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(11, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
                     int amount = player[currentTurn - 1].getBalance();
                     amount = amount + 200;
@@ -889,7 +889,7 @@ void Game::chance(string textfile)
                 }
                 else
                 {
-                    setPiece(11, player[currenTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(11, player[currentTurn - 1].getPlayerChar(), currentTurn)
                     erase(currentTurn);
                 }
                 break;
@@ -900,7 +900,7 @@ void Game::chance(string textfile)
                 int playerposition = player[currentTurn - 1].getBoardLocation();
                 if(playerposition == 7)
                 {
-                    setPiece(12, player[currenTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn)
                     erase(currentTurn);
                     string owner = property[12].getOwner();
                     if(owner == "none")
@@ -934,7 +934,75 @@ void Game::chance(string textfile)
                     }
                 }
                 else if(playerposition == 22)
+                {
+                    setPiece(28, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                    erase(currentTurn);
+                    string owner = property[28].getOwner();
+                    if(owner == "none")
+                    {
+                        int repeater = 1;
+                        while(repeater == 1)
+                        {
+                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            string answer;
+                            cin >> answer;
+                            if(answer == "Y")
+                            {
+                                buy(28, currentTurn);
+                                repeater = 0;
+                            }
+                            else if(answer == "N")
+                            {
+                                repeater = 0;
+                            }
+                            else
+                            {
+                                cout << "Invalid input." << endl;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int amount = player[currentTurn - 1].getBalance();
+                        amount = amount - 10 * (dice_1 + dice_2);
+                        player[currentTurn - 1].setBalance(amount);
+                    }
+                }
                 else if(playerposition == 38)
+                {
+                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                    erase(currentTurn);
+                    string owner = property[12].getOwner();
+                    if(owner == "none")
+                    {
+                        int repeater = 1;
+                        while(repeater == 1)
+                        {
+                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            string answer;
+                            cin >> answer;
+                            if(answer == "Y")
+                            {
+                                buy(12, currentTurn);
+                                repeater = 0;
+                            }
+                            else if(answer == "N")
+                            {
+                                repeater = 0;
+                            }
+                            else
+                            {
+                                cout << "Invalid input." << endl;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int amount = player[currentTurn - 1].getBalance();
+                        amount = amount - 10 * (dice_1 + dice_2);
+                        player[currentTurn - 1].setBalance(amount);
+                    }
+                }
                 break;
             }
             case 5:
@@ -960,7 +1028,7 @@ void Game::chance(string textfile)
             case 8:
             {
                 cout << line  << endl;
-                setPiece(player[currenTurn - 1].getBoardLocation() - 3, player[currenTurn - 1].getPlayerChar(), currentTurn)
+                setPiece(player[currentTurn - 1].getBoardLocation() - 3, player[currentTurn - 1].getPlayerChar(), currentTurn)
                 erase(currentTurn);                
                 break;
             }
@@ -989,7 +1057,7 @@ void Game::chance(string textfile)
                 cout << line  << endl;
                 if(player[currentTurn - 1].getBoardLocation() > 5)
                 {
-                    setPiece(5, player[currenTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
                     int amount = player[currentTurn - 1].getBalance();
                     amount = amount + 200;
@@ -997,7 +1065,7 @@ void Game::chance(string textfile)
                 }
                 else
                 {
-                    setPiece(5, player[currenTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn)
                     erase(currentTurn);
                 }
                 break;
@@ -1005,7 +1073,7 @@ void Game::chance(string textfile)
             case 13:
             {
                 cout << line  << endl;
-                setPiece(39, player[currenTurn - 1].getPlayerChar(), currentTurn)
+                setPiece(39, player[currentTurn - 1].getPlayerChar(), currentTurn)
                 erase(currentTurn);
                 break;
             }
