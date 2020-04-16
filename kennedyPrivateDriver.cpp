@@ -185,7 +185,7 @@ void Game::chance(string textfile)
             case 2:
             {
                 cout << line  << endl;
-
+                
                 break;
             }
             case 3:
