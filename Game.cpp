@@ -29,6 +29,7 @@ string toupper(string name) //A function to turn the string entered into all cap
     return newname;
 }
 
+//Game constructor
 Game::Game()
 {
     dice_1 = 0;
@@ -57,6 +58,7 @@ Game::Game()
                         // A 9 by 9 empty space
                         map[i][j][k][l] = ' ';
                     }
+                    //This if statement adds borders and spaces 
                     if(((l % 2) != 0) && !((1 <= i && i <= 9) && (1 <= j && j <= 9)) || (j == 9 && l == 1))
                     {
                         map[i][j][k][l] += " |";
@@ -72,33 +74,43 @@ Game::Game()
     }
 }
 
+/*
+    set a piece on the board. Using the boardlocation to place a piece into the board
+    playerPiece must only take in a single character. ex) $,%,*,@,#
+*/
 void Game::setPiece(int boardLocation, string playerPiece, int currentTurn)
 {
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
     //Converts boardLocation into x and y coordinates
-    if((boardLocation / 10) == 0)
+
+    /*
+          2
+        1|_|3
+          0
+    */
+    if((boardLocation / 10) == 0) 
     {
-        //Bottom Board
+        //Bottom Board - side 0
         i = 10;
         j = 10 - (boardLocation % 10);
     }
     else if((boardLocation / 10) == 1)
     {
-        //Left Board
+        //Left Board - side 1
         i = 10 - boardLocation % 10;
         j = 0;
     }
     else if((boardLocation / 10) == 2)
     {
-        //Top Board
+        //Top Board - side 2
         i = 0;
         j = boardLocation % 10;
     }
     else if((boardLocation / 10) == 3)
     {
-        //Right Board
+        //Right Board - side 3
         i = boardLocation % 10;
         j = 10;
     }
@@ -133,6 +145,7 @@ void Game::erase(int currentTurn)
     setPiece(oldBoardLocation, octothrop, currentTurn);
 }
 
+//Move is used to move a player when they roll the dice
 void Game::move(int currentTurn)
 {
     int boardLocation;
@@ -145,7 +158,6 @@ void Game::move(int currentTurn)
         {
             erase(currentTurn);
         }
-
         if(i == 1)
         {
             string playerPieces[4] = {"\x1B[92m$\x1B[0m",    "\x1B[92m%\x1B[0m",     "\x1B[92m*\x1B[0m",     "\x1B[92m&\x1B[0m"};
@@ -156,6 +168,7 @@ void Game::move(int currentTurn)
         }
 
     }
+    //This is used only once at the beginning of the game
     player[currentTurn - 1].setResetLocation_TRUE();
 }
 
@@ -227,6 +240,7 @@ void Game::display_MapAndPlayer() const
 
 bool Game::readPlayers()
 {
+    //Read Player files
     cout << "How many players? (2-4): " << endl;
     cin >> numPlayers;
     ifstream readPlayerFile;
@@ -277,7 +291,7 @@ bool Game::readPlayers()
         
     }
 }
-
+//Return the number of players
 int Game::getNumPlayers()
 {
     return numPlayers;
