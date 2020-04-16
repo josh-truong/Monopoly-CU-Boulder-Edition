@@ -9,7 +9,7 @@ location,transport_name,transport_Cost,1Rail,2Rail,3Rail,4Rail,,,,
 6,Oriental Avenue,100,50,6,30,90,270,400,550,baby blue
 7,CHANCE,,,,,,,,,
 8,Vermont Avenue,100,50,6,30,90,270,400,550,baby blue
-9,Connecticut Avenue ,120,50,8,40,100,300,450,600,baby blue
+9,Connecticut Avenue,120,50,8,40,100,300,450,600,baby blue
 10,JUST VISITING JAIL/JAIL,,,,,,,,,
 11,St. Charles Place,140,100,10,50,150,450,625,750,pink
 12,ELECTRIC COMPANY,,,,,,,,,
@@ -32,7 +32,7 @@ location,transport_name,transport_Cost,1Rail,2Rail,3Rail,4Rail,,,,
 29,Marvin Gardens,280,150,24,120,360,850,1025,1200,yellow
 30,GO TO JAIL,,,,,,,,,
 31,Pacific Avenue,300,200,26,130,390,900,1100,1275,green
-32,North Carolina Avenue ,300,200,26,130,390,900,1100,1275,green
+32,North Carolina Avenue,300,200,26,130,390,900,1100,1275,green
 33,COMMUNITY CHEST,,,,,,,,,
 34,Pennsylvania Avenue,320,200,28,150,450,1000,1200,1400,green
 35,Short Line Railroad,200,25,50,100,200,,,,

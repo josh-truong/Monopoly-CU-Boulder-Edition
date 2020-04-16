@@ -24,7 +24,7 @@ class Game
     public:
         Game();
         void display_MapAndPlayer() const;
-        void move(int currentPlayer); //Player 1,2,3,4 //Incomplete
+        void move(int currentPlayer); //Player 1,2,3,4
         void setAndReplace(int boardLocation, string playerPiece, int currentTurn);
 
         
@@ -41,10 +41,9 @@ class Game
         void getPropertyInfo(int propertyLocation_);
         void endGame(string quit_); //Incomplete
         void endTurn(string end_);
-        void buy(); //Incomplete
         void trade(string playerName, string propertyoffered, int offer_, string propertywanted); //Incomplete
-        void buyHouse(string propertyname); //Incomplete
-        void rent(string property); //Incomplete
+        void buyHouse(int propertyLocation, int currentPlayer);
+        void rent(int propertyLocation, int currentPlayer);
         void waterElectricRent(int rollone, int rolltwo, string propertyname); //Incomplete
         void busRent(string propertyname); //Incomplete
         void luxuryTax();
