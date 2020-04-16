@@ -273,6 +273,16 @@ bool Game::readPlayers()
                     cout << "\n(" << i << ") Enter a player name: ";
                     cin >> playerName;
                     
+                    for(int j = 0; j < getNumPlayers(); j++)
+                    {
+                        while(player[j].getName() == playerName)
+                        {
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "That Username Has Already Been Taken!" << endl;
+                            cout << "\n(" << i << ") Enter a player name: ";
+                            cin >> playerName;
+                        }
+                    }
+
                     player[i - 1].setName(playerName);
                     player[i - 1].setPlayerChar(playerChar_);
                     cout << "Player Character: " << player[i - 1].getPlayerChar() << endl;
@@ -922,7 +932,7 @@ void Game::chance(string textfile)
                 }
                 else
                 {
-                    setPiece(24, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(24, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
                 }
                 break;
@@ -938,7 +948,7 @@ void Game::chance(string textfile)
                 }
                 else
                 {
-                    setPiece(11, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(11, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
                 }
                 break;
@@ -949,7 +959,7 @@ void Game::chance(string textfile)
                 int playerposition = player[currentTurn - 1].getBoardLocation();
                 if(playerposition == 7)
                 {
-                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
                     string owner = property[12].getOwner();
                     if(owner == "none")
@@ -984,7 +994,7 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 22)
                 {
-                    setPiece(28, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(28, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
                     string owner = property[28].getOwner();
                     if(owner == "none")
@@ -1019,7 +1029,7 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 38)
                 {
-                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
                     string owner = property[12].getOwner();
                     if(owner == "none")
@@ -1077,7 +1087,7 @@ void Game::chance(string textfile)
             case 8:
             {
                 cout << line  << endl;
-                setPiece(player[currentTurn - 1].getBoardLocation() - 3, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                setPiece(player[currentTurn - 1].getBoardLocation() - 3, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);                
                 break;
             }
@@ -1114,7 +1124,7 @@ void Game::chance(string textfile)
                 }
                 else
                 {
-                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
                 }
                 break;
@@ -1122,7 +1132,7 @@ void Game::chance(string textfile)
             case 13:
             {
                 cout << line  << endl;
-                setPiece(39, player[currentTurn - 1].getPlayerChar(), currentTurn)
+                setPiece(39, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 break;
             }
