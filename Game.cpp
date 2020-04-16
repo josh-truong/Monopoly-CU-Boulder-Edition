@@ -692,71 +692,107 @@ void Game::communityChest(string textfile)
             case 1:
             {
                 cout << line << endl;
+
                 break;
             }
             case 2:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 200;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 3:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 50;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 4:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 50;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 5:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 100;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 6:
             {
                 cout << line  << endl;
+                jail();
                 break;
             }
             case 7:
             {
                 cout << line  << endl;
+
                 break;
             }
             case 8:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 100;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 9:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 20;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 10:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 10;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 11:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 100;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 12:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 100;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 13:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 150;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 14:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 25;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 15:
@@ -767,11 +803,17 @@ void Game::communityChest(string textfile)
             case 16:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 10;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 17:
             {
                 cout << line << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 100;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
         }
@@ -805,11 +847,13 @@ void Game::chance(string textfile)
             case 1:
             {
                 cout << line << endl;
+
                 break;
             }
             case 2:
             {
                 cout << line  << endl;
+
                 break;
             }
             case 3:
@@ -829,12 +873,17 @@ void Game::chance(string textfile)
             }
             case 6:
             {
-                cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 50;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 7:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 100;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 8:
@@ -845,16 +894,21 @@ void Game::chance(string textfile)
             case 9:
             {
                 cout << line  << endl;
+                jail();
                 break;
             }
             case 10:
             {
                 cout << line  << endl;
+
                 break;
             }
             case 11:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 15;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 12:
@@ -875,11 +929,17 @@ void Game::chance(string textfile)
             case 15:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 150;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 16:
             {
                 cout << line  << endl;
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount + 100;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
         }
