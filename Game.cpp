@@ -679,7 +679,6 @@ void Game::waterElectricRent(int rollone, int rolltwo, int propertyLocation)
                 }
             }
         }
-   }
 }
 
 void Game::busRent(string propertyname)
