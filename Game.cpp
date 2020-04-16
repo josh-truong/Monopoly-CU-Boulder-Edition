@@ -609,7 +609,7 @@ void Game::rent(int propertyLocation, int currentPlayer)
    }
 }
 
-void Game::waterElectricRent(int rollone, int rolltwo, string propertyname)
+void Game::waterElectricRent(int rollone, int rolltwo, int propertylocation)
 {
     /*
     If the player lands on a utility that someone else owns, it determines if they own one or both utility,
@@ -617,6 +617,44 @@ void Game::waterElectricRent(int rollone, int rolltwo, string propertyname)
     on if they own one or both properties. This money is subtracted from the player's balance and added to the
     owner's balance.
     */
+   string ownerOfProperty = property[propertyLocation].getOwner();
+   int unfortunate_player_bal = player[currentTurn - 1].getBalance();
+   if((unfortunate_player_bal - rentCost) < 0)
+   {
+       cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to sell some houses to pay off that rent." << endl;
+       // Morgage Function here
+   }
+   else
+   {
+        for(int i = 0; i < numPlayers; i++)
+        {
+            if(player[i].getName() == property[propertyLocation].getOwner())
+            {
+                if(property[28].getOwner() == property[12].getOwner())
+                {
+                    int fortunate_player_bal = player[i].getBalance();
+                    // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+                    fortunate_player_bal += 10 * (rollone + rolltwo);
+                    // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+
+                    cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
+                    unfortunate_player_bal -= 10 * (rollone + rolltwo);
+                    cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;
+                }
+                else
+                {
+                    int fortunate_player_bal = player[i].getBalance();
+                    // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+                    fortunate_player_bal += 4 * (rollone + rolltwo);
+                    // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+
+                    cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
+                    unfortunate_player_bal -= 4 * (rollone + rolltwo);
+                    cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;  
+                }
+            }
+        }
+   }
 }
 
 void Game::busRent(string propertyname)
