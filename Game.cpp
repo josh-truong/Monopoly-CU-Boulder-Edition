@@ -631,42 +631,51 @@ void Game::waterElectricRent(int rollone, int rolltwo, int propertyLocation)
     */
    string ownerOfProperty = property[propertyLocation].getOwner();
    int unfortunate_player_bal = player[currentTurn - 1].getBalance();
-   if((unfortunate_player_bal - rentCost) < 0)
-   {
-       cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to sell some houses to pay off that rent." << endl;
-       // Morgage Function here
-   }
-   else
-   {
-        for(int i = 0; i < numPlayers; i++)
+   for(int i = 0; i < numPlayers; i++)
+    {
+        if(player[i].getName() == property[propertyLocation].getOwner())
         {
-            if(player[i].getName() == property[propertyLocation].getOwner())
+            if(property[28].getOwner() == property[12].getOwner())
             {
-                if(property[28].getOwner() == property[12].getOwner())
-                {
-                    int fortunate_player_bal = player[i].getBalance();
-                    // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
-                    fortunate_player_bal += 10 * (rollone + rolltwo);
-                    player[i].setBalance(fortunate_player_bal);
-                    // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+                    if((unfortunate_player_bal - (10 * (rollone + rolltwo))) < 0)
+                    {
+                        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to sell some houses to pay off that rent." << endl;
+                        // Morgage Function here
+                    }
+                    else
+                    {
+                        int fortunate_player_bal = player[i].getBalance();
+                        // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+                        fortunate_player_bal += 10 * (rollone + rolltwo);
+                        player[i].setBalance(fortunate_player_bal);
+                        // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
 
-                    cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
-                    unfortunate_player_bal -= 10 * (rollone + rolltwo);
-                    player[currentTurn - 1].setBalance(unfortunate_player_bal);
-                    cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;
+                        cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
+                        unfortunate_player_bal -= 10 * (rollone + rolltwo);
+                        player[currentTurn - 1].setBalance(unfortunate_player_bal);
+                        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;
+                    }
                 }
                 else
                 {
-                    int fortunate_player_bal = player[i].getBalance();
-                    // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
-                    fortunate_player_bal += 4 * (rollone + rolltwo);
-                    player[i].setBalance(fortunate_player_bal);
-                    // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+                    if((unfortunate_player_bal - (4 * (rollone + rolltwo))) < 0)
+                    {
+                        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to sell some houses to pay off that rent." << endl;
+                        // Morgage Function here
+                    }
+                    else
+                    {
+                        int fortunate_player_bal = player[i].getBalance();
+                        // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+                        fortunate_player_bal += 4 * (rollone + rolltwo);
+                        player[i].setBalance(fortunate_player_bal);
+                        // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
 
-                    cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
-                    unfortunate_player_bal -= 4 * (rollone + rolltwo);
-                    player[currentTurn - 1].setBalance(unfortunate_player_bal);
-                    cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;  
+                        cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
+                        unfortunate_player_bal -= 4 * (rollone + rolltwo);
+                        player[currentTurn - 1].setBalance(unfortunate_player_bal);
+                        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;  
+                    }
                 }
             }
         }
