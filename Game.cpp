@@ -72,7 +72,7 @@ Game::Game()
     }
 }
 
-void Game::setAndReplace(int boardLocation, string playerPiece, int currentTurn)
+void Game::setPiece(int boardLocation, string playerPiece, int currentTurn)
 {
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
@@ -124,6 +124,15 @@ void Game::setAndReplace(int boardLocation, string playerPiece, int currentTurn)
     map[i][j][k][l] += " ";
 }
 
+void Game::erase(int currentTurn)
+{
+    string octothrop;
+    //Replace and reset Player Previous Location with an octothrop
+    octothrop = "#";
+    int oldBoardLocation = player[currentTurn - 1].getPreviousBoardLocation();
+    setPiece(oldBoardLocation, octothrop, currentTurn);
+}
+
 void Game::move(int currentTurn)
 {
     int boardLocation;
@@ -134,11 +143,7 @@ void Game::move(int currentTurn)
     {
         if(resetPosition && (i == 2))
         {
-            //Replace and reset Player Previous Location with an octothrop
-            playerPiece = "#";
-            int oldBoardLocation = player[currentTurn - 1].getPreviousBoardLocation();
-            boardLocation = oldBoardLocation;
-            setAndReplace(boardLocation, playerPiece, currentTurn);
+            erase(currentTurn);
         }
 
         if(i == 1)
@@ -147,8 +152,7 @@ void Game::move(int currentTurn)
             player[currentTurn - 1].setBoardLocation(player[currentTurn - 1].getBoardLocation() + dice_1 + dice_2);
             playerPiece = playerPieces[currentTurn - 1];
             int newBoardLocation = player[currentTurn - 1].getBoardLocation();
-            boardLocation = newBoardLocation;
-            setAndReplace(boardLocation, playerPiece, currentTurn);
+            setPiece(newBoardLocation, playerPiece, currentTurn);
         }
 
     }

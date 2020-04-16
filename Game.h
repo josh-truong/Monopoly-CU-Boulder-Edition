@@ -25,7 +25,7 @@ class Game
         Game();
         void display_MapAndPlayer() const;
         void move(int currentPlayer); //Player 1,2,3,4
-        void setAndReplace(int boardLocation, string playerPiece, int currentTurn);
+        void setPiece(int boardLocation, string playerPiece, int currentTurn);
 
         
         //File readers <-- There is no need to have user input filenames, but would be a 
@@ -43,7 +43,7 @@ class Game
         void endTurn(string end_);
         void trade(string playerName, string propertyoffered, int offer_, string propertywanted); //Incomplete
         void buy(int propertyLocation, int currentPlayer);
-        void buyHouse(int propertyLocation, int currentPlayer);
+        void buyHouse(int propertyLocation, int currentPlayer);// incomplete
         void rent(int propertyLocation, int currentPlayer);
         void waterElectricRent(int rollone, int rolltwo, string propertyname); //Incomplete
         void busRent(string propertyname); //Incomplete
@@ -59,6 +59,7 @@ class Game
         string getPlayerCharacter(int i);
         void checkOwnership(int currentPlayer);
         bool checkForExceptions(int boardLocation);
+        void erase(int currentTurn);
         
 };
 
