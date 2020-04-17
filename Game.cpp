@@ -1095,6 +1095,106 @@ void Game::chance(string textfile)
             case 5:
             {
                 cout << line  << endl;
+                 int playerposition = player[currentTurn - 1].getBoardLocation();
+                if(playerposition == 7)
+                {
+                    setPiece(15, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    erase(currentTurn);
+                    string owner = property[15].getOwner();
+                    if(owner == "none")
+                    {
+                        int repeater = 1;
+                        while(repeater == 1)
+                        {
+                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            string answer;
+                            cin >> answer;
+                            if(answer == "Y")
+                            {
+                                buy(15, currentTurn);
+                                repeater = 0;
+                            }
+                            else if(answer == "N")
+                            {
+                                repeater = 0;
+                            }
+                            else
+                            {
+                                cout << "Invalid input." << endl;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        rent(15, currentTurn);
+                    }
+                }
+                else if(playerposition == 22)
+                {
+                    setPiece(25, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    erase(currentTurn);
+                    string owner = property[25].getOwner();
+                    if(owner == "none")
+                    {
+                        int repeater = 1;
+                        while(repeater == 1)
+                        {
+                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            string answer;
+                            cin >> answer;
+                            if(answer == "Y")
+                            {
+                                buy(25, currentTurn);
+                                repeater = 0;
+                            }
+                            else if(answer == "N")
+                            {
+                                repeater = 0;
+                            }
+                            else
+                            {
+                                cout << "Invalid input." << endl;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        rent(25, currentTurn);
+                    }
+                }
+                else if(playerposition == 38)
+                {
+                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    erase(currentTurn);
+                    string owner = property[5].getOwner();
+                    if(owner == "none")
+                    {
+                        int repeater = 1;
+                        while(repeater == 1)
+                        {
+                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            string answer;
+                            cin >> answer;
+                            if(answer == "Y")
+                            {
+                                buy(5, currentTurn);
+                                repeater = 0;
+                            }
+                            else if(answer == "N")
+                            {
+                                repeater = 0;
+                            }
+                            else
+                            {
+                                cout << "Invalid input." << endl;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        rent(5, currentTurn);
+                    }
+                }
                 break;
             }
             case 6:
@@ -1146,9 +1246,7 @@ void Game::chance(string textfile)
                 {
                     setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
-                    int amount = player[currentTurn - 1].getBalance();
-                    amount = amount + 200;
-                    player[currentTurn - 1].setBalance(amount);
+                    passGo();
                 }
                 else
                 {
@@ -1167,6 +1265,21 @@ void Game::chance(string textfile)
             case 14:
             {
                 cout << line  << endl;
+                for(int i = 0; i < numPlayers - 1; i++)
+                {
+                    int amount = player[currentTurn - 1].getBalance();
+                    amount = amount + 50;
+                    player[currentTurn - 1].setBalance(amount);
+                }
+                for(int j = 0; j < numPlayers; j++)
+                {
+                    if(currentTurn - 1 != j)
+                    {
+                        int amount = player[j].getBalance();
+                        amount = amount - 50;
+                        player[j].setBalance(amount);
+                    }
+                }
                 break;
             }
             case 15:
