@@ -789,7 +789,9 @@ void Game::communityChest(string textfile)
             case 1:
             {
                 cout << line << endl;
-
+                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                erase(currentTurn);
+                passGo();
                 break;
             }
             case 2:
@@ -833,7 +835,22 @@ void Game::communityChest(string textfile)
             case 7:
             {
                 cout << line  << endl;
-
+                cout << line  << endl;
+                for(int i = 0; i < numPlayers - 1; i++)
+                {
+                    int amount = player[currentTurn - 1].getBalance();
+                    amount = amount + 50;
+                    player[currentTurn - 1].setBalance(amount);
+                }
+                for(int j = 0; j < numPlayers; j++)
+                {
+                    if(currentTurn - 1 != j)
+                    {
+                        int amount = player[j].getBalance();
+                        amount = amount - 50;
+                        player[j].setBalance(amount);
+                    }
+                }
                 break;
             }
             case 8:
