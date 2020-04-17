@@ -105,13 +105,14 @@ void Property::getListOfRentCP()
     {
         if(i == 5)
         {
-            cout << "(5) Building (Hotel):\x1B[92m $" << rentArr[5] << "\x1B[0m" << endl;
+            cout << setw(5) << "(5) Building (Hotel):\x1B[92m $" << rentArr[5] << "\x1B[0m" << endl;
         }
         else
         {
             cout << "(" << i << ") Building(s):\x1B[92m $" << rentArr[i] << "\x1B[0m" << setw(5);
         }
     }
+    cout << "#################################################################################################################################################" << endl;
 }
 
 void Property::getListOfRentTransport()

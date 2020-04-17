@@ -10,6 +10,7 @@
 //01001110 01101001 01100011 01100101 00100001 00100001 00100000 01000101 01100001 01110011 01110100 01100101 01110010 00100000 01000101 01100111 01100111 00101100 00100000 01101000 01110101 01101000 00111111 00001101 00001010 00100000 00100000 00100000 01011111 00001101 00001010 00100000 00100111 00100000 00100000 00100000 00100111 00001101 00001010 00100111 00100000 00100000 00100000 00100000 00100000 00100111 00001101 00001010 00100000 00100111 00100000 01011111 00100000 00100111 00001101 00001010 00100000
 using namespace std; 
 
+
 string toupper(string name) //A function to turn the string entered into all capital leters
 {
     int length = name.length(); //Obtains the length of the string
@@ -183,6 +184,7 @@ void Game::display_MapAndPlayer() const
     int topLinecounter = 20;
     int leftLineCounter = 20;
     int rightLineCounter = 30;
+    cout << setw(54);
     for(int oneLine = 0; oneLine < 11; oneLine++)
     {
         cout << "      " << topLinecounter; 
@@ -216,18 +218,19 @@ void Game::display_MapAndPlayer() const
         {
             rightLineCounter = 0;
         }
-        cout << leftLineCounter << " | " << firstRowConcatOfK << endl << "   | " << secondRowConcatOfK << rightLineCounter << endl;
+        cout << setw(50) << leftLineCounter << " | " << firstRowConcatOfK << endl << setw(53) << "   | " << secondRowConcatOfK << rightLineCounter << endl;
         leftLineCounter--;
         rightLineCounter++;
         if(0 <= i && i < 10)
         {
-            cout << "   ---------" << setw(80) << "---------" << endl;
+            cout << setw(60) << "   ---------" << setw(80) << "---------" << endl;
         }
         firstRowConcatOfK = "";
         secondRowConcatOfK = "";
     }
     
     int bottomLinecounter = 10;
+    cout << setw(54);
     for(int oneLine = 0; oneLine < 11; oneLine++)
     {
         cout << "      " << bottomLinecounter << " "; 
@@ -543,11 +546,10 @@ void Game::buy(int propertyLocation, int currentPlayer)
     }
     if(property[propertyLocation].getOwner() == "none" && toupper(morgagePropertyResponse) == "Y")
     {
-        cout << "\x1B[91m" << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << "\x1B[0m" << endl;
-        cout << "-----------------Buy Property-----------------" << endl;
-        cout << "Current Balance: " << "\x1B[92m" << "$" << playerBalance << endl;
-        cout << "Balance Preview: " << "\x1B[92m" << "$" << playerBalance << "\x1B[97m" << " - $" << propertyPrice << "\x1B[0m" << endl;
-        cout << "Expected Balance after Transaction: " << "\x1B[92m" << "$" << difference << "\x1B[0m" << endl;
+        cout << setw(113)<< "-------------------Order Summary-------------------" << endl;
+        cout << setw(100) << "Current Balance: " << "\x1B[92m" << "$" << playerBalance << endl;
+        cout << setw(100) << "Balance Preview: " << "\x1B[92m" << "$" << playerBalance << "\x1B[97m" << " - $" << propertyPrice << "\x1B[0m" << endl;
+        cout << setw(100) << "Expected Balance after Transaction: " << "\x1B[92m" << "$" << difference << "\x1B[0m" << endl;
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Would you like to buy this property? Enter y/n" << endl;
         cin >> playerResponse;
         
@@ -608,7 +610,7 @@ void Game::buyHouse(int propertyLocation, int currentPlayer)
     
 }
 
-void Game::rent(int propertyLocation, int currentPlayer)
+void Game::rent(int propertyLocation, int currentTurn)
 {
     /*
     This function will allow it so that if the player lands on a property already owned, it will check if it is owned,
@@ -638,7 +640,7 @@ void Game::rent(int propertyLocation, int currentPlayer)
                 cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
                 unfortunate_player_bal -= rentCost;
                 player[currentTurn - 1].setBalance(unfortunate_player_bal);
-                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;
+                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl << endl;
             }
         }
    }
@@ -1246,8 +1248,7 @@ void Game::checkOwnership(int currentPlayer)
         }
         else
         {
-            cout << "[" << player[currentPlayer - 1].getName() << "]" << endl;
-            cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to pay some rent to " << "\x1B[91m" << property[playerLocation].getOwner() << "\x1B[0m" << " @ [" << property[playerLocation].getPropertyLocation() << "] " << property[playerLocation].getPropertyName() << endl;
+            cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " --> " << "\x1B[92m" << "[" << player[currentPlayer - 1].getName() << "]" << "\x1B[0m" << " Looks like you will need to pay some rent to " << "\x1B[91m" << property[playerLocation].getOwner() << "\x1B[0m" << " @ [" << property[playerLocation].getPropertyLocation() << "] " << property[playerLocation].getPropertyName() << endl;
             rent(playerLocation, currentPlayer);
         }
     }
