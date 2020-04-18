@@ -49,7 +49,7 @@ class Game
         void incomeTax();
         void jail(); //Incomplete
         void passGo();
-        void morgage(int propertyLocation);
+        void morgage();
         
         void communityChest(string textfile); //Incomplete
         void chance(string textfile); //Incomplete
@@ -63,6 +63,8 @@ class Game
 
         void banish(int currentTurn);
         string toupper(string name);
+        int getCurrentTurn();
+        void playerProfile();
 };
 
 #endif
