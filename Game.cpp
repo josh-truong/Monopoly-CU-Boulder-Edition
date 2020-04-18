@@ -1707,9 +1707,9 @@ void Game::morgage()
 void Game::banish(int currentTurn)
 {
     cout << setw(50) << "\x1B[92m" << "God has entered the game" << endl;
-    cout << "\x1B[91m" << "[Mr.Truong] " << "\x1B[0m" << "Your have entered a property location that you do not own!" << endl;
-    cout << "\x1B[91m" << "[Mr.Truong] " << "\x1B[0m" << "Under the 18 U.S.C § 1028. I charge you with Fraud for attempted connection with identification documents and authentication features." << endl;
-    cout << "\x1B[91m" << "[Mr.Truong] " << "\x1B[0m" << "Your are herby stripped of your player rights, forgotten and banned from monopoly!" << endl;
+    cout << "\x1B[91m" << "[Mr.T & Mr.K] " << "\x1B[0m" << "Your have entered a property location that you do not own!" << endl;
+    cout << "\x1B[91m" << "[Mr.T & Mr.K] " << "\x1B[0m" << "Under the 18 U.S.C § 1028. I charge you with Fraud for attempted connection with identification documents and authentication features." << endl;
+    cout << "\x1B[91m" << "[Mr.T & Mr.K] " << "\x1B[0m" << "Your are herby stripped of your player rights, forgotten and banned from monopoly!" << endl;
 }
 
 int Game::getCurrentTurn()
