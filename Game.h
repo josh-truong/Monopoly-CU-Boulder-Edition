@@ -42,7 +42,7 @@ class Game
         void endTurn();
         void trade(string playerName, string propertyoffered, int offer_, string propertywanted); //Incomplete
         void buy(int propertyLocation, int currentPlayer);
-        void buyHouse(int propertyLocation, int currentPlayer);// incomplete
+        void buyHouse(int propertyLocation);// incomplete
         void rent(int propertyLocation, int currentPlayer);
         void waterElectricRent(int rollone, int rolltwo, int propertylocation); //Incomplete
         void luxuryTax();
