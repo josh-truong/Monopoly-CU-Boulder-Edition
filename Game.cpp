@@ -36,7 +36,6 @@ Game::Game()
     dice_1 = 0;
     dice_2 = 0;
     currentTurn = 1;
-    inJail = false;
     numPlayers = 0;
     
     //Initialized Tabula Rasa Board
@@ -610,7 +609,7 @@ void Game::buyHouse(int propertyLocation, int currentTurn)
     */
     string owner = property[propertyLocation].getOwner();
     string color = property[propertyLocation].getColor();
-    if(toupper(owner) == toupper(player[currentTurn - 1].getName())
+    if(toupper(owner) == toupper(player[currentTurn - 1].getName()))
     {
         int counter = 0;
         for(int i = 0, i < 40, i++)
@@ -1000,6 +999,7 @@ void Game::waterElectricRent(int rollone, int rolltwo, int propertyLocation)
                 }
             }
         }
+    }
 }
 
 void Game::luxuryTax()
