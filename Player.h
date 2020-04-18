@@ -18,6 +18,7 @@ class Player
         int playerPos_y;
         bool bankrupt;
         bool resetLocation;
+        bool inJail;
         
     public:
         Player();
@@ -27,6 +28,7 @@ class Player
         void setPlayerChar(string playerChar_);
         // NOTE: We can only set the balance and not update it(ADD/SUBTRACT)
         void setBalance(int balance_); 
+        void setJailStatus(bool response);
         void setPlayerPos(int x, int y);
         
         
@@ -35,6 +37,7 @@ class Player
         void setBoardLocation(int);
         
         bool getResetLocation_Status();
+        bool getJailStatus();
         string getName() const; //Get player name
         string getPlayerChar() const;
         int getBalance() const; //Get balance

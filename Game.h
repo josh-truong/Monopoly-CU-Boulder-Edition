@@ -13,7 +13,6 @@ class Game
     private:
         int dice_1;
         int dice_2;
-        bool inJail;
         string map[11][11][2][2];
         int numPlayers;
         int currentTurn;
