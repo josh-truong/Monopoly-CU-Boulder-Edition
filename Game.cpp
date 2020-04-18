@@ -11,7 +11,7 @@
 using namespace std; 
 
 
-string toupper(string name) //A function to turn the string entered into all capital leters
+string Game::toupper(string name) //A function to turn the string entered into all capital leters
 {
     int length = name.length(); //Obtains the length of the string
     string newname;
@@ -184,7 +184,6 @@ void Game::display_MapAndPlayer() const
     int topLinecounter = 20;
     int leftLineCounter = 20;
     int rightLineCounter = 30;
-    cout << setw(54);
     for(int oneLine = 0; oneLine < 11; oneLine++)
     {
         cout << "      " << topLinecounter; 
@@ -218,19 +217,18 @@ void Game::display_MapAndPlayer() const
         {
             rightLineCounter = 0;
         }
-        cout << setw(50) << leftLineCounter << " | " << firstRowConcatOfK << endl << setw(53) << "   | " << secondRowConcatOfK << rightLineCounter << endl;
+        cout << leftLineCounter << " | " << firstRowConcatOfK << endl << "   | " << secondRowConcatOfK << rightLineCounter << endl;
         leftLineCounter--;
         rightLineCounter++;
         if(0 <= i && i < 10)
         {
-            cout << setw(60) << "   ---------" << setw(80) << "---------" << endl;
+            cout << "   ---------" << setw(80) << "---------" << endl;
         }
         firstRowConcatOfK = "";
         secondRowConcatOfK = "";
     }
     
     int bottomLinecounter = 10;
-    cout << setw(54);
     for(int oneLine = 0; oneLine < 11; oneLine++)
     {
         cout << "      " << bottomLinecounter << " "; 
@@ -480,18 +478,16 @@ void Game::roll()
 
 
 
-void Game::endTurn(string end_)
+void Game::endTurn()
 {
     /*
     The end game function will allow a player to end their turn by typing in "end".
     They current turn will move to the next player and display which player's turn it is.
     */
-    string endturn = toupper(end_);
-    if(end_ == "END")
-    {
-        currentTurn = (currentTurn % numPlayers) + 1;
-        cout << "It is player " << currentTurn << "'s turn." << endl;
-    }
+
+    currentTurn = (currentTurn % numPlayers) + 1;
+    cout << "It is player " << currentTurn << "'s turn." << endl;
+
 }
 
 void Game::doubleTurn(int dice_1, int dice_2)
@@ -543,6 +539,7 @@ void Game::buy(int propertyLocation, int currentPlayer)
     if(difference < 0)
     {
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " I'm sorry looks like your wallet is empty." << endl;
+
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Would you like to morgage some of your property? Enter y/n" << endl;
         cin >> morgagePropertyResponse;
         //WARNING -- We do not have morgage function yet
@@ -631,7 +628,19 @@ void Game::rent(int propertyLocation, int currentTurn)
         if((unfortunate_player_bal - rentCost) < 0)
         {
             cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to sell some houses to pay off that rent." << endl;
-            morgage(propertyLocation);
+            if(listOfOwnedProperties() != 0)
+            {
+                morgage(propertyLocation);
+            }
+            else
+            {
+                //Call the bankrupt function
+                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like your time has run out!" << endl;
+                cout << setw(50) << "\x1B[92m" << "Blucifer has entered the game and took you as his creator (Luis Jiménez)..." << endl;
+                cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "] " << " has left the game." << endl;
+            }
+            
+            
             // Morgage Function here
         }
         if((unfortunate_player_bal - rentCost) >= 0)
@@ -725,6 +734,7 @@ void Game::luxuryTax()
     /*
      If the player lands on the luxury tax spot, they will have 75 dollars subtracted from their balance.
     */
+    cout << property[player[currentTurn - 1].getBoardLocation()].getPropertyName() << endl;
     int amount = player[currentTurn - 1].getBalance();
     amount = amount - 75;
     player[currentTurn - 1].setBalance(amount);
@@ -736,6 +746,7 @@ void Game::incomeTax()
     If the player lands on this spot, they are given the option of paying either 200 dollars or 10% of their balance. This
     function will allow them to choose and will perform the subtractions from their balance after the player chooses.
     */
+    cout << property[player[currentTurn - 1].getBoardLocation()].getPropertyName() << endl;
     int repeater = 1;
     while(repeater == 1)
     {
@@ -746,6 +757,7 @@ void Game::incomeTax()
         {
             case 1:
             {
+                cout << "Player " << player[currentTurn - 1].getName() << endl;
                 int amount = player[currentTurn - 1].getBalance();
                 amount = amount - 200;
                 player[currentTurn - 1].setBalance(amount);
@@ -1234,6 +1246,55 @@ bool Game::checkForExceptions(int boardLocation_)
         case 0: case 2: case 4: case 7: case 10: case 17:
         case 20: case 22: case 30: case 33: case 36: case 38:
         {
+            int individual_boardLocation = boardLocation_;
+            switch(individual_boardLocation)
+            {
+                case 0: //PassGo
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    passGo();
+                    break;
+                }
+                case 2: case 17: case 33: //Community Chest
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    communityChest("communitychest.txt");
+                    break;
+                }
+                case 4: //Income Tax
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    incomeTax();
+                    break;
+                }
+                case 7: case 22: case 36: //Chance
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    chance("chance.txt");
+                    break;
+                }
+                case 10: //Just in Jail
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    break;
+                }
+                case 20: //Free Parking
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    break;
+                }
+                case 30: //Go to jail
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    break;
+                }
+                case 38: //Luxary Tax
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    luxuryTax();
+                    break;
+                }
+            }
             return false;
             break;
         }
@@ -1261,10 +1322,15 @@ void Game::checkOwnership(int currentTurn)
         {
             buy(playerLocation, currentTurn);
         }
-        else
+        else if(ownership_status != player[currentTurn - 1].getName())
         {
             rent(playerLocation, currentTurn);
         }
+        else if(ownership_status == player[currentTurn - 1].getName())
+        {
+            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you landed on one of your own properties! You're safe." << endl;
+        }
+        
     }
 }
 
@@ -1284,7 +1350,7 @@ int Game::listOfOwnedProperties()
         }
         else if((property[i].getOwner() == player[currentTurn - 1].getName()) && (property[i].getMorgage_Status() == true))
         {
-            cout << "\x1B[91m" << "[Morgaged Property] " << "\x1B[92m" << "[" << i << "]" << owned_PropertyName << "\x1B[0m" << " | Unmortgage Price: " << "\x1B[91m" << "$" << (propertyCost + (propertyCost * 0.1)) << "\x1B[0m" << endl;
+            cout << "\x1B[91m" << "[Morgaged Property] [" << i << "] " << owned_PropertyName << "\x1B[0m" << " | Unmortgage Price: " << "\x1B[91m" << "$" << (propertyCost + (propertyCost * 0.1)) << "\x1B[0m" << endl;
         }
     }
     //Add a menu for players to see property info
