@@ -10,7 +10,8 @@
 //01001110 01101001 01100011 01100101 00100001 00100001 00100000 01000101 01100001 01110011 01110100 01100101 01110010 00100000 01000101 01100111 01100111 00101100 00100000 01101000 01110101 01101000 00111111 00001101 00001010 00100000 00100000 00100000 01011111 00001101 00001010 00100000 00100111 00100000 00100000 00100000 00100111 00001101 00001010 00100111 00100000 00100000 00100000 00100000 00100000 00100111 00001101 00001010 00100000 00100111 00100000 01011111 00100000 00100111 00001101 00001010 00100000
 using namespace std; 
 
-string toupper(string name) //A function to turn the string entered into all capital leters
+
+string Game::toupper(string name) //A function to turn the string entered into all capital leters
 {
     int length = name.length(); //Obtains the length of the string
     string newname;
@@ -477,18 +478,16 @@ void Game::roll()
 
 
 
-void Game::endTurn(string end_)
+void Game::endTurn()
 {
     /*
     The end game function will allow a player to end their turn by typing in "end".
     They current turn will move to the next player and display which player's turn it is.
     */
-    string endturn = toupper(end_);
-    if(end_ == "END")
-    {
-        currentTurn = (currentTurn % numPlayers) + 1;
-        cout << "It is player " << currentTurn << "'s turn." << endl;
-    }
+
+    currentTurn = (currentTurn % numPlayers) + 1;
+    cout << "It is player " << currentTurn << "'s turn." << endl;
+
 }
 
 void Game::doubleTurn(int dice_1, int dice_2)
@@ -533,22 +532,26 @@ void Game::buy(int propertyLocation, int currentPlayer)
     //Subtract player balance
     int difference = playerBalance - propertyPrice;
     getPropertyInfo(propertyLocation);
+    cout << setw(113)<< "-------------------Order Summary-------------------" << endl;
+    cout << setw(100) << "Current Balance: " << "\x1B[92m" << "$" << playerBalance << endl;
+    cout << setw(100) << "Balance Preview: " << "\x1B[92m" << "$" << playerBalance << "\x1B[97m" << " - $" << propertyPrice << "\x1B[0m" << endl;
+    cout << setw(100) << "Expected Balance after Transaction: " << "\x1B[92m" << "$" << difference << "\x1B[0m" << endl;
     if(difference < 0)
     {
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " I'm sorry looks like your wallet is empty." << endl;
-        cout << "Expected Balance after Transaction: " << "\x1B[92m" << "$" << difference << "\x1B[0m" << endl;
+
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Would you like to morgage some of your property? Enter y/n" << endl;
         cin >> morgagePropertyResponse;
         //WARNING -- We do not have morgage function yet
+        if(toupper(morgagePropertyResponse) == "Y")
+        {
+            morgage(propertyLocation);
+        }
+        
     }
-    if(property[propertyLocation].getOwner() == "none" && toupper(morgagePropertyResponse) == "Y")
+    if(property[propertyLocation].getOwner() == "none" && toupper(morgagePropertyResponse) == "Y" && difference >= 0)
     {
-        cout << "\x1B[91m" << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << "\x1B[0m" << endl;
-        cout << "-----------------Buy Property-----------------" << endl;
-        cout << "Current Balance: " << "\x1B[92m" << "$" << playerBalance << endl;
-        cout << "Balance Preview: " << "\x1B[92m" << "$" << playerBalance << "\x1B[97m" << " - $" << propertyPrice << "\x1B[0m" << endl;
-        cout << "Expected Balance after Transaction: " << "\x1B[92m" << "$" << difference << "\x1B[0m" << endl;
-        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Would you like to buy this property? Enter y/n" << endl;
+        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " --> " << "\x1B[92m" << "[" << player[currentPlayer - 1].getName() << "]" << "\x1B[0m" << " Would you like to buy this property? Enter y/n" << endl;
         cin >> playerResponse;
         
         if(toupper(playerResponse) == "Y")
@@ -608,7 +611,7 @@ void Game::buyHouse(int propertyLocation, int currentPlayer)
     
 }
 
-void Game::rent(int propertyLocation, int currentPlayer)
+void Game::rent(int propertyLocation, int currentTurn)
 {
     /*
     This function will allow it so that if the player lands on a property already owned, it will check if it is owned,
@@ -618,29 +621,51 @@ void Game::rent(int propertyLocation, int currentPlayer)
    int rentCost = property[propertyLocation].getRent();
    string ownerOfProperty = property[propertyLocation].getOwner();
    int unfortunate_player_bal = player[currentTurn - 1].getBalance();
-   if((unfortunate_player_bal - rentCost) < 0)
+   bool morgageStatus = property[propertyLocation].getMorgage_Status();
+   if(!morgageStatus)
    {
-       cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to sell some houses to pay off that rent." << endl;
-       // Morgage Function here
-   }
-   if((unfortunate_player_bal - rentCost) >= 0)
-   {
-       for(int i = 0; i < numPlayers; i++)
+       cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " --> " << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << "\x1B[0m" << " Looks like you will need to pay some rent to " << "\x1B[91m" << property[propertyLocation].getOwner() << "\x1B[0m" << " @ [" << property[propertyLocation].getPropertyLocation() << "] " << property[propertyLocation].getPropertyName() << endl;
+        if((unfortunate_player_bal - rentCost) < 0)
         {
-            if(player[i].getName() == ownerOfProperty)
+            cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to sell some houses to pay off that rent." << endl;
+            if(listOfOwnedProperties() != 0)
             {
-                int fortunate_player_bal = player[i].getBalance();
-                // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
-                fortunate_player_bal += rentCost;
-                player[i].setBalance(fortunate_player_bal);
-                // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
-
-                cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
-                unfortunate_player_bal -= rentCost;
-                player[currentTurn - 1].setBalance(unfortunate_player_bal);
-                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl;
+                morgage(propertyLocation);
             }
+            else
+            {
+                //Call the bankrupt function
+                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like your time has run out!" << endl;
+                cout << setw(50) << "\x1B[92m" << "Blucifer has entered the game and took you as his creator (Luis Jiménez)..." << endl;
+                cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "] " << " has left the game." << endl;
+            }
+            
+            
+            // Morgage Function here
         }
+        if((unfortunate_player_bal - rentCost) >= 0)
+        {
+            for(int i = 0; i < numPlayers; i++)
+                {
+                    if(player[i].getName() == ownerOfProperty)
+                    {
+                        int fortunate_player_bal = player[i].getBalance();
+                        // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+                        fortunate_player_bal += rentCost;
+                        player[i].setBalance(fortunate_player_bal);
+                        // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+
+                        cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
+                        unfortunate_player_bal -= rentCost;
+                        player[currentTurn - 1].setBalance(unfortunate_player_bal);
+                        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl << endl;
+                    }
+                }
+        }
+   }
+   else
+   {
+       cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your in Luck! " << property[propertyLocation].getPropertyName() << " has been morgaged by " << property[propertyLocation].getOwner() << endl;
    }
 }
 
@@ -709,6 +734,7 @@ void Game::luxuryTax()
     /*
      If the player lands on the luxury tax spot, they will have 75 dollars subtracted from their balance.
     */
+    cout << property[player[currentTurn - 1].getBoardLocation()].getPropertyName() << endl;
     int amount = player[currentTurn - 1].getBalance();
     amount = amount - 75;
     player[currentTurn - 1].setBalance(amount);
@@ -720,6 +746,7 @@ void Game::incomeTax()
     If the player lands on this spot, they are given the option of paying either 200 dollars or 10% of their balance. This
     function will allow them to choose and will perform the subtractions from their balance after the player chooses.
     */
+    cout << property[player[currentTurn - 1].getBoardLocation()].getPropertyName() << endl;
     int repeater = 1;
     while(repeater == 1)
     {
@@ -730,6 +757,7 @@ void Game::incomeTax()
         {
             case 1:
             {
+                cout << "Player " << player[currentTurn - 1].getName() << endl;
                 int amount = player[currentTurn - 1].getBalance();
                 amount = amount - 200;
                 player[currentTurn - 1].setBalance(amount);
@@ -747,6 +775,7 @@ void Game::incomeTax()
             default:
             {
                 cout << "Invalid input" << endl;
+                incomeTax();
             }
         }
     }
@@ -1012,7 +1041,7 @@ void Game::chance(string textfile)
                         int repeater = 1;
                         while(repeater == 1)
                         {
-                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            cout << "Would you like to buy this property? Y for yes, N for no." << endl;
                             string answer;
                             cin >> answer;
                             if(answer == "Y")
@@ -1047,7 +1076,7 @@ void Game::chance(string textfile)
                         int repeater = 1;
                         while(repeater == 1)
                         {
-                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            cout << "Would you like to buy this property? Y for yes, N for no." << endl;
                             string answer;
                             cin >> answer;
                             if(answer == "Y")
@@ -1347,6 +1376,55 @@ bool Game::checkForExceptions(int boardLocation_)
         case 0: case 2: case 4: case 7: case 10: case 17:
         case 20: case 22: case 30: case 33: case 36: case 38:
         {
+            int individual_boardLocation = boardLocation_;
+            switch(individual_boardLocation)
+            {
+                case 0: //PassGo
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    passGo();
+                    break;
+                }
+                case 2: case 17: case 33: //Community Chest
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    communityChest("communitychest.txt");
+                    break;
+                }
+                case 4: //Income Tax
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    incomeTax();
+                    break;
+                }
+                case 7: case 22: case 36: //Chance
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    chance("chance.txt");
+                    break;
+                }
+                case 10: //Just in Jail
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    break;
+                }
+                case 20: //Free Parking
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    break;
+                }
+                case 30: //Go to jail
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    break;
+                }
+                case 38: //Luxary Tax
+                {
+                    cout << property[boardLocation_].getPropertyName() << endl;
+                    luxuryTax();
+                    break;
+                }
+            }
             return false;
             break;
         }
@@ -1363,22 +1441,125 @@ bool Game::checkForExceptions(int boardLocation_)
     }     
 }
 
-void Game::checkOwnership(int currentPlayer)
+void Game::checkOwnership(int currentTurn)
 {
-    int playerLocation = player[currentPlayer - 1].getBoardLocation();
+    int playerLocation = player[currentTurn - 1].getBoardLocation();
     string ownership_status = property[playerLocation].getOwner();
 
     if(checkForExceptions(playerLocation))
     {
         if(ownership_status == "none")
         {
-            buy(playerLocation, currentPlayer);
+            buy(playerLocation, currentTurn);
+        }
+        else if(ownership_status != player[currentTurn - 1].getName())
+        {
+            rent(playerLocation, currentTurn);
+        }
+        else if(ownership_status == player[currentTurn - 1].getName())
+        {
+            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you landed on one of your own properties! You're safe." << endl;
+        }
+        
+    }
+}
+
+int Game::listOfOwnedProperties()
+{
+    int property_counter = 0;
+    for(int i = 0; i < 40; i++)
+    {
+        string owned_PropertyName = property[i].getPropertyName();
+        int propertyRent = property[i].getRent();
+        int propertyCost = property[i].getPropertyCost();
+        int morgagedCost = propertyCost / 2;
+        if((property[i].getOwner() == player[currentTurn - 1].getName()) && (property[i].getMorgage_Status() == false))
+        {
+            cout << "[" << i << "] " << owned_PropertyName << " | Price: \x1B[92m$" << propertyCost << "\x1B[0m" << " | Morgaged Value: \x1B[91m$" << morgagedCost << "\x1B[0m" << " | Current Rent: \x1B[91m$" << propertyRent << "\x1B[0m" << endl;
+            property_counter++;
+        }
+        else if((property[i].getOwner() == player[currentTurn - 1].getName()) && (property[i].getMorgage_Status() == true))
+        {
+            cout << "\x1B[91m" << "[Morgaged Property] [" << i << "] " << owned_PropertyName << "\x1B[0m" << " | Unmortgage Price: " << "\x1B[91m" << "$" << (propertyCost + (propertyCost * 0.1)) << "\x1B[0m" << endl;
+        }
+    }
+    //Add a menu for players to see property info
+    return property_counter;
+}
+
+void Game::morgage(int propertyLocation)
+{
+    int rentCost = property[propertyLocation].getRent();
+    //Bankrupt Function can be placed here since morgage is used most of the time as a last resort
+    int numPropertiesOwned = listOfOwnedProperties();
+
+
+    if((numPropertiesOwned == 0) && ((player[currentTurn - 1].getBalance() - rentCost) < 0))
+    {
+        cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << property[propertyLocation].getOwner() << " has yeeted " << player[currentTurn - 1].getName() << "from the game!" << endl;
+        cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << "\x1B[91m" << player[currentTurn - 1].getName() << "\x1B[0m" << " You're bankrupt!" << endl;
+        //Call the bankrupted function. Note that transitioning from array to vector might be neccessary
+    }
+    else
+    {
+        bool is_player_title_deeds = false;
+        int uI_PropertyLoc;
+        cout << "Enter Only Your Property Location that your want to morgage: ";
+        cin >> uI_PropertyLoc;
+
+        for(int i = 0; i < 40; i++)
+        {
+            if((property[uI_PropertyLoc].getOwner() == player[currentTurn - 1].getName()) && (property[uI_PropertyLoc].getMorgage_Status() == false))
+            {
+                is_player_title_deeds = true;
+            }
+        }
+
+
+        if(!is_player_title_deeds)
+        {
+            banish(currentTurn);
+            // I'm going to make a banishment feature
         }
         else
         {
-            cout << "[" << player[currentPlayer - 1].getName() << "]" << endl;
-            cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to pay some rent to " << "\x1B[91m" << property[playerLocation].getOwner() << "\x1B[0m" << " @ [" << property[playerLocation].getPropertyLocation() << "] " << property[playerLocation].getPropertyName() << endl;
-            rent(playerLocation, currentPlayer);
+            int propertyCost = property[uI_PropertyLoc].getPropertyCost();
+            int morgagedCost = propertyCost / 2;
+            int playerBalance = player[currentTurn - 1].getBalance();
+            
+            
+            cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << "\x1B[0m" << " Current Balance: " << "\x1B[92m" << "$" << player[currentTurn - 1].getBalance() << "\x1B[0m"  << endl;
+            string confirmation;
+            cout << "Do you want to morgage this property: " << "\x1B[91m" << "[" << property[uI_PropertyLoc].getPropertyLocation() << "] " << property[uI_PropertyLoc].getPropertyName() << "\x1B[0m" << " for " << "$" << morgagedCost << "?" << endl; 
+            cout << "Enter yes or no: ";
+            cin >> confirmation;
+
+
+            if(toupper(confirmation) == "YES")
+            {
+                property[uI_PropertyLoc].setMorgage_True();
+                player[currentTurn - 1].setBalance(playerBalance + morgagedCost);
+                cout << "You Morgaged property " << "\x1B[91m" << "[" << property[uI_PropertyLoc].getPropertyLocation() << "] " << property[uI_PropertyLoc].getPropertyName() << "\x1B[0m" << endl;
+            }
+            else if(toupper(confirmation) == "NO")
+            {
+                checkOwnership(currentTurn);
+            }
+            else
+            {
+                cout << endl;
+                cout << "\x1B[91m" << "Invalid Input. Type yes or no" << "\x1B[0m" << endl;
+                morgage(propertyLocation);
+            }
+            checkOwnership(currentTurn);
         }
     }
+}
+
+void Game::banish(int currentTurn)
+{
+    cout << setw(50) << "\x1B[92m" << "God has entered the game" << endl;
+    cout << "\x1B[91m" << "[Mr.Truong] " << "\x1B[0m" << "Your have entered a property location that you do not own!" << endl;
+    cout << "\x1B[91m" << "[Mr.Truong] " << "\x1B[0m" << "Under the 18 U.S.C § 1028. I charge you with Fraud for attempted connection with identification documents and authentication features." << endl;
+    cout << "\x1B[91m" << "[Mr.Truong] " << "\x1B[0m" << "Your are herby stripped of your player rights, forgotten and banned from monopoly!" << endl;
 }

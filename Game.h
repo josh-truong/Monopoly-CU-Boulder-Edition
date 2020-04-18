@@ -40,7 +40,7 @@ class Game
         
         void getPropertyInfo(int propertyLocation_);
         void endGame(string quit_); //Incomplete
-        void endTurn(string end_);
+        void endTurn();
         void trade(string playerName, string propertyoffered, int offer_, string propertywanted); //Incomplete
         void buy(int propertyLocation, int currentPlayer);
         void buyHouse(int propertyLocation, int currentPlayer);// incomplete
@@ -49,7 +49,8 @@ class Game
         void luxuryTax();
         void incomeTax();
         void jail(); //Incomplete
-        void passGo(); //Incomplete
+        void passGo();
+        void morgage(int propertyLocation);
         
         void communityChest(string textfile); //Incomplete
         void chance(string textfile); //Incomplete
@@ -59,7 +60,10 @@ class Game
         void checkOwnership(int currentPlayer);
         bool checkForExceptions(int boardLocation);
         void erase(int currentTurn);
-        
+        int listOfOwnedProperties();
+
+        void banish(int currentTurn);
+        string toupper(string name);
 };
 
 #endif
