@@ -602,13 +602,1040 @@ void Game::buy(int propertyLocation, int currentPlayer)
     }
 }
 
-void Game::buyHouse(int propertyLocation, int currentPlayer)
+void Game::buyHouse(int propertyLocation, int currentTurn)
 {
     /*
     This function will allow the user to buy a house for one of their properties. It will obtain the house cost from the property
     array and move the rent array down one position. It will also subtract the house cost from the player's balance.
     */
-    
+    string owner = property[propertyLocation].getOwner();
+    if(toupper(owner) == toupper(player[currentTurn - 1].getName())
+    {
+        if(property[propertyLocation].getOwner() == property[1].getOwner() && property[propertyLocation].getOwner() == property[3].getOwner())
+        {
+            cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() <<"?" << endl;
+            cout << "Type Y for yes and N for no" << endl;
+            string userinput;
+            cin >> userinput;
+            if(userinput = "Y")
+            {
+                int repeater = 0;
+                while(repeater == 1)
+                {
+                    cout << "How many houses would you like to buy? Maximum is five on one property." << endl;
+                    int input;
+                    cin >> input;
+                    switch(input)
+                    {
+                        case 1:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 5)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 1 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 1 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 2:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 4)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 2 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 2 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 3:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 3)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 3 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 3 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 4:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 2)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 4 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 4 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 5:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 1)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 5 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 5 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        default:
+                        {
+                            cout "Invalid input" << endl;
+                        }
+                    }
+                }
+            }
+            else if(userinput = "N")
+            {
+                cin << "No houses have been purchased" << endl;
+            }
+            else
+            {
+                cout << "Invalid input." << endl;
+            }
+        }
+        else if(property[propertyLocation].getOwner() == property[6].getOwner() && property[propertyLocation].getOwner() == property[8].getOwner() && property[propertyLocation].getOwner() == property[9].getOwner())
+        {
+            cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() <<"?" << endl;
+            cout << "Type Y for yes and N for no" << endl;
+            string userinput;
+            cin >> userinput;
+            if(userinput = "Y")
+            {
+                int repeater = 0;
+                while(repeater == 1)
+                {
+                    cout << "How many houses would you like to buy? Maximum is five" << endl;
+                    int input;
+                    cin >> input;
+                    switch(input)
+                    {
+                        case 1:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 5)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 1 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 1 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 2:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 4)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 2 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 2 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 3:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 3)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 3 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 3 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 4:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 2)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 4 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 4 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 5:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 1)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 5 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 5 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        default:
+                        {
+                            cout "Invalid input" << endl;
+                        }
+                    }
+                }
+            }
+            else if(userinput = "N")
+            {
+                cin << "No houses have been purchased" << endl;
+            }
+            else
+            {
+                cout << "Invalid input." << endl;
+            }
+        }
+        else if(property[propertyLocation].getOwner() == property[11].getOwner() && property[propertyLocation].getOwner() == property[13].getOwner() && property[propertyLocation].getOwner() == property[14].getOwner())
+        {
+            cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() <<"?" << endl;
+            cout << "Type Y for yes and N for no" << endl;
+            string userinput;
+            cin >> userinput;
+            if(userinput = "Y")
+            {
+                int repeater = 0;
+                while(repeater == 1)
+                {
+                    cout << "How many houses would you like to buy? Maximum is five" << endl;
+                    int input;
+                    cin >> input;
+                    switch(input)
+                    {
+                        case 1:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 5)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 1 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 1 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 2:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 4)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 2 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 2 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 3:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 3)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 3 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 3 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 4:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 2)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 4 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 4 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 5:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 1)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 5 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 5 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        default:
+                        {
+                            cout "Invalid input" << endl;
+                        }
+                    }
+                }
+            }
+            else if(userinput = "N")
+            {
+                cin << "No houses have been purchased" << endl;
+            }
+            else
+            {
+                cout << "Invalid input." << endl;
+            }
+        }
+        else if(property[propertyLocation].getOwner() == property[16].getOwner() && property[propertyLocation].getOwner() == property[18].getOwner() && property[propertyLocation].getOwner() == property[19].getOwner())
+        {
+            cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() <<"?" << endl;
+            cout << "Type Y for yes and N for no" << endl;
+            string userinput;
+            cin >> userinput;
+            if(userinput = "Y")
+            {
+                int repeater = 0;
+                while(repeater == 1)
+                {
+                    cout << "How many houses would you like to buy? Maximum is five" << endl;
+                    int input;
+                    cin >> input;
+                    switch(input)
+                    {
+                        case 1:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 5)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 1 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 1 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 2:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 4)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 2 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 2 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 3:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 3)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 3 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 3 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 4:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 2)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 4 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 4 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 5:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 1)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 5 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 5 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        default:
+                        {
+                            cout "Invalid input" << endl;
+                        }
+                    }
+                }
+            }
+            else if(userinput = "N")
+            {
+                cin << "No houses have been purchased" << endl;
+            }
+            else
+            {
+                cout << "Invalid input." << endl;
+            }
+        }
+        else if(property[propertyLocation].getOwner() == property[21].getOwner() && property[propertyLocation].getOwner() == property[23].getOwner() && property[propertyLocation].getOwner() == property[24].getOwner())
+        {
+            cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() <<"?" << endl;
+            cout << "Type Y for yes and N for no" << endl;
+            string userinput;
+            cin >> userinput;
+            if(userinput = "Y")
+            {
+                int repeater = 0;
+                while(repeater == 1)
+                {
+                    cout << "How many houses would you like to buy? Maximum is five" << endl;
+                    int input;
+                    cin >> input;
+                    switch(input)
+                    {
+                        case 1:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 5)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 1 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 1 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 2:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 4)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 2 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 2 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 3:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 3)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 3 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 3 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 4:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 2)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 4 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 4 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 5:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 1)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 5 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 5 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        default:
+                        {
+                            cout "Invalid input" << endl;
+                        }
+                    }
+                }
+            }
+            else if(userinput = "N")
+            {
+                cin << "No houses have been purchased" << endl;
+            }
+            else
+            {
+                cout << "Invalid input." << endl;
+            }
+        }
+        else if(property[propertyLocation].getOwner() == property[26].getOwner() && property[propertyLocation].getOwner() == property[28].getOwner() && property[propertyLocation].getOwner() == property[29].getOwner())
+        {
+            cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() <<"?" << endl;
+            cout << "Type Y for yes and N for no" << endl;
+            string userinput;
+            cin >> userinput;
+            if(userinput = "Y")
+            {
+                int repeater = 0;
+                while(repeater == 1)
+                {
+                    cout << "How many houses would you like to buy? Maximum is five" << endl;
+                    int input;
+                    cin >> input;
+                    switch(input)
+                    {
+                        case 1:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 5)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 1 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 1 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 2:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 4)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 2 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 2 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 3:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 3)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 3 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 3 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 4:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 2)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 4 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 4 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 5:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 1)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 5 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 5 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        default:
+                        {
+                            cout "Invalid input" << endl;
+                        }
+                    }
+                }
+            }
+            else if(userinput = "N")
+            {
+                cin << "No houses have been purchased" << endl;
+            }
+            else
+            {
+                cout << "Invalid input." << endl;
+            }
+        }
+        else if(property[propertyLocation].getOwner() == property[31].getOwner() && property[propertyLocation].getOwner() == property[32].getOwner() && property[propertyLocation].getOwner() == property[34].getOwner())
+        {
+            cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() <<"?" << endl;
+            cout << "Type Y for yes and N for no" << endl;
+            string userinput;
+            cin >> userinput;
+            if(userinput = "Y")
+            {
+                int repeater = 0;
+                while(repeater == 1)
+                {
+                    cout << "How many houses would you like to buy? Maximum is five" << endl;
+                    int input;
+                    cin >> input;
+                    switch(input)
+                    {
+                        case 1:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 5)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 1 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 1 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 2:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 4)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 2 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 2 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 3:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 3)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 3 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 3 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 4:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 2)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 4 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 4 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 5:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 1)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 5 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 5 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        default:
+                        {
+                            cout "Invalid input" << endl;
+                        }
+                    }
+                }
+            }
+            else if(userinput = "N")
+            {
+                cin << "No houses have been purchased" << endl;
+            }
+            else
+            {
+                cout << "Invalid input." << endl;
+            }
+        }
+        else if(property[propertyLocation].getOwner() == property[39].getOwner() && property[propertyLocation].getOwner() == property[39].getOwner())
+        {
+            cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() <<"?" << endl;
+            cout << "Type Y for yes and N for no" << endl;
+            string userinput;
+            cin >> userinput;
+            if(userinput = "Y")
+            {
+                int repeater = 0;
+                while(repeater == 1)
+                {
+                    cout << "How many houses would you like to buy? Maximum is five" << endl;
+                    int input;
+                    cin >> input;
+                    switch(input)
+                    {
+                        case 1:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 5)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 1 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 1 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 2:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 4)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 2 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 2 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 3:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 3)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 3 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 3 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 4:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 2)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 4 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 4 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        case 5:
+                        {
+                            if(property[propertyLocation].getNumBuildings < 1)
+                            {
+                                int amount = player[currentTurn - 1].getBalance();
+                                cout << "Transaction Process: " << "\x1B[92m" << "$" << amount << "\x1B[91m" << " - $" << 5 * property[propertyLocation].getBuildingCost(); << "\x1B[0m" << endl;
+                                amount -= 5 * property[propertyLocation].getBuildingCost();
+                                player[currentTurn - 1].setBalance(amount);
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
+                                repeater = 0;
+                                setNumBuildings(property[propertyLocation].getNumBuildings + 1);
+                            }
+                            else
+                            {
+                                cout << "Too many houses on this property." << endl;
+                                repeater = 0;
+                            }
+                            break;
+                        }
+                        default:
+                        {
+                            cout "Invalid input" << endl;
+                        }
+                    }
+                }
+            }
+            else if(userinput = "N")
+            {
+                cin << "No houses have been purchased" << endl;
+            }
+            else
+            {
+                cout << "Invalid input." << endl;
+            }
+        }
+        else
+        {
+            cout << "You do not own all corresponding properties." << endl;
+        }
+    }
+    else
+    {
+        cout << "You must own the property to buy a house for the property." << endl; 
+    }
 }
 
 void Game::rent(int propertyLocation, int currentTurn)
@@ -787,6 +1814,10 @@ void Game::jail()
     This function will move a player directly to jail. It will then set a boolian to true which will remain true until three turns
     pass or the player succeeds in rolling a double. 
     */
+    setPiece(10,player[currentTurn - 1].getPlayerChar(), currentTurn);
+    erase(currentTurn);
+    bool jail = true;
+    player[currentTurn - 1].setJailStatus(jail);
 }
 
 void Game::passGo()
@@ -818,7 +1849,9 @@ void Game::communityChest(string textfile)
             case 1:
             {
                 cout << line << endl;
-
+                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                erase(currentTurn);
+                passGo();
                 break;
             }
             case 2:
@@ -862,7 +1895,22 @@ void Game::communityChest(string textfile)
             case 7:
             {
                 cout << line  << endl;
-
+                cout << line  << endl;
+                for(int i = 0; i < numPlayers - 1; i++)
+                {
+                    int amount = player[currentTurn - 1].getBalance();
+                    amount = amount + 50;
+                    player[currentTurn - 1].setBalance(amount);
+                }
+                for(int j = 0; j < numPlayers; j++)
+                {
+                    if(currentTurn - 1 != j)
+                    {
+                        int amount = player[j].getBalance();
+                        amount = amount - 50;
+                        player[j].setBalance(amount);
+                    }
+                }
                 break;
             }
             case 8:
@@ -1124,6 +2172,106 @@ void Game::chance(string textfile)
             case 5:
             {
                 cout << line  << endl;
+                 int playerposition = player[currentTurn - 1].getBoardLocation();
+                if(playerposition == 7)
+                {
+                    setPiece(15, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    erase(currentTurn);
+                    string owner = property[15].getOwner();
+                    if(owner == "none")
+                    {
+                        int repeater = 1;
+                        while(repeater == 1)
+                        {
+                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            string answer;
+                            cin >> answer;
+                            if(answer == "Y")
+                            {
+                                buy(15, currentTurn);
+                                repeater = 0;
+                            }
+                            else if(answer == "N")
+                            {
+                                repeater = 0;
+                            }
+                            else
+                            {
+                                cout << "Invalid input." << endl;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        rent(15, currentTurn);
+                    }
+                }
+                else if(playerposition == 22)
+                {
+                    setPiece(25, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    erase(currentTurn);
+                    string owner = property[25].getOwner();
+                    if(owner == "none")
+                    {
+                        int repeater = 1;
+                        while(repeater == 1)
+                        {
+                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            string answer;
+                            cin >> answer;
+                            if(answer == "Y")
+                            {
+                                buy(25, currentTurn);
+                                repeater = 0;
+                            }
+                            else if(answer == "N")
+                            {
+                                repeater = 0;
+                            }
+                            else
+                            {
+                                cout << "Invalid input." << endl;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        rent(25, currentTurn);
+                    }
+                }
+                else if(playerposition == 38)
+                {
+                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    erase(currentTurn);
+                    string owner = property[5].getOwner();
+                    if(owner == "none")
+                    {
+                        int repeater = 1;
+                        while(repeater == 1)
+                        {
+                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
+                            string answer;
+                            cin >> answer;
+                            if(answer == "Y")
+                            {
+                                buy(5, currentTurn);
+                                repeater = 0;
+                            }
+                            else if(answer == "N")
+                            {
+                                repeater = 0;
+                            }
+                            else
+                            {
+                                cout << "Invalid input." << endl;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        rent(5, currentTurn);
+                    }
+                }
                 break;
             }
             case 6:
@@ -1175,9 +2323,7 @@ void Game::chance(string textfile)
                 {
                     setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
-                    int amount = player[currentTurn - 1].getBalance();
-                    amount = amount + 200;
-                    player[currentTurn - 1].setBalance(amount);
+                    passGo();
                 }
                 else
                 {
@@ -1196,6 +2342,21 @@ void Game::chance(string textfile)
             case 14:
             {
                 cout << line  << endl;
+                for(int i = 0; i < numPlayers - 1; i++)
+                {
+                    int amount = player[currentTurn - 1].getBalance();
+                    amount = amount + 50;
+                    player[currentTurn - 1].setBalance(amount);
+                }
+                for(int j = 0; j < numPlayers; j++)
+                {
+                    if(currentTurn - 1 != j)
+                    {
+                        int amount = player[j].getBalance();
+                        amount = amount - 50;
+                        player[j].setBalance(amount);
+                    }
+                }
                 break;
             }
             case 15:
