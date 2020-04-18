@@ -18,6 +18,7 @@ Property::Property()
     }
     color = "white"; //<-- White just have all the colors
     numBuildings = 0;
+    morgage = false;
 }
 
 void Property::setPropertyLocation(int propertyLocation_)
@@ -30,8 +31,6 @@ void Property::setPropertyName(string propertyName_)
     propertyName = propertyName_;
 }
 
-// We may have an issue how will we address whether the Owner exist for a particular property
-// I'll leave this issue out for now
 void Property::setOwner(string username_)
 {
     owner = username_;
@@ -69,7 +68,10 @@ void Property::setNumBuildings(int numBuildings_)
     numBuildings = numBuildings_;
 }
 
-
+void Property::setMorgage_True()
+{
+    morgage = true;
+}
 // ////////////////////////////////////////////////////////////////////////////////
 // ////////////////////////////////////////////////////////////////////////////////
 // //Accessors Section
@@ -138,4 +140,9 @@ string Property::getColor()
 int Property::getNumBuildings()
 {
     return numBuildings;
+}
+
+bool Property::getMorgage_Status()
+{
+    return morgage;
 }

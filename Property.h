@@ -21,6 +21,7 @@ class Property
         //Suggestion: we add how many buildings are built
         string color;
         int numBuildings;
+        bool morgage;
         
         //Variables for railroads
         
@@ -39,6 +40,7 @@ class Property
         void setRentAt(int i, int rent_);
         void setColor(string color);
         void setNumBuildings(int numBuildings_);
+        void setMorgage_True();
         
         // //Accessors
         int getPropertyLocation();
@@ -51,5 +53,6 @@ class Property
         int getRent(); //<--We need to determine how many houses * rent
         string getColor();
         int getNumBuildings();
+        bool getMorgage_Status();
 };
 #endif

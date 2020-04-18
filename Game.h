@@ -50,6 +50,7 @@ class Game
         void incomeTax();
         void jail(); //Incomplete
         void passGo(); //Incomplete
+        void morgage(int propertyLocation);
         
         void communityChest(string textfile); //Incomplete
         void chance(string textfile); //Incomplete
@@ -59,6 +60,9 @@ class Game
         void checkOwnership(int currentPlayer);
         bool checkForExceptions(int boardLocation);
         void erase(int currentTurn);
+        int listOfOwnedProperties();
+
+        void banish(int currentTurn);
         
 };
 
