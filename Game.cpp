@@ -763,6 +763,7 @@ void Game::incomeTax()
             default:
             {
                 cout << "Invalid input" << endl;
+                incomeTax();
             }
         }
     }
