@@ -12,7 +12,7 @@ location,transport_name,transport_Cost,1Rail,2Rail,3Rail,4Rail,,,,
 9,Connecticut Avenue,120,50,8,40,100,300,450,600,baby blue
 10,JUST VISITING JAIL/JAIL,,,,,,,,,
 11,St. Charles Place,140,100,10,50,150,450,625,750,pink
-12,ELECTRIC COMPANY,,,,,,,,,
+12,ELECTRIC COMPANY,150,,,,,,,,
 13,States Avenue,140,100,10,50,150,450,625,750,pink
 14,Virginia Avenue,160,100,12,60,180,500,700,900,pink
 15,Pennsylvania Railroad,200,25,50,100,200,,,,
@@ -28,7 +28,7 @@ location,transport_name,transport_Cost,1Rail,2Rail,3Rail,4Rail,,,,
 25,B & O Railroad,200,25,50,100,200,,,,
 26,Atlantic Avenue,260,150,22,110,330,800,975,1150,yellow
 27,Ventnor Avenue,260,150,22,110,330,800,975,1150,yellow
-28,WATER WORKS,,,,,,,,,
+28,WATER WORKS,150,,,,,,,,
 29,Marvin Gardens,280,150,24,120,360,850,1025,1200,yellow
 30,GO TO JAIL,,,,,,,,,
 31,Pacific Avenue,300,200,26,130,390,900,1100,1275,green
