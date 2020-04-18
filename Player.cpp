@@ -85,7 +85,7 @@ string Player::getPlayerChar() const
     return playerChar;
 }
 
-bool getJailStatus();
+bool getJailStatus()
 {
     return inJail;
 }

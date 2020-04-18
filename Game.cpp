@@ -859,8 +859,9 @@ void Game::waterElectricRent(int rollone, int rolltwo, int propertyLocation)
                     }
                 }
             }
-        }
+    }
 }
+
 
 void Game::luxuryTax()
 {
