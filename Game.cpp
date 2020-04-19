@@ -442,11 +442,15 @@ void Game::getPropertyInfo(int propertyLocation_)
         case 5: case 15: case 25: case 35: //Transports
         {
             int numTransportsOwned = 0;
-            for(int i = 5; i < 39; i += 10)
+            for(int i = 0; i < getNumPlayers(); i++)
             {
-                if(property[i].getOwner() == player[currentTurn - 1].getName() && property[i].getOwner() != "none")
+                for(int j = 5; j < 39; j += 10)
                 {
-                    numTransportsOwned++;
+                    if(property[j].getOwner() == player[i].getName() && property[propertyLocation_].getOwner() != "none")
+                    {
+                        numTransportsOwned++;
+                        // cout << property[j].getOwner() << " == " << player[i].getName() << " && " << property[j].getOwner() << " != none" << endl;
+                    }
                 }
             }
             cout << "Number of transport services owned: \x1B[97m" << numTransportsOwned << "\x1B[0m" << endl;
@@ -572,14 +576,15 @@ void Game::buy(int propertyLocation, int currentPlayer)
                 if(property[i].getOwner() == player[currentTurn - 1].getName() && property[i].getOwner() != "none")
                 {
                     numTransportsOwned++;
-                }
-                if(numTransportsOwned != 1 && numTransportsOwned != 0)
-                {
-                    for(int j = 5; j < 39; j += 10)
+                    // cout << property[j].getOwner() << " == " << player[i].getName() << " && " << property[j].getOwner() << " != none" << endl;
+                    if(numTransportsOwned != 0)
                     {
-                        if(property[i].getOwner() == player[currentTurn - 1].getName() && property[i].getOwner() != "none")
+                        for(int j = 5; j < 39; j += 10)
                         {
-                            property[j].setNumBuildings(numTransportsOwned - 1);
+                            if(property[j].getOwner() == player[currentTurn - 1].getName() && property[j].getOwner() != "none")
+                            {
+                                property[j].setNumBuildings(numTransportsOwned - 1);
+                            }
                         }
                     }
                 }
@@ -900,7 +905,7 @@ void Game::rent(int propertyLocation, int currentTurn)
    bool morgageStatus = property[propertyLocation].getMorgage_Status();
    if(!morgageStatus)
    {
-       cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " --> " << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << "\x1B[0m" << " Looks like you will need to pay some rent to " << "\x1B[91m" << property[propertyLocation].getOwner() << "\x1B[0m" << " @ [" << property[propertyLocation].getPropertyLocation() << "] " << property[propertyLocation].getPropertyName() << endl;
+        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " --> " << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << "\x1B[0m" << " Looks like you will need to pay some rent to " << "\x1B[91m" << property[propertyLocation].getOwner() << "\x1B[0m" << " @ [" << property[propertyLocation].getPropertyLocation() << "] " << property[propertyLocation].getPropertyName() << endl;
         if((unfortunate_player_bal - rentCost) < 0)
         {
             cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like you will need to sell some houses to pay off that rent." << endl;
@@ -915,9 +920,6 @@ void Game::rent(int propertyLocation, int currentTurn)
                 cout << setw(50) << "\x1B[92m" << "Blucifer has entered the game and took you as his creator (Luis Jiménez)..." << endl;
                 cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "] " << " has left the game." << endl;
             }
-            
-            
-            // Morgage Function here
         }
         if((unfortunate_player_bal - rentCost) >= 0)
         {
@@ -1066,6 +1068,7 @@ void Game::jail()
     */
     setPiece(10,player[currentTurn - 1].getPlayerChar(), currentTurn);
     erase(currentTurn);
+    display_MapAndPlayer();
     bool jail = true;
     player[currentTurn - 1].setJailStatus(jail);
 }
@@ -1287,6 +1290,8 @@ void Game::chance(string textfile)
                 setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 passGo();
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 2:
@@ -1300,6 +1305,8 @@ void Game::chance(string textfile)
                 {
                     passGo();
                 }
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 3:
@@ -1313,6 +1320,8 @@ void Game::chance(string textfile)
                 {
                     passGo();
                 }
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 4:
@@ -1357,6 +1366,8 @@ void Game::chance(string textfile)
                         player[currentTurn - 1].setBalance(amount);
                     }
                 }
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 5:
@@ -1418,6 +1429,8 @@ void Game::chance(string textfile)
                         rent(5, currentTurn);
                     }
                 }
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 6:
@@ -1444,12 +1457,15 @@ void Game::chance(string textfile)
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation() - 3;
                 setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);                
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 9:
             {
                 cout << line  << endl;
                 jail();
+                display_MapAndPlayer();
                 break;
             }
             case 10:
@@ -1488,6 +1504,8 @@ void Game::chance(string textfile)
                 {
                     passGo();
                 }
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 13:
@@ -1497,6 +1515,8 @@ void Game::chance(string textfile)
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
                 setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 14:
