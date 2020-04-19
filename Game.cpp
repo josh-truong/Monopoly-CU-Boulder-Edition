@@ -1142,7 +1142,6 @@ void Game::communityChest(string textfile)
             case 7:
             {
                 cout << line  << endl;
-                cout << line  << endl;
                 for(int i = 0; i < numPlayers - 1; i++)
                 {
                     int amount = player[currentTurn - 1].getBalance();
@@ -1219,6 +1218,18 @@ void Game::communityChest(string textfile)
             case 15:
             {
                 cout << line  << endl;
+                string user = player[currentTurn - 1].getName();
+                int counter = 0;
+                for(int i = 0; i < 40; i++)
+                {
+                    if(user == property[i].getOwner())
+                    {
+                        counter += property[i].getNumBuildings();
+                    }
+                }
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 40 * counter;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 16:
@@ -1552,7 +1563,18 @@ void Game::chance(string textfile)
             case 10:
             {
                 cout << line  << endl;
-
+                string user = player[currentTurn - 1].getName();
+                int counter = 0;
+                for(int i = 0; i < 40; i++)
+                {
+                    if(user == property[i].getOwner())
+                    {
+                        counter += property[i].getNumBuildings();
+                    }
+                }
+                int amount = player[currentTurn - 1].getBalance();
+                amount = amount - 25 * counter;
+                player[currentTurn - 1].setBalance(amount);
                 break;
             }
             case 11:
