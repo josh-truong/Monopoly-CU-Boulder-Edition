@@ -368,7 +368,7 @@ void Game::readProperty()
                     for(int i = 0; i < 4; i++)
                     {
                         getline(strm, transportRent_, ',');
-                        property[propertyLocation_int].setRentAt(i, stoi(transportRent_));
+                        property[propertyLocation_int].setPropertyCost(stoi(transportRent_));
                     }
 
                     property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
@@ -1041,7 +1041,7 @@ void Game::incomeTax()
             case 2:
             {
                 int amount = player[currentTurn - 1].getBalance();
-                amount = amount - amount * 0.1;
+                amount = amount - (amount * 0.1);
                 player[currentTurn - 1].setBalance(amount);
                 repeater = 0;
                 break;
@@ -1327,26 +1327,27 @@ void Game::chance(string textfile)
                     string owner = property[12].getOwner();
                     if(owner == "none")
                     {
-                        int repeater = 1;
-                        while(repeater == 1)
-                        {
-                            cout << "Would you like to buy this property? Y for yes, N for no." << endl;
-                            string answer;
-                            cin >> answer;
-                            if(answer == "Y")
-                            {
-                                buy(12, currentTurn);
-                                repeater = 0;
-                            }
-                            else if(answer == "N")
-                            {
-                                repeater = 0;
-                            }
-                            else
-                            {
-                                cout << "Invalid input." << endl;
-                            }
-                        }
+                        buy(12, currentTurn);
+                        // int repeater = 1;
+                        // while(repeater == 1)
+                        // {
+                        //     cout << "Would you like to buy this property? Y for yes, N for no." << endl;
+                        //     string answer;
+                        //     cin >> answer;
+                        //     if(answer == "Y")
+                        //     {
+                        //         buy(12, currentTurn);
+                        //         repeater = 0;
+                        //     }
+                        //     else if(answer == "N")
+                        //     {
+                        //         repeater = 0;
+                        //     }
+                        //     else
+                        //     {
+                        //         cout << "Invalid input." << endl;
+                        //     }
+                        // }
                     }
                     else
                     {
@@ -1693,7 +1694,6 @@ bool Game::checkForExceptions(int boardLocation_)
                 }
                 case 4: //Income Tax
                 {
-                    cout << property[boardLocation_].getPropertyName() << endl;
                     incomeTax();
                     break;
                 }
@@ -1880,5 +1880,5 @@ int Game::getCurrentTurn()
 
 void Game::playerProfile()
 {
-    
+    cout << "Balance: " << "\x1B[92m" << "$" << player[currentTurn - 1].getBalance() << "\x1B[0m" << endl;
 }

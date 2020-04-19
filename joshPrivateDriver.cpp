@@ -23,16 +23,26 @@ int main()
 
 
     string playerQuit;
+    bool display_status = true;
     int playerMenuOptions = 0;
+
     do
     {
         int currentTurn = monopoly.getCurrentTurn();
+
+        if(display_status == true)
+        {
+            cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
+            monopoly.roll();
+            monopoly.move(currentTurn);
+            monopoly.display_MapAndPlayer();
+            monopoly.checkOwnership(currentTurn);
+            display_status = false;
+        }
+
         
-        cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
-        monopoly.roll();
-        monopoly.move(currentTurn);
-        monopoly.display_MapAndPlayer();
-        monopoly.checkOwnership(currentTurn);
+
+
 
         cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
         cout << "Menu" << endl;
@@ -59,20 +69,19 @@ int main()
             }
             case 3:
             {
-                
+                monopoly.playerProfile();
+                break;
             }
             case 4:
             {
                 monopoly.endTurn();
+                display_status = true;
                 break;
             }
             default:
                 cout << "You have entered an option that does not exits." << endl;
         }
-
     } while (playerQuit != "Quit");
-    
-
     
 
     return 0;
