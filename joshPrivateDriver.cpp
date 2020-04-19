@@ -49,7 +49,9 @@ int main()
         cout << "1. Morgage" << endl;
         cout << "2. List of Owned Properties" << endl;
         cout << "3. Balance" << endl;
-        cout << "4. End Turn" << endl;
+        cout << "4. Get Property Info" << endl;
+        cout << "5. End Turn" << endl;
+        cout << "6. QUIT" << endl;
         cin >> playerMenuOptions;
 
 
@@ -74,17 +76,38 @@ int main()
             }
             case 4:
             {
+                int propertyLocation;
+                cout << "Enter from 0-39: ";
+                cin >> propertyLocation;
+                monopoly.getPropertyInfo(propertyLocation);
+                break;
+            }
+            case 5:
+            {
                 monopoly.endTurn();
                 display_status = true;
                 break;
             }
+            case 6:
+            {
+                cout << "Are you sure you want to quit?" << endl;
+                cout << "Enter QUIT or Enter cancel: " << playerQuit << endl;
+
+            }
+            case 7:
+            {
+                int propertyLocation;
+                cout << "Enter propertyLocation: ";
+                cin >> propertyLocation;
+                monopoly.buy(propertyLocation, 1);
+            }
             default:
                 cout << "You have entered an option that does not exits." << endl;
+                break;
         }
     } while (playerQuit != "Quit");
-    
+
 
     return 0;
 }
-
 

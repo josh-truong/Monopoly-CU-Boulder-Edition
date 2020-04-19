@@ -351,12 +351,12 @@ void Game::readProperty()
                 }
                 case 12: case 28: // electric company and water works
                 {
-                    string company, rent;
+                    string company, propertyCost;
                     getline(strm, company, ',');
-                    getline(strm, rent, ',');
+                    getline(strm, propertyCost, ',');
                     property[propertyLocation_int].setPropertyName(company);
                     property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
-                    property[propertyLocation_int].setRentAt(0, stoi(rent));
+                    property[propertyLocation_int].setPropertyCost(stoi(propertyCost));
                     break;
                 }
                 //case 5, 15, 25, 35 are railroads
@@ -368,7 +368,7 @@ void Game::readProperty()
                     for(int i = 0; i < 4; i++)
                     {
                         getline(strm, transportRent_, ',');
-                        property[propertyLocation_int].setPropertyCost(stoi(transportRent_));
+                        property[propertyLocation_int].setRentAt(i, stoi(transportRent_));
                     }
 
                     property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
@@ -434,13 +434,22 @@ void Game::getPropertyInfo(int propertyLocation_)
             break;
         }
         case 12: case 28: //Electric and water works
-        {                                                                                                                                               
+        {
+            cout << "Property Price: \x1B[92m$" << property[propertyLocation_].getPropertyCost() << "\x1B[0m" << endl;                                                                                                                                
             //INDIVIDUAL CASES ARE NOT COMPLETED
             break;
         }
         case 5: case 15: case 25: case 35: //Transports
         {
-            cout << "Number of transport services owned: \x1B[97m" << property[propertyLocation_].getNumBuildings() << "\x1B[0m" << endl;
+            int numTransportsOwned = 0;
+            for(int i = 5; i < 39; i += 10)
+            {
+                if(property[i].getOwner() == player[currentTurn - 1].getName() && property[i].getOwner() != "none")
+                {
+                    numTransportsOwned++;
+                }
+            }
+            cout << "Number of transport services owned: \x1B[97m" << numTransportsOwned << "\x1B[0m" << endl;
             property[propertyLocation_].getListOfRentTransport();
             break;
         }
@@ -454,10 +463,7 @@ void Game::getPropertyInfo(int propertyLocation_)
             break;
         }
         default:
-            cout << "Error @ getPropertyInfo()" << endl;
-            cout << "Possible Error" << endl;
             cout << "Your request for property " << propertyLocation_ << " does not exist" << endl;
-            cout << "The property you requested does not have a case and is still in the works" << endl;
     }
     cout << endl;
 }
@@ -538,7 +544,6 @@ void Game::buy(int propertyLocation, int currentPlayer)
     if(difference < 0)
     {
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " I'm sorry looks like your wallet is empty." << endl;
-
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Would you like to morgage some of your property? Enter y/n" << endl;
         cin >> morgagePropertyResponse;
         //WARNING -- We do not have morgage function yet
@@ -558,30 +563,27 @@ void Game::buy(int propertyLocation, int currentPlayer)
             //update player balance
             property[propertyLocation].setOwner(player[currentPlayer - 1].getName());
             player[currentPlayer - 1].setBalance(difference);
-            if(propertyLocation == 5 || propertyLocation == 15 || propertyLocation == 25 || propertyLocation == 35)
+            cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Congratulations, " << property[propertyLocation].getOwner() << "! You're the proud owner of " << property[propertyLocation].getPropertyName() << "." << endl;
+            
+            //Check for number of owned transport properties
+            int numTransportsOwned = 0;
+            for(int i = 5; i < 39; i += 10)
             {
-                if(propertyLocation != 5 && property[propertyLocation].getOwner() == property[5].getOwner())
+                if(property[i].getOwner() == player[currentTurn - 1].getName() && property[i].getOwner() != "none")
                 {
-                    property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
-                    property[5].setNumBuildings(property[5].getNumBuildings() + 1);
+                    numTransportsOwned++;
                 }
-                if(propertyLocation != 15 && property[propertyLocation].getOwner() == property[15].getOwner())
+                if(numTransportsOwned != 1 && numTransportsOwned != 0)
                 {
-                    property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
-                    property[15].setNumBuildings(property[15].getNumBuildings() + 1);
-                }
-                if(propertyLocation != 25 && property[propertyLocation].getOwner() == property[25].getOwner())
-                {
-                    property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
-                    property[25].setNumBuildings(property[25].getNumBuildings() + 1);
-                }
-                if(propertyLocation != 35 && property[propertyLocation].getOwner() == property[35].getOwner())
-                {
-                    property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
-                    property[35].setNumBuildings(property[35].getNumBuildings() + 1);
+                    for(int j = 5; j < 39; j += 10)
+                    {
+                        if(property[i].getOwner() == player[currentTurn - 1].getName() && property[i].getOwner() != "none")
+                        {
+                            property[j].setNumBuildings(numTransportsOwned - 1);
+                        }
+                    }
                 }
             }
-            cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Congratulations, " << property[propertyLocation].getOwner() << "! You're the proud owner of " << property[propertyLocation].getPropertyName() << "." << endl;
         }
         else if(toupper(playerResponse) == "N")
         {
@@ -891,6 +893,7 @@ void Game::rent(int propertyLocation, int currentTurn)
     determine how much rent is owed due to the rent array in the property array, and subtract the balance from the player
     while adding that amount to the owner.
     */
+
    int rentCost = property[propertyLocation].getRent();
    string ownerOfProperty = property[propertyLocation].getOwner();
    int unfortunate_player_bal = player[currentTurn - 1].getBalance();
@@ -919,21 +922,21 @@ void Game::rent(int propertyLocation, int currentTurn)
         if((unfortunate_player_bal - rentCost) >= 0)
         {
             for(int i = 0; i < numPlayers; i++)
+            {
+                if(player[i].getName() == ownerOfProperty)
                 {
-                    if(player[i].getName() == ownerOfProperty)
-                    {
-                        int fortunate_player_bal = player[i].getBalance();
-                        // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
-                        fortunate_player_bal += rentCost;
-                        player[i].setBalance(fortunate_player_bal);
-                        // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+                    int fortunate_player_bal = player[i].getBalance();
+                    // cout << "Current Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
+                    fortunate_player_bal += rentCost;
+                    player[i].setBalance(fortunate_player_bal);
+                    // cout << "New Balance for " << player[i].getName() << " $" << fortunate_player_bal << endl;
 
-                        cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
-                        unfortunate_player_bal -= rentCost;
-                        player[currentTurn - 1].setBalance(unfortunate_player_bal);
-                        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl << endl;
-                    }
+                    cout << "Transaction Process: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[91m" << " - $" << rentCost << "\x1B[0m" << endl;
+                    unfortunate_player_bal -= rentCost;
+                    player[currentTurn - 1].setBalance(unfortunate_player_bal);
+                    cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << unfortunate_player_bal << "\x1B[0m" << endl << endl;
                 }
+            }
         }
    }
    else
@@ -1279,7 +1282,9 @@ void Game::chance(string textfile)
             case 1:
             {
                 cout << line << endl;
-                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                player[currentTurn - 1].setBoardLocation(0);
+                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 passGo();
                 break;
@@ -1287,32 +1292,26 @@ void Game::chance(string textfile)
             case 2:
             {
                 cout << line  << endl;
+                player[currentTurn - 1].setBoardLocation(24);
+                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 24)
                 {
-                    setPiece(24, player[currentTurn - 1].getPlayerChar(), currentTurn);
-                    erase(currentTurn);
                     passGo();
-                }
-                else
-                {
-                    setPiece(24, player[currentTurn - 1].getPlayerChar(), currentTurn);
-                    erase(currentTurn);
                 }
                 break;
             }
             case 3:
             {
                 cout << line  << endl;
+                player[currentTurn - 1].setBoardLocation(11);
+                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 11)
                 {
-                    setPiece(11, player[currentTurn - 1].getPlayerChar(), currentTurn);
-                    erase(currentTurn);
                     passGo();
-                }
-                else
-                {
-                    setPiece(11, player[currentTurn - 1].getPlayerChar(), currentTurn);
-                    erase(currentTurn);
                 }
                 break;
             }
@@ -1320,34 +1319,17 @@ void Game::chance(string textfile)
             {
                 cout << line  << endl;
                 int playerposition = player[currentTurn - 1].getBoardLocation();
-                if(playerposition == 7)
+                if(playerposition == 7 || playerposition == 36)
                 {
-                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    player[currentTurn - 1].setBoardLocation(12);
+                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
+
                     string owner = property[12].getOwner();
                     if(owner == "none")
                     {
                         buy(12, currentTurn);
-                        // int repeater = 1;
-                        // while(repeater == 1)
-                        // {
-                        //     cout << "Would you like to buy this property? Y for yes, N for no." << endl;
-                        //     string answer;
-                        //     cin >> answer;
-                        //     if(answer == "Y")
-                        //     {
-                        //         buy(12, currentTurn);
-                        //         repeater = 0;
-                        //     }
-                        //     else if(answer == "N")
-                        //     {
-                        //         repeater = 0;
-                        //     }
-                        //     else
-                        //     {
-                        //         cout << "Invalid input." << endl;
-                        //     }
-                        // }
                     }
                     else
                     {
@@ -1358,66 +1340,15 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 22)
                 {
-                    setPiece(28, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    player[currentTurn - 1].setBoardLocation(28);
+                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
+
                     string owner = property[28].getOwner();
                     if(owner == "none")
                     {
-                        int repeater = 1;
-                        while(repeater == 1)
-                        {
-                            cout << "Would you like to buy this property? Y for yes, N for no." << endl;
-                            string answer;
-                            cin >> answer;
-                            if(answer == "Y")
-                            {
-                                buy(28, currentTurn);
-                                repeater = 0;
-                            }
-                            else if(answer == "N")
-                            {
-                                repeater = 0;
-                            }
-                            else
-                            {
-                                cout << "Invalid input." << endl;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        int amount = player[currentTurn - 1].getBalance();
-                        amount = amount - 10 * (dice_1 + dice_2);
-                        player[currentTurn - 1].setBalance(amount);
-                    }
-                }
-                else if(playerposition == 38)
-                {
-                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn);
-                    erase(currentTurn);
-                    string owner = property[12].getOwner();
-                    if(owner == "none")
-                    {
-                        int repeater = 1;
-                        while(repeater == 1)
-                        {
-                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
-                            string answer;
-                            cin >> answer;
-                            if(answer == "Y")
-                            {
-                                buy(12, currentTurn);
-                                repeater = 0;
-                            }
-                            else if(answer == "N")
-                            {
-                                repeater = 0;
-                            }
-                            else
-                            {
-                                cout << "Invalid input." << endl;
-                            }
-                        }
+                        buy(28, currentTurn);
                     }
                     else
                     {
@@ -1431,34 +1362,18 @@ void Game::chance(string textfile)
             case 5:
             {
                 cout << line  << endl;
-                 int playerposition = player[currentTurn - 1].getBoardLocation();
+                int playerposition = player[currentTurn - 1].getBoardLocation();
                 if(playerposition == 7)
                 {
-                    setPiece(15, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    player[currentTurn - 1].setBoardLocation(15);
+                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
+
                     string owner = property[15].getOwner();
                     if(owner == "none")
                     {
-                        int repeater = 1;
-                        while(repeater == 1)
-                        {
-                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
-                            string answer;
-                            cin >> answer;
-                            if(answer == "Y")
-                            {
-                                buy(15, currentTurn);
-                                repeater = 0;
-                            }
-                            else if(answer == "N")
-                            {
-                                repeater = 0;
-                            }
-                            else
-                            {
-                                cout << "Invalid input." << endl;
-                            }
-                        }
+                        buy(15, currentTurn);
                     }
                     else
                     {
@@ -1467,30 +1382,18 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 22)
                 {
-                    setPiece(25, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    player[currentTurn - 1].setBoardLocation(25);
+                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
+
                     string owner = property[25].getOwner();
                     if(owner == "none")
                     {
                         int repeater = 1;
                         while(repeater == 1)
                         {
-                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
-                            string answer;
-                            cin >> answer;
-                            if(answer == "Y")
-                            {
-                                buy(25, currentTurn);
-                                repeater = 0;
-                            }
-                            else if(answer == "N")
-                            {
-                                repeater = 0;
-                            }
-                            else
-                            {
-                                cout << "Invalid input." << endl;
-                            }
+                            buy(25, currentTurn);
                         }
                     }
                     else
@@ -1500,31 +1403,15 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 38)
                 {
-                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    player[currentTurn - 1].setBoardLocation(5);
+                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
+
                     string owner = property[5].getOwner();
                     if(owner == "none")
                     {
-                        int repeater = 1;
-                        while(repeater == 1)
-                        {
-                            cout << "Would you like to buy the property? Y for yes, N for no." << endl;
-                            string answer;
-                            cin >> answer;
-                            if(answer == "Y")
-                            {
-                                buy(5, currentTurn);
-                                repeater = 0;
-                            }
-                            else if(answer == "N")
-                            {
-                                repeater = 0;
-                            }
-                            else
-                            {
-                                cout << "Invalid input." << endl;
-                            }
-                        }
+                        buy(5, currentTurn);
                     }
                     else
                     {
@@ -1535,6 +1422,7 @@ void Game::chance(string textfile)
             }
             case 6:
             {
+                cout << line << endl;
                 int amount = player[currentTurn - 1].getBalance();
                 amount = amount + 50;
                 player[currentTurn - 1].setBalance(amount);
@@ -1551,7 +1439,10 @@ void Game::chance(string textfile)
             case 8:
             {
                 cout << line  << endl;
-                setPiece(player[currentTurn - 1].getBoardLocation() - 3, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                player[currentTurn - 1].setBoardLocation(28);
+
+                int newPlayerPosition = player[currentTurn - 1].getBoardLocation() - 3;
+                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);                
                 break;
             }
@@ -1589,41 +1480,42 @@ void Game::chance(string textfile)
             case 12:
             {
                 cout << line  << endl;
+                player[currentTurn - 1].setBoardLocation(5);
+                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 5)
                 {
-                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
-                    erase(currentTurn);
                     passGo();
-                }
-                else
-                {
-                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
-                    erase(currentTurn);
                 }
                 break;
             }
             case 13:
             {
                 cout << line  << endl;
-                setPiece(39, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                player[currentTurn - 1].setBoardLocation(39);
+                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 break;
             }
             case 14:
             {
                 cout << line  << endl;
+                //Unfortunate Player
                 for(int i = 0; i < numPlayers - 1; i++)
                 {
                     int amount = player[currentTurn - 1].getBalance();
-                    amount = amount + 50;
+                    amount = amount - 50;
                     player[currentTurn - 1].setBalance(amount);
                 }
+                //Lucky Player
                 for(int j = 0; j < numPlayers; j++)
                 {
                     if(currentTurn - 1 != j)
                     {
                         int amount = player[j].getBalance();
-                        amount = amount - 50;
+                        amount = amount + 50;
                         player[j].setBalance(amount);
                     }
                 }
@@ -1768,6 +1660,7 @@ int Game::listOfOwnedProperties()
 {
     int nonMorgaged_property_counter = 0;
     int allProperties = 0;
+    cout << "----------Owned Properties----------" << endl;
     for(int i = 0; i < 40; i++)
     {
         string owned_PropertyName = property[i].getPropertyName();
@@ -1778,19 +1671,20 @@ int Game::listOfOwnedProperties()
         {
             cout << "[" << i << "] " << owned_PropertyName << " | Price: \x1B[92m$" << propertyCost << "\x1B[0m" << " | Morgaged Value: \x1B[91m$" << morgagedCost << "\x1B[0m" << " | Current Rent: \x1B[91m$" << propertyRent << "\x1B[0m" << endl;
             nonMorgaged_property_counter++;
+            allProperties++;
         }
         else if((property[i].getOwner() == player[currentTurn - 1].getName()) && (property[i].getMorgage_Status() == true))
         {
             cout << "\x1B[91m" << "[Morgaged Property] [" << i << "] " << owned_PropertyName << "\x1B[0m" << " | Unmortgage Price: " << "\x1B[91m" << "$" << (propertyCost + (propertyCost * 0.1)) << "\x1B[0m" << endl;
+            allProperties++;
         }
-        allProperties++;
+        
     }
     if(allProperties == 0)
     {
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You currently do not own any properties" << endl;
     }
     cout << endl;
-    //Add a menu for players to see property info
     return nonMorgaged_property_counter;
 }
 
@@ -1808,7 +1702,7 @@ void Game::morgage()
         cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << "\x1B[91m" << player[currentTurn - 1].getName() << "\x1B[0m" << " You're bankrupt!" << endl;
         //Call the bankrupted function. Note that transitioning from array to vector might be neccessary
     }
-    else
+    else if(numPropertiesOwned != 0)
     {
         bool is_player_title_deeds = false;
         int uI_PropertyLoc;

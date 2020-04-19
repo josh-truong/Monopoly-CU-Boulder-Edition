@@ -7,7 +7,7 @@ using namespace std;
 
 Player::Player()
 {
-    balance = 400;
+    balance = 1500;
     boardlocation = 0;
     previousBoardLocation = 0;
     playerPos_x = 0;
