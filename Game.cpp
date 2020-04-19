@@ -1142,7 +1142,6 @@ void Game::communityChest(string textfile)
             case 7:
             {
                 cout << line  << endl;
-                cout << line  << endl;
                 for(int i = 0; i < numPlayers - 1; i++)
                 {
                     int amount = player[currentTurn - 1].getBalance();
