@@ -508,7 +508,7 @@ void Game::doubleTurn(int dice_1, int dice_2)
     */
 }
 
-void Game::endGame(string quit_)
+void Game::endGame()
 {
     /*
     This function will allow the users to end the game whenver they feel like it by typing in quit. This will allow for 
@@ -517,26 +517,20 @@ void Game::endGame(string quit_)
     along with their balances.
     */
 
-    if(toupper(quit_) == toupper("quit"))
+    ofstream victory;
+    victory.open("results.txt");
+    int largestbalance = 0;
+    string winner;
+    for(int i = 0; i < numPlayers; i++)
     {
-        ofstream victory;
-        victory.open("results.txt");
-        int largestbalance = 0;
-        string winner;
-        for(int i = 0; i < numPlayers; i++)
+        if(player[i].getBankruptStatus() == false)
         {
-            if(player[i].getBalance() > largestbalance)
-            {
-                largestbalance = player[i].getBalance();
-                winner = player[i].getName();
-            }
+            largestbalance = player[i].getBalance();
+            winner = player[i].getName();
         }
-        victory << "The winner is " << winner << " with a balance of " << largestbalance << ". Congratulations on your monopoly." << endl;
     }
-    else
-    {
-        cout << "Incorrect input." << endl;
-    }
+    victory << "The winner is " << winner << " with a balance of " << largestbalance << ". Congratulations on your monopoly." << endl;
+    cout << "The winner is " << winner << " with a balance of $" << largestbalance << ". Congratulations on your monopoly." << endl;
 }
 
 
@@ -939,7 +933,7 @@ void Game::rent(int propertyLocation, int currentTurn)
             {
                 cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like your time has run out!" << endl;
                 cout << setw(50) << "\x1B[92m" << "Blucifer has entered the game and took you as his creator (Luis Jiménez)..." << endl;
-                cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "] " << " has left the game." << endl;
+                cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << " has left the game." << "\x1B[0m" << endl;
                 bankrupt(currentTurn);
             }
         }
@@ -1824,9 +1818,10 @@ void Game::playerProfile()
     cout << "Balance: " << "\x1B[92m" << "$" << player[currentTurn - 1].getBalance() << "\x1B[0m" << endl;
 }
 
-int Game::biddersMenu()
+int Game::biddersMenu(int currenBidderTurn)
 {
     int chosenOption = 0;
+    cout << "\x1B[92m" << "[" << player[currenBidderTurn].getName() << "] " << "\x1B[0m" << "Turn" << endl;
     cout << "------------Bidding Menu------------" << endl;
     cout << "1. Bid" << endl;
     cout << "2. Morgage" << endl;
@@ -1840,90 +1835,203 @@ int Game::biddersMenu()
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "\x1B[91m" << "You've Entered a non-digit Input" << "\x1B[0m" << endl;
-        biddersMenu();
+        biddersMenu(currenBidderTurn);
     }
     return chosenOption;
 }
 
+int Game::biddingPrice()
+{
+    int bidPrice = 0;
+    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "How much would you like to bid? $";
+    cin >> bidPrice;
+
+    if(cin.fail())
+    {
+        cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "The input you've entered is INVALID" << endl;
+        biddingPrice();
+    }
+    return bidPrice;
+}
+
 void Game::auction(int propertyLocation)
 {
-    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Do I have any bid?" << endl;
+    cout << "######################################################### AUCTION GROUND ##############################################################" << endl;
+    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Do I have a bid?" << endl;
     getPropertyInfo(propertyLocation);
-    bool playerBidStatus[4];
     int numBidders = numPlayers;
+    bool playerBidStatus[4];
+    int playerCurrentBid[4];
+    
 
     //Initialize Array
     for(int i = 0; i < numBidders; i++)
     {
         playerBidStatus[i] = true;
+        playerCurrentBid[i] = 0;
     }
-    
-    int bidPrice = 0;
-    int currentBid1, currentBid2, currentBid3, currentBid4;
+
     while(numBidders > 1)
     {
-        for(int i = 0; i < numBidders; i++)
+        for(int i = 0; i < numPlayers; i++)
         {
-            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Do I have any more bids?" << endl;
-            cout << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "Turn" << endl;
-            int biddersMenuOption = biddersMenu();
-            switch(biddersMenuOption)
+            if(player[i].getBankruptStatus() == false && playerBidStatus[i] == true)
             {
-                case 1:
+                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Do I have any more bids?" << endl;
+                int biddersMenuOption = biddersMenu(i);
+                
+
+                switch(biddersMenuOption)
                 {
-                    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "How much would you like to bid? $";
-                    cin >> bidPrice;
-                    if(cin.fail())
+                    case 1:
                     {
+                        int bidPrice = 0;
+                        bidPrice = biddingPrice();
+
+                        int highestBid = 0;
+                        for(int j = 0; j < numBidders; j++)
+                        {
+                            if(playerCurrentBid[j] > highestBid)
+                            {
+                                highestBid = playerCurrentBid[j];
+                            }
+                        }
+
+                        //Checks if the bid price is not negative and if the bid price is higher than the previous
+                        while(highestBid >= bidPrice || bidPrice <= 0)
+                        {
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << player[i].getName() << " your bid is too low!" << endl;
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Our highest bid is currently " << "\x1B[92m" << "$" << highestBid << "\x1B[0m" << endl << endl;
+                            biddersMenuOption = biddersMenu(i);
+                            bidPrice = biddingPrice();
+                        }
+                        playerCurrentBid[i] = bidPrice;
+
+                        // Checks player balance if they have the money to buy a property with their bid price. 
+                        string morgageResponse;
+                        while((player[i].getBalance() - bidPrice) < 0 && playerBidStatus[i])
+                        {
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "You're bidding price is higher than your balance!" << endl;
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Would you like to morgage some of your properties? Enter y/n" << endl;
+                            cin >> morgageResponse;
+
+                            if(toupper(morgageResponse) == "Y")
+                            {
+                                int savedCurrentTurn = currentTurn;
+                                currentTurn = i + 1;
+                                morgage();
+                                currentTurn = savedCurrentTurn;
+                                biddersMenuOption = biddersMenu(i);
+                                bidPrice = biddingPrice();
+                                playerCurrentBid[i] = bidPrice;
+                            }
+                            else if(toupper(morgageResponse) == "N")
+                            {
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn from the bidding ground." << endl;
+                                playerBidStatus[i] = false;
+                                numBidders--;
+                            }
+                            else
+                            {
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you entered an unknown realm and never returned...";
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has left the game.";
+                                bankrupt(i + 1);
+                                playerBidStatus[i] = false;
+                                numBidders--;
+                            }
+                        }
+
+                        if (playerBidStatus[0] && i == 0)
+                        {
+                            playerCurrentBid[0] = bidPrice;
+                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                        }
+                        if (playerBidStatus[1] && i == 1)
+                        {
+                            playerCurrentBid[1] = bidPrice;
+                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                        }
+                        if (playerBidStatus[2] && i == 2)
+                        {
+                            playerCurrentBid[2] = bidPrice;
+                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                        }
+                        if (playerBidStatus[3] && i == 3)
+                        {
+                            playerCurrentBid[3] = bidPrice;
+                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                        }
+                        
+                        break;
+                    }
+                    case 2:
+                    {
+                        morgage();
+                        break;
+                    }
+                    case 3:
+                    {
+                        cout << "Current Balance: " << "\x1B[92m" << "$" << player[i].getBalance() << "\x1B[0m" << endl;
+                        break;
+                    }
+                    case 4:
+                    {
+                        listOfOwnedProperties();
+                        break;
+                    }
+                    case 5:
+                    {
+                        //Need to find player with the higher bid
+                        int highestBid = 0;
+                        int playerWithHighestBid;
+                        for(int j = 0; j < numBidders; j++)
+                        {
+                            if(playerCurrentBid[j] > highestBid)
+                            {
+                                highestBid = playerCurrentBid[j];
+                                playerWithHighestBid = j;
+                            }
+                        }
+                        if(playerWithHighestBid == i)
+                        {
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " you are not allowed to leave the auction ground because you are our highest bidder!" << endl;
+                        }
+                        else
+                        {
+                            playerBidStatus[i] = false;
+                            numBidders--;
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn!" << endl;
+                        }
+                        break;
+                    }
+                    default:
                         cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Unbeknownst to any players, you decided to go off into the mountains to live of the land and never returned." << endl;
-                        cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "] " << " has left the game." << endl;
-                        bankrupt(currentTurn);
-                    }
-                    if (playerBidStatus[0] && i == 0)
-                    {
-                        currentBid1 = bidPrice;
-                    }
-                    if (playerBidStatus[1] && i == 1)
-                    {
-                        currentBid2 = bidPrice;
-                    }
-                    if (playerBidStatus[2] && i == 2)
-                    {
-                        currentBid3 = bidPrice;
-                    }
-                    if (playerBidStatus[3] && i == 3)
-                    {
-                        currentBid4 = bidPrice;
-                    }
-                    break;
+                        cout << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << " has left the game." << endl;
+                        bankrupt(i + 1);
+                        playerBidStatus[i] = false;
+                        numBidders--;
+                        break;
                 }
-                case 2:
-                {
-                    morgage();
-                    break;
-                }
-                case 3:
-                {
-                    cout << "Current Balance: " << "\x1B[92m" << "$" << player[i].getBalance() << "\x1B[0m" << endl;
-                    break;
-                }
-                case 4:
-                {
-                    listOfOwnedProperties();
-                    break;
-                }
-                case 5:
-                {
-                    playerBidStatus[i] = false;
-                    numBidders--;
-                    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn!" << endl;
-                    break;
-                }
-                default:
-                    cout << "\x1B[92m" << "[Mr.Monopoly] " << "You Entered an Invalid Option." << endl;
-                    biddersMenu();
-                    break;
             }
+            int numBiddersCheck = numPlayers;
+            if(numBidders == 1)
+            {
+                int winner;
+                for(int k = 0; k < numBiddersCheck; k++)
+                {   
+                    if(playerBidStatus[k] == true)
+                    {
+                        winner = k;
+                    }
+                }
+                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Congratulations, " << player[winner].getName() << "! You're the proud owner of " << property[propertyLocation].getPropertyName() << endl;
+                property[propertyLocation].setOwner(player[winner].getName());
+                int winnerBalance = player[winner].getBalance();
+                cout << "Transaction: " << "\x1B[92m" << "$" << winnerBalance << "\x1B[97m" << " - $" << playerCurrentBid[winner] << endl;
+                player[winner].setBalance(winnerBalance - playerCurrentBid[winner]);
+                cout << "Current Balance: " << "\x1B[92m" << "$" << player[winner].getBalance() << "\x1B[0m" << endl;
+            }
+            
         }
     }
 }
@@ -1931,4 +2039,41 @@ void Game::auction(int propertyLocation)
 void Game::bankrupt(int currentTurn)
 {
     player[currentTurn - 1].setBankruptStatusTrue();
+    cout << "Player Status is Bankrupt" << endl;
+    int playerIsAlive = 0;
+    for(int i = 0; i < numPlayers; i++)
+    {
+        if(player[i].getBankruptStatus() == false)
+        {
+            playerIsAlive++;
+        }
+    }
+
+    cout << "There are " << playerIsAlive << " players left." << endl;
+}
+
+void Game::bankrupt()
+{
+    player[currentTurn - 1].setBankruptStatusTrue();
+    cout << "Player Status is Bankrupt" << endl;
+    int playerIsAlive = 0;
+    for(int i = 0; i < numPlayers; i++)
+    {
+        if(player[i].getBankruptStatus() == false)
+        {
+            playerIsAlive++;
+        }
+    }
+
+    cout << "There are " << playerIsAlive << " players left." << endl;
+}
+
+bool Game::getBankruptStatus(int currentTurn)
+{
+    return player[currentTurn - 1].getBankruptStatus();
+}
+
+bool Game::getBankruptStatus()
+{
+    return player[currentTurn - 1].getBankruptStatus();
 }
