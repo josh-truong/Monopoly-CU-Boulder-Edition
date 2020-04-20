@@ -50,6 +50,7 @@ class Game
         void jail(); //Incomplete
         void passGo();
         void morgage();
+        void auction(int propertyLocation);
         
         void communityChest(string textfile); //Incomplete
         void chance(string textfile); //Incomplete
@@ -65,6 +66,8 @@ class Game
         string toupper(string name);
         int getCurrentTurn();
         void playerProfile();
+        int biddersMenu();
+        void bankrupt();
 };
 
 #endif

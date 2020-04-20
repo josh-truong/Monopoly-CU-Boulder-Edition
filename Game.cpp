@@ -594,6 +594,7 @@ void Game::buy(int propertyLocation, int currentPlayer)
         {
             cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " I'm sorry to hear that." << endl;
             //WARNING -- We need to create and call an auction property
+            auction(propertyLocation);
         }
         else
         {
@@ -1795,4 +1796,107 @@ int Game::getCurrentTurn()
 void Game::playerProfile()
 {
     cout << "Balance: " << "\x1B[92m" << "$" << player[currentTurn - 1].getBalance() << "\x1B[0m" << endl;
+}
+
+int Game::biddersMenu()
+{
+    int chosenOption = 0;
+    cout << "------------Bidding Menu------------" << endl;
+    cout << "1. Bid" << endl;
+    cout << "2. Morgage" << endl;
+    cout << "3. Balance" << endl;
+    cout << "4. Owned Properties" << endl;
+    cout << "5. Withdraw From Bid" << endl;
+    cin >> chosenOption;
+
+    if(cin.fail())
+    {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "\x1B[91m" << "You've Entered a non-digit Input" << "\x1B[0m" << endl;
+        biddersMenu();
+    }
+    return chosenOption;
+}
+
+void Game::auction(int propertyLocation)
+{
+    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Do I have any bid?" << endl;
+    getPropertyInfo(propertyLocation);
+    bool playerBidStatus[4];
+    int numBidders = numPlayers;
+
+    //Initialize Array
+    for(int i = 0; i < numBidders; i++)
+    {
+        playerBidStatus[i] = true;
+    }
+    
+    int bidPrice = 0;
+    while(numBidders > 1)
+    {
+        for(int i = 0; i < numBidders; i++)
+        {
+            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Do I have any more bids?" << endl;
+            cout << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "Turn" << endl;
+            int biddersMenuOption = biddersMenu();
+            switch(biddersMenuOption)
+            {
+                case 1:
+                {
+                    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "How much would you like to bid? $";
+                    cin >> bidPrice;
+                    if(cin.fail())
+                    {
+                        cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Unbeknownst to any players, you decided to go off into the mountains to live of the land and never returned." << endl;
+                        cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "] " << " has left the game." << endl;
+                        bankrupt();
+                    }
+                    if (playerBidStatus[0] && i == 0)
+                    {
+
+                    }
+                    if (playerBidStatus[1] && i == 1)
+                    {
+                        /* code */
+                    }
+                    if (playerBidStatus[2] && i == 2)
+                    {
+                        /* code */
+                    }
+                    if (playerBidStatus[3] && i == 3)
+                    {
+                        /* code */
+                    }
+                    break;
+                }
+                case 2:
+                {
+                    morgage();
+                    break;
+                }
+                case 3:
+                {
+                    cout << "Current Balance: " << "\x1B[92m" << "$" << player[i].getBalance() << "\x1B[0m" << endl;
+                    break;
+                }
+                case 4:
+                {
+                    listOfOwnedProperties();
+                    break;
+                }
+                case 5:
+                {
+                    playerBidStatus[i] = false;
+                    numBidders--;
+                    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn!" << endl;
+                    break;
+                }
+                default:
+                    cout << "\x1B[92m" << "[Mr.Monopoly] " << "You Entered an Invalid Option." << endl;
+                    biddersMenu();
+                    break;
+            }
+        }
+    }
 }
