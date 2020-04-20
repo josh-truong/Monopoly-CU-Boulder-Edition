@@ -58,6 +58,7 @@ class Game
         string getPlayerUsername_GAME(int i);
         string getPlayerCharacter(int i);
         string toupper(string name);
+        int getPlayerLocation();
         void checkOwnership(int currentPlayer);
         bool checkForExceptions(int boardLocation);
         void erase(int currentTurn);

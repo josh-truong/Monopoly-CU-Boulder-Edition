@@ -507,6 +507,13 @@ void Game::doubleTurn(int dice_1, int dice_2)
     */
 }
 
+int Game::getPlayerLocation();
+{
+    int boardlocation = player[currentTurn - 1].getBoardLocation();
+    return boardlocation;
+}
+
+
 void Game::endGame()
 {
     /*
