@@ -1,42 +1,42 @@
 location,property_name,property_cost,building_cost,rent,house1,house2,house3,house4,hotel,color
 location,transport_name,transport_Cost,1Rail,2Rail,3Rail,4Rail,,,,
 0,PASS GO,,,,,,,,,
-1,Mediterranean Avenue,60,50,2,10,30,90,160,250,purple
+1,Hapgood Street,60,50,2,10,30,90,160,250,purple
 2,COMMUNITY CHEST,,,,,,,,,
-3,Baltic Ave.,60,50,4,20,60,180,320,450,purple
+3,Oneida Street,60,50,4,20,60,180,320,450,purple
 4,INCOME TAX,,,,,,,,,
-5,Reading Railroad,200,25,50,100,200,,,,
-6,Oriental Avenue,100,50,6,30,90,270,400,550,baby blue
+5,Hop Busline,200,25,50,100,200,,,,
+6,Hickory Avenue,100,50,6,30,90,270,400,550,baby blue
 7,CHANCE,,,,,,,,,
-8,Vermont Avenue,100,50,6,30,90,270,400,550,baby blue
-9,Connecticut Avenue,120,50,8,40,100,300,450,600,baby blue
+8,Iris Avenue,100,50,6,30,90,270,400,550,baby blue
+9,Juniper Avenue,120,50,8,40,100,300,450,600,baby blue
 10,JUST VISITING JAIL/JAIL,,,,,,,,,
-11,St. Charles Place,140,100,10,50,150,450,625,750,pink
+11,Fountain Street,140,100,10,50,150,450,625,750,pink
 12,ELECTRIC COMPANY,150,,,,,,,,
-13,States Avenue,140,100,10,50,150,450,625,750,pink
-14,Virginia Avenue,160,100,12,60,180,500,700,900,pink
-15,Pennsylvania Railroad,200,25,50,100,200,,,,
-16,St. James Place,180,100,14,70,200,550,750,950,orange
+13,King Street,140,100,10,50,150,450,625,750,pink
+14,Laurel Avenue,160,100,12,60,180,500,700,900,pink
+15,Buff Busline,200,25,50,100,200,,,,
+16,Madison Avenue,180,100,14,70,200,550,750,950,orange
 17,COMMUNITY CHEST,,,,,,,,,
-18,Tennessee Avenue,180,100,14,70,200,550,750,950,orange
-19,New York Avenue,200,100,16,80,220,600,800,1000,orange
+18,Loki Avenue,180,100,14,70,200,550,750,950,orange
+19,Odin Avenue,200,100,16,80,220,600,800,1000,orange
 20,FREE PARKING,,,,,,,,,
-21,Kentucky Avenue,220,150,18,90,250,700,875,1050,red
+21,Emerson Avenue,220,150,18,90,250,700,875,1050,red
 22,CHANCE,,,,,,,,,
-23,Indiana Avenue,220,150,18,90,250,700,875,1050,red
-24,Illinois Avenue,240,150,20,100,300,750,925,1100,red
-25,B & O Railroad,200,25,50,100,200,,,,
-26,Atlantic Avenue,260,150,22,110,330,800,975,1150,yellow
-27,Ventnor Avenue,260,150,22,110,330,800,975,1150,yellow
+23,Maxwell Avenue,220,150,18,90,250,700,875,1050,red
+24,Drake Street,240,150,20,100,300,750,925,1100,red
+25,Dash Busline,200,25,50,100,200,,,,
+26,Moorhead Avenue,260,150,22,110,330,800,975,1150,yellow
+27,Raven Court,260,150,22,110,330,800,975,1150,yellow
 28,WATER WORKS,150,,,,,,,,
-29,Marvin Gardens,280,150,24,120,360,850,1025,1200,yellow
+29,Cascade Avenue,280,150,24,120,360,850,1025,1200,yellow
 30,GO TO JAIL,,,,,,,,,
-31,Pacific Avenue,300,200,26,130,390,900,1100,1275,green
-32,North Carolina Avenue,300,200,26,130,390,900,1100,1275,green
+31,Central Avenue,300,200,26,130,390,900,1100,1275,green
+32,Euclid Avenue,300,200,26,130,390,900,1100,1275,green
 33,COMMUNITY CHEST,,,,,,,,,
-34,Pennsylvania Avenue,320,200,28,150,450,1000,1200,1400,green
-35,Short Line Railroad,200,25,50,100,200,,,,
+34,Colorado Avenue,320,200,28,150,450,1000,1200,1400,green
+35,Stampede Busline,200,25,50,100,200,,,,
 36,CHANCE,,,,,,,,,
-37,Park Place,350,200,35,175,500,1100,1300,1500,dark blue
+37,Broadway,350,200,35,175,500,1100,1300,1500,dark blue
 38,LUXARY TAX,,,,,,,,,
-39,Boardwalk,400,200,50,200,600,1400,1700,2000,dark blue
+39,Pearl Street,400,200,50,200,600,1400,1700,2000,dark blue
