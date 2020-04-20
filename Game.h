@@ -44,7 +44,7 @@ class Game
         void buy(int propertyLocation, int currentPlayer);
         void buyHouse(int propertyLocation);// incomplete
         void rent(int propertyLocation, int currentPlayer);
-        void waterElectricRent(int rollone, int rolltwo, int propertylocation); //Incomplete
+        void waterElectricRent(); //Incomplete
         void luxuryTax();
         void incomeTax();
         void jail(); //Incomplete

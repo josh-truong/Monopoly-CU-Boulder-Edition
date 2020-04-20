@@ -9,7 +9,9 @@ int main()
 {
     Game testgame;
     testgame.readPlayers();
-    testgame.passGo();
-    testgame.endGame("qUiT");
+    testgame.readProperty();
+    testgame.roll();
+    testgame.buy(28,2);
+    testgame.waterElectricRent();
     return 0;
 }
