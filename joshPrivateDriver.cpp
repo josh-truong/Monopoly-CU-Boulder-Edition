@@ -7,11 +7,9 @@ using namespace std;
 
 int main()
 {
-
     cout << setw(50) << "Welcome to a Game of Monopoly!" <<endl;
     cout << setw(50) << "Theme: CU Boudler" << endl;
     cout << setw(50) << "Solgan: The only place in Boulder where you can get rich!" << endl;
-
 
     Game monopoly;
     bool successfulRead = monopoly.readPlayers();
@@ -20,7 +18,6 @@ int main()
     {
         successfulRead = monopoly.readPlayers();
     }
-
 
     string playerQuit;
     bool display_status = true;
@@ -39,10 +36,6 @@ int main()
             monopoly.checkOwnership(currentTurn);
             display_status = false;
         }
-
-        
-
-
         cout << endl;
         cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
         cout << "Menu" << endl;
@@ -53,7 +46,6 @@ int main()
         cout << "5. End Turn" << endl;
         cout << "6. QUIT" << endl;
         cin >> playerMenuOptions;
-
 
         if(cin.fail())
         {
@@ -116,8 +108,6 @@ int main()
         }
         
     } while (playerQuit != "Quit");
-
-
     return 0;
 }
 

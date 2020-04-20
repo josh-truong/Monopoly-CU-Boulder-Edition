@@ -67,7 +67,7 @@ class Game
         int getCurrentTurn();
         void playerProfile();
         int biddersMenu();
-        void bankrupt();
+        void bankrupt(int currentTurn);
 };
 
 #endif

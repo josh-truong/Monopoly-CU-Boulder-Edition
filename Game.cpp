@@ -937,10 +937,10 @@ void Game::rent(int propertyLocation, int currentTurn)
             }
             else
             {
-                //Call the bankrupt function
                 cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like your time has run out!" << endl;
                 cout << setw(50) << "\x1B[92m" << "Blucifer has entered the game and took you as his creator (Luis Jiménez)..." << endl;
                 cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "] " << " has left the game." << endl;
+                bankrupt(currentTurn);
             }
         }
         if((unfortunate_player_bal - rentCost) >= 0)
@@ -1738,15 +1738,16 @@ void Game::morgage()
 {
     int propertyLocation = player[currentTurn - 1].getBoardLocation();
     int rentCost = property[propertyLocation].getRent();
-    //Bankrupt Function can be placed here since morgage is used most of the time as a last resort
+    
     int numPropertiesOwned = listOfOwnedProperties();
 
 
     if((numPropertiesOwned == 0) && ((player[currentTurn - 1].getBalance() - rentCost) < 0))
     {
+        //Bankrupt Function can be placed here since morgage is used most of the time as a last resort
         cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << property[propertyLocation].getOwner() << " has yeeted " << player[currentTurn - 1].getName() << "from the game!" << endl;
         cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << "\x1B[91m" << player[currentTurn - 1].getName() << "\x1B[0m" << " You're bankrupt!" << endl;
-        //Call the bankrupted function. Note that transitioning from array to vector might be neccessary
+        bankrupt(currentTurn);
     }
     else if(numPropertiesOwned != 0)
     {
@@ -1858,6 +1859,7 @@ void Game::auction(int propertyLocation)
     }
     
     int bidPrice = 0;
+    int currentBid1, currentBid2, currentBid3, currentBid4;
     while(numBidders > 1)
     {
         for(int i = 0; i < numBidders; i++)
@@ -1875,23 +1877,23 @@ void Game::auction(int propertyLocation)
                     {
                         cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Unbeknownst to any players, you decided to go off into the mountains to live of the land and never returned." << endl;
                         cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "] " << " has left the game." << endl;
-                        bankrupt();
+                        bankrupt(currentTurn);
                     }
                     if (playerBidStatus[0] && i == 0)
                     {
-
+                        currentBid1 = bidPrice;
                     }
                     if (playerBidStatus[1] && i == 1)
                     {
-                        /* code */
+                        currentBid2 = bidPrice;
                     }
                     if (playerBidStatus[2] && i == 2)
                     {
-                        /* code */
+                        currentBid3 = bidPrice;
                     }
                     if (playerBidStatus[3] && i == 3)
                     {
-                        /* code */
+                        currentBid4 = bidPrice;
                     }
                     break;
                 }
@@ -1924,4 +1926,9 @@ void Game::auction(int propertyLocation)
             }
         }
     }
+}
+
+void Game::bankrupt(int currentTurn)
+{
+    player[currentTurn - 1].setBankruptStatusTrue();
 }
