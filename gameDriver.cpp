@@ -26,7 +26,7 @@ int main()
     {
         int currentTurn = monopoly.getCurrentTurn();
 
-        if(monopoly.getBankruptStatus(currentTurn) == true && monopoly.getNumPlayers() != 1)
+        if(monopoly.getBankruptStatus(currentTurn) == false && monopoly.getNumPlayers() != 1)
         {
             if(display_status == true)
             {
