@@ -38,7 +38,7 @@ class Game
         void doubleTurn(int dice_1, int dice_2); //Incomplete
         
         void getPropertyInfo(int propertyLocation_);
-        void endGame(string quit_); //Incomplete
+        void endGame(); //Incomplete
         void endTurn();
         void trade(string playerName, string propertyoffered, int offer_, string propertywanted); //Incomplete
         void buy(int propertyLocation, int currentPlayer);
@@ -66,8 +66,13 @@ class Game
         string toupper(string name);
         int getCurrentTurn();
         void playerProfile();
-        int biddersMenu();
+        int biddersMenu(int currenBidderTurn);
         void bankrupt(int currentTurn);
+        void bankrupt();
+        int biddingPrice();
+
+        bool getBankruptStatus(int currentTurn);
+        bool getBankruptStatus();
 };
 
 #endif
