@@ -1102,9 +1102,13 @@ void Game::communityChest(string textfile)
             case 1:
             {
                 cout << line << endl;
-                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                player[currentTurn - 1].setBoardLocation(0);
+                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 passGo();
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 2:
