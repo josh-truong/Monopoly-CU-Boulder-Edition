@@ -21,7 +21,7 @@ int main()
     string playerQuit;
     bool display_status = true;
     int playerMenuOptions = 0;
-
+    int quitcounter = 0;
     do
     {
         int currentTurn = monopoly.getCurrentTurn();
@@ -45,7 +45,8 @@ int main()
             cout << "3. Balance" << endl;
             cout << "4. Get Property Info" << endl;
             cout << "5. End Turn" << endl;
-            cout << "6. QUIT" << endl;
+            cout << "6. Buy House" << endl;
+            cout << "7. QUIT GAME" << endl;
             cin >> playerMenuOptions;
 
             if(cin.fail())
@@ -88,13 +89,38 @@ int main()
                         display_status = true;
                         break;
                     }
-                    case 6:
+                    case 6: 
                     {
-                        cout << "Are you sure you want to quit?" << endl;
-                        cout << "Enter QUIT or Enter cancel: " << playerQuit << endl;
+                        monopoly.buyHouse();
                         break;
                     }
                     case 7:
+                    {
+                        int repeater = 0;
+                        while(repeater == 0)
+                        {
+                            cout << "Are you sure you want to quit?" << endl;
+                            cout << "Enter QUIT or Enter CANCEL. Ensure the letters are completely capitalized." << endl;
+                            string entry;
+                            cin >> entry;
+                            if(entry == "QUIT")
+                            {
+                                quitcounter = 1;
+                                repeater = 1;
+                            }
+                            else if(entry == "CANCEL")
+                            {
+                                cout << "The game goes on." << endl;
+                                repeater = 1;
+                            }
+                            else
+                            {
+                                cout << "Invalid input." << endl;
+                            }
+                        }
+                        break;
+                    }
+                    case 8:
                     {
                         int propertyLocation;
                         cout << "Enter property Location: ";
@@ -112,7 +138,7 @@ int main()
         {
             monopoly.endTurn();
         }
-    } while (monopoly.getNumPlayers() != 1);
+    } while (monopoly.getNumPlayers() != 1 && quitcounter == 0);
 
     monopoly.endGame();
     return 0;

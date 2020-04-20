@@ -57,13 +57,13 @@ class Game
 
         string getPlayerUsername_GAME(int i);
         string getPlayerCharacter(int i);
+        string toupper(string name);
         void checkOwnership(int currentPlayer);
         bool checkForExceptions(int boardLocation);
         void erase(int currentTurn);
         int listOfOwnedProperties();
 
         void banish(int currentTurn);
-        string toupper(string name);
         int getCurrentTurn();
         void playerProfile();
         int biddersMenu(int currenBidderTurn);
