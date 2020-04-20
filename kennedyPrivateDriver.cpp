@@ -8,6 +8,8 @@ using namespace std;
 int main()
 {
     Game testgame;
-    testgame.chance("chance.txt");
+    testgame.readPlayers();
+    testgame.passGo();
+    testgame.endGame("qUiT");
     return 0;
 }

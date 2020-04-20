@@ -516,6 +516,27 @@ void Game::endGame(string quit_)
     a condition to activate it in main. It print a message to a text file that will display the results and the winner, 
     along with their balances.
     */
+
+    if(toupper(quit_) == toupper("quit"))
+    {
+        ofstream victory;
+        victory.open("results.txt");
+        int largestbalance = 0;
+        string winner;
+        for(int i = 0; i < numPlayers; i++)
+        {
+            if(player[i].getBalance() > largestbalance)
+            {
+                largestbalance = player[i].getBalance();
+                winner = player[i].getName();
+            }
+        }
+        victory << "The winner is " << winner << " with a balance of " << largestbalance << ". Congratulations on your monopoly." << endl;
+    }
+    else
+    {
+        cout << "Incorrect input." << endl;
+    }
 }
 
 
@@ -1103,9 +1124,13 @@ void Game::communityChest(string textfile)
             case 1:
             {
                 cout << line << endl;
-                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                player[currentTurn - 1].setBoardLocation(0);
+                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
+                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 passGo();
+                checkOwnership(currentTurn);
+                display_MapAndPlayer();
                 break;
             }
             case 2:
