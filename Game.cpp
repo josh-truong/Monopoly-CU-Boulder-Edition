@@ -1693,7 +1693,10 @@ void Game::checkOwnership(int currentTurn)
         {
             cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you landed on one of your own properties! You're safe." << endl;
         }
-        
+        else if(ownership_status != player[currentTurn - 1].getName() && (player[currentTurn - 1].getBoardLocation() == 12 || player[currentTurn - 1].getBoardLocation() == 28))
+        {
+            waterElectricRent();
+        }
     }
 }
 

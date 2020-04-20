@@ -46,7 +46,6 @@ int main()
             cout << "4. Get Property Info" << endl;
             cout << "5. End Turn" << endl;
             cout << "6. QUIT" << endl;
-            cout << "7. Buy property" << endl;
             cin >> playerMenuOptions;
 
             if(cin.fail())
@@ -98,7 +97,7 @@ int main()
                     case 7:
                     {
                         int propertyLocation;
-                        cout << "Enter propertyLocation: ";
+                        cout << "Enter property Location: ";
                         cin >> propertyLocation;
                         monopoly.buy(propertyLocation, 1);
                         break;
