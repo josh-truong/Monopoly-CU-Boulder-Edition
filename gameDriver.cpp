@@ -26,7 +26,7 @@ int main()
     {
         int currentTurn = monopoly.getCurrentTurn();
 
-        if(monopoly.getBankruptStatus(currentTurn) == true && monopoly.getNumPlayers() != 1)
+        if(monopoly.getBankruptStatus(currentTurn) == false && monopoly.getNumPlayers() != 1)
         {
             if(display_status == true)
             {
@@ -46,6 +46,7 @@ int main()
             cout << "4. Get Property Info" << endl;
             cout << "5. End Turn" << endl;
             cout << "6. QUIT" << endl;
+            cout << "7. Buy property" << endl;
             cin >> playerMenuOptions;
 
             if(cin.fail())
@@ -107,6 +108,10 @@ int main()
                         break;
                 }
             }
+        }
+        else
+        {
+            monopoly.endTurn();
         }
     } while (monopoly.getNumPlayers() != 1);
 
