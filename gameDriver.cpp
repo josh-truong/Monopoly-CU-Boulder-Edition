@@ -91,7 +91,8 @@ int main()
                     }
                     case 6: 
                     {
-                        monopoly.buyHouse();
+                        int location = monopoly.getPlayerLocation();
+                        monopoly.buyHouse(location);
                         break;
                     }
                     case 7:

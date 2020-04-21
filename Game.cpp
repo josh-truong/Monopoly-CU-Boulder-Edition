@@ -507,7 +507,7 @@ void Game::doubleTurn(int dice_1, int dice_2)
     */
 }
 
-int Game::getPlayerLocation();
+int Game::getPlayerLocation()
 {
     int boardlocation = player[currentTurn - 1].getBoardLocation();
     return boardlocation;
@@ -638,7 +638,7 @@ void Game::buyHouse(int propertyLocation)
     */
     string owner = property[propertyLocation].getOwner();
     string color = property[propertyLocation].getColor();
-    if(toupper(owner) == toupper(player[currentTurn - 1].getName()))
+    if(toupper(owner) == toupper(player[currentTurn - 1].getName()) && property[propertyLocation].getNumBuildings() <= 5)
     {
         int counter = 0;
         for(int i = 0; i < 40; i++)
@@ -909,7 +909,7 @@ void Game::buyHouse(int propertyLocation)
     }
     else
     {
-        cout << "You must own the property to buy a house for the property." << endl; 
+        cout << "You cannot purchase a house for this property." << endl; 
     }
 }
 
