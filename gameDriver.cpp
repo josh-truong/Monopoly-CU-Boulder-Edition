@@ -44,9 +44,10 @@ int main()
             cout << "2. List of Owned Properties" << endl;
             cout << "3. Balance" << endl;
             cout << "4. Get Property Info" << endl;
-            cout << "5. End Turn" << endl;
-            cout << "6. Buy House" << endl;
-            cout << "7. QUIT GAME" << endl;
+            cout << "5. Buy House" << endl;
+            cout << "6. End Turn" << endl;
+            cout << "7. Trade" << endl;
+            cout << "8. QUIT GAME" << endl;
             cin >> playerMenuOptions;
 
             if(cin.fail())
@@ -83,19 +84,26 @@ int main()
                         monopoly.getPropertyInfo(propertyLocation);
                         break;
                     }
-                    case 5:
-                    {
-                        monopoly.endTurn();
-                        display_status = true;
-                        break;
-                    }
-                    case 6: 
+                    case 5: 
                     {
                         int location = monopoly.getPlayerLocation();
                         monopoly.buyHouse(location);
                         break;
                     }
+                    case 6:
+                    {
+                        monopoly.endTurn();
+                        display_status = true;
+                        break;
+                    }
                     case 7:
+                    {
+                        cout << "Enter in the name of the player you want to offer a trade to." << endl;
+                        string personname;
+                        cin >> personname;
+                        break;
+                    }
+                    case 8:
                     {
                         int repeater = 0;
                         while(repeater == 0)
