@@ -34,7 +34,7 @@ class Game
 
         int getNumPlayers();
         int getAmountofBankruptPlayers();
-        bool getInJail(int currentTurn);
+        bool getInJail();
         void setInJail(bool status);
         void setTurnsInJail(int number);
         int getTurnsInJail();

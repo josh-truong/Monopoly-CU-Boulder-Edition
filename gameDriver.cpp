@@ -33,7 +33,7 @@ int main()
         }
         else if(monopoly.getBankruptStatus(currentTurn) == false && monopoly.getNumPlayers() != 1)
         {
-            if(monopoly.getInJail(currentTurn) == true && monopoly.getTurnsInJail() > 0)
+            if(monopoly.getInJail() == true && monopoly.getTurnsInJail() > 0)
             {
                 cout << "You are in jail for " << monopoly.getTurnsInJail() << " turn." << endl;
                 monopoly.setTurnsInJail(monopoly.getTurnsInJail() - 1);
