@@ -82,6 +82,7 @@ Game::Game()
 void Game::setPiece(int boardLocation, string playerPiece, int currentTurn)
 {
     player[currentTurn - 1].setBoardLocation(boardLocation);
+    
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
@@ -1240,7 +1241,9 @@ void Game::jail()
     This function will move a player directly to jail. It will then set a boolian to true which will remain true until three turns
     pass or the player succeeds in rolling a double. 
     */
-    setPiece(10,player[currentTurn - 1].getPlayerChar(), currentTurn);
+    string playerPieces[4] = {"$","%","*","&"};
+    setPiece(10,playerPieces[currentTurn - 1], currentTurn);
+    player[currentTurn - 1].setBoardLocation(10);
     erase(currentTurn);
     display_MapAndPlayer();
     player[currentTurn - 1].setJailCounter(3);
@@ -2241,6 +2244,13 @@ void Game::auction(int propertyLocation)
 
 void Game::bankrupt()
 {
+    for(int i = 0; i < 40; i++)
+    {
+        if(player[currentTurn - 1].getName() == property[i].getOwner())
+        {
+            property[i].setOwner("none");
+        }
+    }
     player[currentTurn - 1].setBankruptStatusTrue();
     cout << "\x1B[91m" << player[currentTurn - 1].getName() << " Status is Bankrupt" << "\x1B[0m" << endl;
     int playerIsAlive = 0;
@@ -2273,7 +2283,7 @@ void Game::bankrupt()
         }
         case 2:
         {
-            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you entered an unknown realm and never returned...";
+            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you entered an unknown realm and never returned..." << endl;
             cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[currentTurn - 1].getName() << " has left the game.";
             break;
         }
