@@ -508,6 +508,13 @@ void Game::doubleTurn(int dice_1, int dice_2)
     */
 }
 
+int Game::getPlayerLocation()
+{
+    int boardlocation = player[currentTurn - 1].getBoardLocation();
+    return boardlocation;
+}
+
+
 void Game::endGame()
 {
     /*
@@ -690,7 +697,7 @@ void Game::buyHouse(int propertyLocation)
     */
     string owner = property[propertyLocation].getOwner();
     string color = property[propertyLocation].getColor();
-    if(toupper(owner) == toupper(player[currentTurn - 1].getName()))
+    if(toupper(owner) == toupper(player[currentTurn - 1].getName()) && property[propertyLocation].getNumBuildings() <= 5)
     {
         int counter = 0;
         for(int i = 0; i < 40; i++)
@@ -961,7 +968,7 @@ void Game::buyHouse(int propertyLocation)
     }
     else
     {
-        cout << "You must own the property to buy a house for the property." << endl; 
+        cout << "You cannot purchase a house for this property." << endl; 
     }
 }
 
@@ -1752,7 +1759,10 @@ void Game::checkOwnership(int currentTurn)
         {
             cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you landed on one of your own properties! You're safe." << endl;
         }
-        
+        else if(ownership_status != player[currentTurn - 1].getName() && (player[currentTurn - 1].getBoardLocation() == 12 || player[currentTurn - 1].getBoardLocation() == 28))
+        {
+            waterElectricRent();
+        }
     }
 }
 
