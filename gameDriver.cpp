@@ -184,6 +184,10 @@ int main()
                             monopoly.buy(propertyLocation, 1);
                             break;
                         }
+                        case 11:
+                        {
+                            monopoly.bankrupt();
+                        }
                         default:
                             cout << "You have entered an option that does not exits." << endl;
                             break;
