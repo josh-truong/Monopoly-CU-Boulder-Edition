@@ -362,7 +362,7 @@ void Game::readProperty()
                 {
                     string NON_OP;
                     getline(strm, NON_OP, ',');
-                    property[propertyLocation_int].setOwner("\x1B[93m Mr.Monopoly (Rich Uncle Pennybags) \x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m");
+                    property[propertyLocation_int].setOwner("\x1B[93mMr.Monopoly (Rich Uncle Pennybags)\x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m");
                     property[propertyLocation_int].setPropertyName(NON_OP);
                     property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
                     break;
@@ -571,7 +571,7 @@ void Game::tradeWithMoney(int propertyLocation, int deal)
     */
    string currentOwnerOfProperty = property[propertyLocation].getOwner();
    string potentialOwner = player[currentTurn - 1].getName();
-   if(currentOwnerOfProperty == "none" || currentOwnerOfProperty == "Mr.Monopoly (Rich Uncle Pennybags)")
+   if(currentOwnerOfProperty == "none" || currentOwnerOfProperty == "\x1B[93mMr.Monopoly (Rich Uncle Pennybags)\x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m")
    {
        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You can't trade with a ghost." << endl;
    }
@@ -635,7 +635,7 @@ void Game::tradeWithProperty(int IwantThis, int IGiveYouThat)
     */
    string currentOwnerOfProperty = property[IwantThis].getOwner();
    string potentialOwner = player[currentTurn - 1].getName();
-   if((currentOwnerOfProperty == "none" || currentOwnerOfProperty == "Mr.Monopoly (Rich Uncle Pennybags)") && (0 <= IwantThis && IwantThis < 40))
+   if((currentOwnerOfProperty == "none" || currentOwnerOfProperty == "\x1B[93mMr.Monopoly (Rich Uncle Pennybags)\x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m") && (0 <= IwantThis && IwantThis < 40))
    {
        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You can't trade with a ghost." << endl;
    }
@@ -1907,7 +1907,8 @@ int Game::listOfOwnedProperties_ByOtherPlayers()
         cin >> spyPlayer;
     }while(!(1 <= spyPlayer && spyPlayer <= numPlayers));
 
-    cout << "\x1B[92m" << "[" << player[spyPlayer].getName() << "]" << "\x1B[0m" << "Current Balance: " << "\x1B[92m" << "$" << player[spyPlayer].getBalance() << "\x1B[0m" << endl;
+    cout << endl;
+    cout << "\x1B[92m" << "[" << player[spyPlayer].getName() << "]" << "\x1B[0m" << " Current Balance: " << "\x1B[92m" << "$" << player[spyPlayer].getBalance() << "\x1B[0m" << endl;
     int nonMorgaged_property_counter = 0;
     int allProperties = 0;
     cout << "----------Owned Properties----------" << endl;
@@ -2023,7 +2024,7 @@ int Game::getCurrentTurn()
     return currentTurn;
 }
 
-void Game::playerProfile()
+void Game::currentPlayerBal()
 {
     cout << "Balance: " << "\x1B[92m" << "$" << player[currentTurn - 1].getBalance() << "\x1B[0m" << endl;
 }

@@ -75,7 +75,7 @@ class Game
 
         void banish(int currentTurn);
         int getCurrentTurn();
-        void playerProfile();
+        void currentPlayerBal();
         int biddersMenu(int currenBidderTurn);
         void bankrupt();
         int biddingPrice();
