@@ -552,7 +552,7 @@ void Game::endGame()
 }
 
 
-void Game::trade(int propertyLocation, int deal)
+void Game::tradeWithMoney(int propertyLocation, int deal)
 {
     /*
     This function allows the user to offer a trade to another player. It takes the name of the player, the property you want to offer,
@@ -585,7 +585,7 @@ void Game::trade(int propertyLocation, int deal)
             {
                 cin.clear();
                 cin.ignore(1000, '\n');
-                trade(propertyLocation, deal);
+                tradeWithMoney(propertyLocation, deal);
             }
             if(toupper(currentOwnerResponse) == "Y")
             {
@@ -615,10 +615,63 @@ void Game::trade(int propertyLocation, int deal)
        }
        
    }
-   
-
 }
+void Game::tradeWithProperty(int IwantThis, int IGiveYouThat)
+{
+    /*
+    This function allows the user to offer a trade to another player. It takes the name of the player, the property you want to offer,
+    and the amount of money you want to offer. It will then allow the person being offered to decide if they want to accept the offer or not.
+    If they accepted the offer, it will transfer the money and exchange the properties.
+    */
+   string currentOwnerOfProperty = property[IwantThis].getOwner();
+   string potentialOwner = player[currentTurn - 1].getName();
+   if((currentOwnerOfProperty == "none" || currentOwnerOfProperty == "Mr.Monopoly (Rich Uncle Pennybags)") && (0 <= IwantThis && IwantThis < 40))
+   {
+       cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You can't trade with a ghost." << endl;
+   }
+   else
+   {
+       //Check If potential Player Has money
+       if(player[currentTurn - 1].getName() != property[IGiveYouThat].getOwner())
+       {
+           cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You Do Not Own " << "\x1B[92m" << property[IGiveYouThat].getPropertyName() << "\x1B[0m" << endl;
+       }
+       else
+       {
+            string currentOwnerResponse;
+            cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like " << potentialOwner << " wants a trade with your property " << "\x1B[92m" << currentOwnerOfProperty << "\x1B[0m" << endl;
+            getPropertyInfo(IwantThis);
+            cout << "\x1B[92m" << potentialOwner << "\x1B[0m" << " --> " << "\x1B[92m" << currentOwnerOfProperty << "\x1B[0m" << " Will you trade your " << "\x1B[92m" << "[" << IwantThis << "]" << property[IwantThis].getPropertyName() << "\x1B[0m" << " for a " << "\x1B[92m" << "[" << IGiveYouThat << "]" << property[IGiveYouThat].getPropertyName() << "\x1B[0m" << endl;
+            cout << "Do you accept this trade? Enter y/n" << endl;
+            cin >> currentOwnerResponse;
 
+            if(cin.fail())
+            {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                tradeWithProperty(IwantThis, IGiveYouThat);
+            }
+            if(toupper(currentOwnerResponse) == "Y")
+            {
+                int ownerLocation;
+                for(int i = 0; i < 4; i++)
+                {
+                    if(player[i].getName() == currentOwnerOfProperty)
+                    {
+                        ownerLocation = i;
+                    }
+                }
+                property[IGiveYouThat].setOwner(player[ownerLocation].getName());
+                property[IwantThis].setOwner(player[currentTurn - 1].getName());
+            }
+            else if(toupper(currentOwnerResponse) == "N")
+            {
+                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like " << currentOwnerOfProperty << " has decline your deal " << "\x1B[92m" << potentialOwner << "\x1B[0m" << endl;
+            }
+       }
+       
+   }
+}
 void Game::buy(int propertyLocation, int currentPlayer)
 {
     /*
@@ -1027,10 +1080,7 @@ void Game::rent(int propertyLocation, int currentTurn)
             }
             else
             {
-                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like your time has run out!" << endl;
-                cout << setw(50) << "\x1B[92m" << "Blucifer has entered the game and took you as his creator (Luis Jiménez)..." << endl;
-                cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << " has left the game." << "\x1B[0m" << endl;
-                bankrupt(currentTurn);
+                bankrupt();
             }
         }
         if((unfortunate_player_bal - rentCost) >= 0)
@@ -1890,7 +1940,7 @@ void Game::morgage()
         //Bankrupt Function can be placed here since morgage is used most of the time as a last resort
         cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << property[propertyLocation].getOwner() << " has yeeted " << player[currentTurn - 1].getName() << "from the game!" << endl;
         cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << "\x1B[91m" << player[currentTurn - 1].getName() << "\x1B[0m" << " You're bankrupt!" << endl;
-        bankrupt(currentTurn);
+        bankrupt();
     }
     else if(numPropertiesOwned != 0)
     {
@@ -2063,7 +2113,7 @@ void Game::auction(int propertyLocation)
                             cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "You're bidding price is higher than your balance!" << endl;
                             cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Would you like to morgage some of your properties? Enter y/n" << endl;
                             cin >> morgageResponse;
-
+                            
                             if(toupper(morgageResponse) == "Y")
                             {
                                 int savedCurrentTurn = currentTurn;
@@ -2074,17 +2124,9 @@ void Game::auction(int propertyLocation)
                                 bidPrice = biddingPrice();
                                 playerCurrentBid[i] = bidPrice;
                             }
-                            else if(toupper(morgageResponse) == "N")
-                            {
-                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn from the bidding ground." << endl;
-                                playerBidStatus[i] = false;
-                                numBidders--;
-                            }
                             else
                             {
-                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you entered an unknown realm and never returned...";
-                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has left the game.";
-                                bankrupt(i + 1);
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn from the bidding ground." << endl;
                                 playerBidStatus[i] = false;
                                 numBidders--;
                             }
@@ -2144,6 +2186,7 @@ void Game::auction(int propertyLocation)
                         if(playerWithHighestBid == i)
                         {
                             cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " you are not allowed to leave the auction ground because you are our highest bidder!" << endl;
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Miss A Turn." << endl;
                         }
                         else
                         {
@@ -2154,11 +2197,7 @@ void Game::auction(int propertyLocation)
                         break;
                     }
                     default:
-                        cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Unbeknownst to any players, you decided to go off into the mountains to live of the land and never returned." << endl;
-                        cout << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << " has left the game." << endl;
-                        bankrupt(i + 1);
-                        playerBidStatus[i] = false;
-                        numBidders--;
+                        cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "You've Entered an Invalid Option. Miss A Turn." << endl;
                         break;
                 }
             }
@@ -2189,7 +2228,7 @@ void Game::auction(int propertyLocation)
 void Game::bankrupt()
 {
     player[currentTurn - 1].setBankruptStatusTrue();
-    cout << "Player Status is Bankrupt" << endl;
+    cout << "\x1B[91m" << player[currentTurn - 1].getName() << " Status is Bankrupt" << "\x1B[0m" << endl;
     int playerIsAlive = 0;
     for(int i = 0; i < numPlayers; i++)
     {
@@ -2200,6 +2239,37 @@ void Game::bankrupt()
     }
 
     cout << "There are " << playerIsAlive << " players left." << endl;
+
+    srand((unsigned)time(0));
+    int line;
+    for(int i = 0; i < 2; i++)
+    {
+        line = rand() % 3 + 1;
+    }
+
+    switch(line)
+    {
+        case 1:
+        {
+            cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like your time has run out!" << endl;
+            cout << setw(50) << "\x1B[92m" << "Blucifer has entered the game and took you as his creator (Luis Jiménez)..." << endl;
+            cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << " has left the game." << "\x1B[0m" << endl;
+
+            break;
+        }
+        case 2:
+        {
+            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you entered an unknown realm and never returned...";
+            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[currentTurn - 1].getName() << " has left the game.";
+            break;
+        }
+        case 3:
+        {
+            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Unbeknownst to any players, you decided to go off into the mountains to live of the land and never returned." << endl;
+            cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "] " << "\x1B[0m" << " has left the game." << endl;
+            break;
+        }
+    }
 }
 
 bool Game::getBankruptStatus(int currentTurn)
