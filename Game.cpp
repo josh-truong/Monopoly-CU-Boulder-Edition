@@ -81,7 +81,8 @@ Game::Game()
 */
 void Game::setPiece(int boardLocation, string playerPiece, int currentTurn)
 {
-    player[currentTurn - 1].setBoardLocation(boardLocation);
+    // player[currentTurn - 1].setBoardLocation(boardLocation);
+    player[currentTurn - 1].setBoardLocation(7);
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
