@@ -236,7 +236,7 @@ void Game::display_MapAndPlayer() const
     cout << endl;
 }
 
-int Game::getAmountofBankruptPlayers();
+int Game::getAmountofBankruptPlayers()
 {
     int answer
     for(int i = 0; i < numPlayers; i++)
@@ -993,12 +993,12 @@ void Game::setInJail(bool status)
     player[currentTurn - 1].setJailStatus(status);
 }
 
-void Game::setTurnsInJail(int number);
+void Game::setTurnsInJail(int number)
 {
     player[currentTurn - 1].setJailCounter(number);
 }
 
-int Game::getTurnsInJail();
+int Game::getTurnsInJail()
 {
     return player[currentTurn - 1].getJailCounter();
 }

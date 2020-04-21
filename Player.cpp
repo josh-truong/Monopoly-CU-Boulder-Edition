@@ -88,7 +88,7 @@ int Player::getBoardLocation()
     return boardlocation;
 }
 
-int Player::getJailCounter();
+int Player::getJailCounter()
 {
     return injailcounter;
 }
