@@ -142,7 +142,7 @@ int main()
                             }
                             break;
                         }
-                        case 8:
+                        case 9:
                         {
                             int propertyLocation;
                             cout << "Enter property Location: ";
