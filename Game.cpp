@@ -81,6 +81,7 @@ Game::Game()
 */
 void Game::setPiece(int boardLocation, string playerPiece, int currentTurn)
 {
+    player[currentTurn - 1].setBoardLocation(boardLocation);
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
@@ -1241,7 +1242,6 @@ void Game::jail()
     */
     setPiece(10,player[currentTurn - 1].getPlayerChar(), currentTurn);
     erase(currentTurn);
-    player[currentTurn - 1].setBoardLocation(10);
     display_MapAndPlayer();
     player[currentTurn - 1].setJailCounter(3);
     bool jail = true;
@@ -1277,9 +1277,7 @@ void Game::communityChest(string textfile)
             case 1:
             {
                 cout << line << endl;
-                player[currentTurn - 1].setBoardLocation(0);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 passGo();
                 checkOwnership(currentTurn);
@@ -1464,9 +1462,7 @@ void Game::chance(string textfile)
             case 1:
             {
                 cout << line << endl;
-                player[currentTurn - 1].setBoardLocation(0);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 passGo();
                 checkOwnership(currentTurn);
@@ -1476,9 +1472,7 @@ void Game::chance(string textfile)
             case 2:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(24);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(24, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 24)
                 {
@@ -1491,9 +1485,7 @@ void Game::chance(string textfile)
             case 3:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(11);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(11, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 11)
                 {
@@ -1509,9 +1501,7 @@ void Game::chance(string textfile)
                 int playerposition = player[currentTurn - 1].getBoardLocation();
                 if(playerposition == 7 || playerposition == 36)
                 {
-                    player[currentTurn - 1].setBoardLocation(12);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[12].getOwner();
@@ -1528,9 +1518,7 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 22)
                 {
-                    player[currentTurn - 1].setBoardLocation(28);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(28, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[28].getOwner();
@@ -1555,9 +1543,7 @@ void Game::chance(string textfile)
                 int playerposition = player[currentTurn - 1].getBoardLocation();
                 if(playerposition == 7)
                 {
-                    player[currentTurn - 1].setBoardLocation(15);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(15, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[15].getOwner();
@@ -1572,9 +1558,7 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 22)
                 {
-                    player[currentTurn - 1].setBoardLocation(25);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(25, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[25].getOwner();
@@ -1593,9 +1577,7 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 38)
                 {
-                    player[currentTurn - 1].setBoardLocation(5);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[5].getOwner();
@@ -1631,8 +1613,6 @@ void Game::chance(string textfile)
             case 8:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(28);
-
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation() - 3;
                 setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);                
@@ -1675,9 +1655,7 @@ void Game::chance(string textfile)
             case 12:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(5);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 5)
                 {
@@ -1690,9 +1668,7 @@ void Game::chance(string textfile)
             case 13:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(39);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(39, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 checkOwnership(currentTurn);
                 display_MapAndPlayer();
