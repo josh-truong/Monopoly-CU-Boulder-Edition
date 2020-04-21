@@ -480,6 +480,7 @@ void Game::roll()
         dice_1 = rand() % 6 + 1;
         dice_2 = rand() % 6 + 1;
     }
+    cout << "DICE 1: " << dice_1 << "      DICE 2: " << dice_2 << endl;
     // cout << "dice_1: " << dice_1 << endl;
     // cout << "dice_2: " << dice_2 << endl;
 }
@@ -533,13 +534,71 @@ void Game::endGame()
 }
 
 
-void Game::trade(string playerName, string propertyoffer, int offer_, string propertywanted)
+void Game::trade(int propertyLocation, int deal)
 {
     /*
     This function allows the user to offer a trade to another player. It takes the name of the player, the property you want to offer,
     and the amount of money you want to offer. It will then allow the person being offered to decide if they want to accept the offer or not.
     If they accepted the offer, it will transfer the money and exchange the properties.
     */
+   string currentOwnerOfProperty = property[propertyLocation].getOwner();
+   string potentialOwner = player[currentTurn - 1].getName();
+   if(currentOwnerOfProperty == "none" || currentOwnerOfProperty == "Mr.Monopoly (Rich Uncle Pennybags)")
+   {
+       cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You can't trade with a ghost." << endl;
+   }
+   else
+   {
+       //Check If potential Player Has money
+       if((player[currentTurn - 1].getBalance() - deal) < 0)
+       {
+           cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You do not have enough money to make the deal that you just offered " << "\x1B[92m" << currentOwnerOfProperty << "\x1B[0m" << endl;
+       }
+       else
+       {
+            string currentOwnerResponse;
+            cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like " << potentialOwner << " wants to buy your property " << "\x1B[92m" << currentOwnerOfProperty << "\x1B[0m" << endl;
+            getPropertyInfo(propertyLocation);
+            cout << potentialOwner << " wants to buy your property for $" << deal << endl;
+            cout << "Do you accept this trade? Enter y/n" << endl;
+            cin >> currentOwnerResponse;
+
+            if(cin.fail())
+            {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                trade(propertyLocation, deal);
+            }
+            if(toupper(currentOwnerResponse) == "Y")
+            {
+                int ownerLocation;
+                for(int i = 0; i < 4; i++)
+                {
+                    if(player[i].getName() == currentOwnerOfProperty)
+                    {
+                        ownerLocation = i;
+                    }
+                }
+                int oldOwnerBalance = player[ownerLocation].getBalance();
+                int newBalance = oldOwnerBalance + deal;
+                player[ownerLocation].setBalance(newBalance);
+
+                int dealersBalance = player[currentTurn - 1].getBalance();
+                int difference = dealersBalance - deal;
+                player[currentTurn - 1].setBalance(difference);
+
+                property[propertyLocation].setOwner(potentialOwner);
+
+            }
+            else if(toupper(currentOwnerResponse) == "N")
+            {
+                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like " << currentOwnerOfProperty << " has decline your deal " << "\x1B[92m" << potentialOwner << "\x1B[0m" << endl;
+            }
+       }
+       
+   }
+   
+
 }
 
 void Game::buy(int propertyLocation, int currentPlayer)
@@ -1729,6 +1788,53 @@ int Game::listOfOwnedProperties()
     return nonMorgaged_property_counter;
 }
 
+int Game::listOfOwnedProperties_ByOtherPlayers()
+{
+    int spyPlayer;
+    for(int i = 0; i < numPlayers; i++)
+    {
+        if(player[i].getName() != player[currentTurn - 1].getName())
+        {
+            cout << "\x1B[92m" << "[" <<  i + 1 << "]" << "\x1B[0m" << player[i].getName() << "      ";
+        }
+    }
+    cout << endl;
+    do
+    {
+        cout << "Which Player do you want to Check? (Enter from a range of 1 to " << numPlayers << "): ";
+        cin >> spyPlayer;
+    }while(!(1 <= spyPlayer && spyPlayer <= numPlayers));
+
+    int nonMorgaged_property_counter = 0;
+    int allProperties = 0;
+    cout << "----------Owned Properties----------" << endl;
+    for(int i = 0; i < 40; i++)
+    {
+        string owned_PropertyName = property[i].getPropertyName();
+        int propertyRent = property[i].getRent();
+        int propertyCost = property[i].getPropertyCost();
+        int morgagedCost = propertyCost / 2;
+        if((property[i].getOwner() == player[spyPlayer - 1].getName()) && (property[i].getMorgage_Status() == false))
+        {
+            cout << "[" << i << "] " << owned_PropertyName << " | Price: \x1B[92m$" << propertyCost << "\x1B[0m" << " | Morgaged Value: \x1B[91m$" << morgagedCost << "\x1B[0m" << " | Current Rent: \x1B[91m$" << propertyRent << "\x1B[0m" << endl;
+            nonMorgaged_property_counter++;
+            allProperties++;
+        }
+        else if((property[i].getOwner() == player[spyPlayer - 1].getName()) && (property[i].getMorgage_Status() == true))
+        {
+            cout << "\x1B[91m" << "[Morgaged Property] [" << i << "] " << owned_PropertyName << "\x1B[0m" << " | Unmortgage Price: " << "\x1B[91m" << "$" << (propertyCost + (propertyCost * 0.1)) << "\x1B[0m" << endl;
+            allProperties++;
+        }
+        
+    }
+    if(allProperties == 0)
+    {
+        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You currently do not own any properties" << endl;
+    }
+    cout << endl;
+    return nonMorgaged_property_counter;
+}
+
 void Game::morgage()
 {
     int propertyLocation = player[currentTurn - 1].getBoardLocation();
@@ -2037,21 +2143,6 @@ void Game::auction(int propertyLocation)
     }
 }
 
-void Game::bankrupt(int currentTurn)
-{
-    player[currentTurn - 1].setBankruptStatusTrue();
-    cout << "Player Status is Bankrupt" << endl;
-    int playerIsAlive = 0;
-    for(int i = 0; i < numPlayers; i++)
-    {
-        if(player[i].getBankruptStatus() == false)
-        {
-            playerIsAlive++;
-        }
-    }
-
-    cout << "There are " << playerIsAlive << " players left." << endl;
-}
 
 void Game::bankrupt()
 {
@@ -2070,11 +2161,6 @@ void Game::bankrupt()
 }
 
 bool Game::getBankruptStatus(int currentTurn)
-{
-    return player[currentTurn - 1].getBankruptStatus();
-}
-
-bool Game::getBankruptStatus()
 {
     return player[currentTurn - 1].getBankruptStatus();
 }

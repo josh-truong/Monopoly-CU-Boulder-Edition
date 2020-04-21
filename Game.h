@@ -40,7 +40,7 @@ class Game
         void getPropertyInfo(int propertyLocation_);
         void endGame(); //Incomplete
         void endTurn();
-        void trade(string playerName, string propertyoffered, int offer_, string propertywanted); //Incomplete
+        void trade(int propertyLocation, int deal); //Incomplete
         void buy(int propertyLocation, int currentPlayer);
         void buyHouse(int propertyLocation);// incomplete
         void rent(int propertyLocation, int currentPlayer);
@@ -61,18 +61,17 @@ class Game
         bool checkForExceptions(int boardLocation);
         void erase(int currentTurn);
         int listOfOwnedProperties();
+        int listOfOwnedProperties_ByOtherPlayers();
 
         void banish(int currentTurn);
         string toupper(string name);
         int getCurrentTurn();
         void playerProfile();
         int biddersMenu(int currenBidderTurn);
-        void bankrupt(int currentTurn);
         void bankrupt();
         int biddingPrice();
 
         bool getBankruptStatus(int currentTurn);
-        bool getBankruptStatus();
 };
 
 #endif
