@@ -90,7 +90,7 @@ int Player::getBoardLocation()
 
 int Player::getJailCounter()
 {
-    return injailcounter;
+    return turnsinjail;
 }
 
 string Player::getPlayerChar() const
