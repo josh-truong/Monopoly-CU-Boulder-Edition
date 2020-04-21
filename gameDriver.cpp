@@ -48,7 +48,7 @@ int main()
                     monopoly.display_MapAndPlayer();
                     monopoly.checkOwnership(currentTurn);
                 }
-                cout << endl << endl;
+                cout << endl;
                 cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
                 cout << "Menu" << endl;
                 cout << "1. Morgage" << endl;
@@ -90,7 +90,7 @@ int main()
                         }
                         case 4:
                         {
-                            monopoly.playerProfile();
+                            monopoly.currentPlayerBal();
                             break;
                         }
                         case 5:
@@ -144,7 +144,7 @@ int main()
                                 int IGiveYouThat;
                                 cout << "Which property do you want? (Enter from 0 - 39): ";
                                 cin >> IwantThis;
-                                cout << "Which Property do you want to trade for " << IwantThis << "? ";
+                                cout << "Which Property do you want to trade for property [" << IwantThis << "]? ";
                                 cin >> IGiveYouThat;
                                 monopoly.tradeWithProperty(IwantThis, IGiveYouThat);
                             }

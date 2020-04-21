@@ -81,6 +81,7 @@ Game::Game()
 */
 void Game::setPiece(int boardLocation, string playerPiece, int currentTurn)
 {
+    player[currentTurn - 1].setBoardLocation(boardLocation);
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
     int l = player[currentTurn - 1].getPlayerPos_y();
@@ -362,7 +363,7 @@ void Game::readProperty()
                 {
                     string NON_OP;
                     getline(strm, NON_OP, ',');
-                    property[propertyLocation_int].setOwner("\x1B[93m Mr.Monopoly (Rich Uncle Pennybags) \x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m");
+                    property[propertyLocation_int].setOwner("\x1B[93mMr.Monopoly (Rich Uncle Pennybags)\x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m");
                     property[propertyLocation_int].setPropertyName(NON_OP);
                     property[propertyLocation_int].setPropertyLocation(propertyLocation_int);
                     break;
@@ -571,7 +572,7 @@ void Game::tradeWithMoney(int propertyLocation, int deal)
     */
    string currentOwnerOfProperty = property[propertyLocation].getOwner();
    string potentialOwner = player[currentTurn - 1].getName();
-   if(currentOwnerOfProperty == "none" || currentOwnerOfProperty == "Mr.Monopoly (Rich Uncle Pennybags)")
+   if(currentOwnerOfProperty == "none" || currentOwnerOfProperty == "\x1B[93mMr.Monopoly (Rich Uncle Pennybags)\x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m")
    {
        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You can't trade with a ghost." << endl;
    }
@@ -635,7 +636,7 @@ void Game::tradeWithProperty(int IwantThis, int IGiveYouThat)
     */
    string currentOwnerOfProperty = property[IwantThis].getOwner();
    string potentialOwner = player[currentTurn - 1].getName();
-   if((currentOwnerOfProperty == "none" || currentOwnerOfProperty == "Mr.Monopoly (Rich Uncle Pennybags)") && (0 <= IwantThis && IwantThis < 40))
+   if((currentOwnerOfProperty == "none" || currentOwnerOfProperty == "\x1B[93mMr.Monopoly (Rich Uncle Pennybags)\x1B[0m \x1B[31m \n-----THIS PROPERTY CANNOT BE OWNED!----- \x1B[0m") && (0 <= IwantThis && IwantThis < 40))
    {
        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You can't trade with a ghost." << endl;
    }
@@ -1241,7 +1242,6 @@ void Game::jail()
     */
     setPiece(10,player[currentTurn - 1].getPlayerChar(), currentTurn);
     erase(currentTurn);
-    player[currentTurn - 1].setBoardLocation(10);
     display_MapAndPlayer();
     player[currentTurn - 1].setJailCounter(3);
     bool jail = true;
@@ -1277,12 +1277,9 @@ void Game::communityChest(string textfile)
             case 1:
             {
                 cout << line << endl;
-                player[currentTurn - 1].setBoardLocation(0);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 passGo();
-                checkOwnership(currentTurn);
                 display_MapAndPlayer();
                 break;
             }
@@ -1464,21 +1461,16 @@ void Game::chance(string textfile)
             case 1:
             {
                 cout << line << endl;
-                player[currentTurn - 1].setBoardLocation(0);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 passGo();
-                checkOwnership(currentTurn);
                 display_MapAndPlayer();
                 break;
             }
             case 2:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(24);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(24, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 24)
                 {
@@ -1491,9 +1483,7 @@ void Game::chance(string textfile)
             case 3:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(11);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(11, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 11)
                 {
@@ -1509,9 +1499,7 @@ void Game::chance(string textfile)
                 int playerposition = player[currentTurn - 1].getBoardLocation();
                 if(playerposition == 7 || playerposition == 36)
                 {
-                    player[currentTurn - 1].setBoardLocation(12);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[12].getOwner();
@@ -1528,9 +1516,7 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 22)
                 {
-                    player[currentTurn - 1].setBoardLocation(28);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(28, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[28].getOwner();
@@ -1555,9 +1541,7 @@ void Game::chance(string textfile)
                 int playerposition = player[currentTurn - 1].getBoardLocation();
                 if(playerposition == 7)
                 {
-                    player[currentTurn - 1].setBoardLocation(15);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(15, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[15].getOwner();
@@ -1572,9 +1556,7 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 22)
                 {
-                    player[currentTurn - 1].setBoardLocation(25);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(25, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[25].getOwner();
@@ -1593,9 +1575,7 @@ void Game::chance(string textfile)
                 }
                 else if(playerposition == 38)
                 {
-                    player[currentTurn - 1].setBoardLocation(5);
-                    int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
 
                     string owner = property[5].getOwner();
@@ -1631,8 +1611,6 @@ void Game::chance(string textfile)
             case 8:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(28);
-
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation() - 3;
                 setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);                
@@ -1675,9 +1653,7 @@ void Game::chance(string textfile)
             case 12:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(5);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 5)
                 {
@@ -1690,9 +1666,7 @@ void Game::chance(string textfile)
             case 13:
             {
                 cout << line  << endl;
-                player[currentTurn - 1].setBoardLocation(39);
-                int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(39, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
                 checkOwnership(currentTurn);
                 display_MapAndPlayer();
@@ -1907,7 +1881,8 @@ int Game::listOfOwnedProperties_ByOtherPlayers()
         cin >> spyPlayer;
     }while(!(1 <= spyPlayer && spyPlayer <= numPlayers));
 
-    cout << "\x1B[92m" << "[" << player[spyPlayer].getName() << "]" << "\x1B[0m" << "Current Balance: " << "\x1B[92m" << "$" << player[spyPlayer].getBalance() << "\x1B[0m" << endl;
+    cout << endl;
+    cout << "\x1B[92m" << "[" << player[spyPlayer].getName() << "]" << "\x1B[0m" << " Current Balance: " << "\x1B[92m" << "$" << player[spyPlayer].getBalance() << "\x1B[0m" << endl;
     int nonMorgaged_property_counter = 0;
     int allProperties = 0;
     cout << "----------Owned Properties----------" << endl;
@@ -1997,7 +1972,8 @@ void Game::morgage()
             }
             else if(toupper(confirmation) == "NO")
             {
-                checkOwnership(currentTurn);
+                // checkOwnership(currentTurn);
+                //Returns back to player menu
             }
             else
             {
@@ -2005,7 +1981,6 @@ void Game::morgage()
                 cout << "\x1B[91m" << "Invalid Input. Type yes or no" << "\x1B[0m" << endl;
                 morgage();
             }
-            checkOwnership(currentTurn);
         }
     }
 }
@@ -2023,7 +1998,7 @@ int Game::getCurrentTurn()
     return currentTurn;
 }
 
-void Game::playerProfile()
+void Game::currentPlayerBal()
 {
     cout << "Balance: " << "\x1B[92m" << "$" << player[currentTurn - 1].getBalance() << "\x1B[0m" << endl;
 }
@@ -2087,130 +2062,133 @@ void Game::auction(int propertyLocation)
         {
             if(player[i].getBankruptStatus() == false && playerBidStatus[i] == true)
             {
-                cout << "4" << endl;
-                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Do I have any more bids?" << endl;
-                int biddersMenuOption = biddersMenu(i);
-                cout << "5" << endl;
-                switch(biddersMenuOption)
+                int repeater = 0;
+                while(repeater == 0)
                 {
-                    case 1:
+                    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Does Player [" << player[i].getName() << "] want to bid?" << endl;
+                    int biddersMenuOption = biddersMenu(i);
+                    switch(biddersMenuOption)
                     {
-                        int bidPrice = 0;
-                        bidPrice = biddingPrice();
-
-                        int highestBid = 0;
-                        for(int j = 0; j < numBidders; j++)
+                        case 1:
                         {
-                            if(playerCurrentBid[j] > highestBid)
-                            {
-                                highestBid = playerCurrentBid[j];
-                            }
-                        }
-
-                        //Checks if the bid price is not negative and if the bid price is higher than the previous
-                        while(highestBid >= bidPrice || bidPrice <= 0)
-                        {
-                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << player[i].getName() << " your bid is too low!" << endl;
-                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Our highest bid is currently " << "\x1B[92m" << "$" << highestBid << "\x1B[0m" << endl << endl;
-                            biddersMenuOption = biddersMenu(i);
+                            int bidPrice = 0;
                             bidPrice = biddingPrice();
-                        }
-                        playerCurrentBid[i] = bidPrice;
 
-                        // Checks player balance if they have the money to buy a property with their bid price. 
-                        string morgageResponse;
-                        while((player[i].getBalance() - bidPrice) < 0 && playerBidStatus[i])
-                        {
-                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "You're bidding price is higher than your balance!" << endl;
-                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Would you like to morgage some of your properties? Enter y/n" << endl;
-                            cin >> morgageResponse;
-                            
-                            if(toupper(morgageResponse) == "Y")
+                            int highestBid = 0;
+                            for(int j = 0; j < numBidders; j++)
                             {
-                                int savedCurrentTurn = currentTurn;
-                                currentTurn = i + 1;
-                                morgage();
-                                currentTurn = savedCurrentTurn;
+                                if(playerCurrentBid[j] > highestBid)
+                                {
+                                    highestBid = playerCurrentBid[j];
+                                }
+                            }
+
+                            //Checks if the bid price is not negative and if the bid price is higher than the previous
+                            while(highestBid >= bidPrice || bidPrice <= 0)
+                            {
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Player " << player[i].getName() << " your bid is too low!" << endl;
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Our highest bid is currently " << "\x1B[92m" << "$" << highestBid << "\x1B[0m" << endl << endl;
                                 biddersMenuOption = biddersMenu(i);
                                 bidPrice = biddingPrice();
-                                playerCurrentBid[i] = bidPrice;
+                            }
+                            playerCurrentBid[i] = bidPrice;
+
+                            // Checks player balance if they have the money to buy a property with their bid price. 
+                            string morgageResponse;
+                            while((player[i].getBalance() - bidPrice) < 0 && playerBidStatus[i])
+                            {
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "You're bidding price is higher than your balance!" << endl;
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Would you like to morgage some of your properties? Enter y/n" << endl;
+                                cin >> morgageResponse;
+                                
+                                if(toupper(morgageResponse) == "Y")
+                                {
+                                    int savedCurrentTurn = currentTurn;
+                                    currentTurn = i + 1;
+                                    morgage();
+                                    currentTurn = savedCurrentTurn;
+                                    biddersMenuOption = biddersMenu(i);
+                                    bidPrice = biddingPrice();
+                                    playerCurrentBid[i] = bidPrice;
+                                }
+                                else
+                                {
+                                    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn from the bidding ground." << endl;
+                                    playerBidStatus[i] = false;
+                                    numBidders--;
+                                }
+                            }
+
+                            if (playerBidStatus[0] && i == 0)
+                            {
+                                playerCurrentBid[0] = bidPrice;
+                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl << endl;
+                            }
+                            if (playerBidStatus[1] && i == 1)
+                            {
+                                playerCurrentBid[1] = bidPrice;
+                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                            }
+                            if (playerBidStatus[2] && i == 2)
+                            {
+                                playerCurrentBid[2] = bidPrice;
+                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                            }
+                            if (playerBidStatus[3] && i == 3)
+                            {
+                                playerCurrentBid[3] = bidPrice;
+                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                            }
+                            
+                            repeater = 1;
+                            break;
+                        }
+                        case 2:
+                        {
+                            morgage();
+                            break;
+                        }
+                        case 3:
+                        {
+                            cout << "Current Balance: " << "\x1B[92m" << "$" << player[i].getBalance() << "\x1B[0m" << endl;
+                            break;
+                        }
+                        case 4:
+                        {
+                            listOfOwnedProperties();
+                            break;
+                        }
+                        case 5:
+                        {
+                            //Need to find player with the higher bid
+                            int highestBid = 0;
+                            int playerWithHighestBid;
+                            for(int j = 0; j < numPlayers; j++)
+                            {
+                                if(playerCurrentBid[j] > highestBid && playerBidStatus[j] == true)
+                                {
+                                    highestBid = playerCurrentBid[j];
+                                    playerWithHighestBid = j;
+                                }
+                            }
+                            if(playerWithHighestBid == i)
+                            {
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " you are not allowed to leave the auction ground because you are our highest bidder!" << endl;
                             }
                             else
                             {
-                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn from the bidding ground." << endl;
                                 playerBidStatus[i] = false;
                                 numBidders--;
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn!" << endl;
+                                cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "There are " << numBidders << " left!" << endl;
+                                repeater = 1;
                             }
+                            break;
                         }
-
-                        if (playerBidStatus[0] && i == 0)
-                        {
-                            playerCurrentBid[0] = bidPrice;
-                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl << endl;
-                        }
-                        if (playerBidStatus[1] && i == 1)
-                        {
-                            playerCurrentBid[1] = bidPrice;
-                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
-                        }
-                        if (playerBidStatus[2] && i == 2)
-                        {
-                            playerCurrentBid[2] = bidPrice;
-                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
-                        }
-                        if (playerBidStatus[3] && i == 3)
-                        {
-                            playerCurrentBid[3] = bidPrice;
-                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
-                        }
-                        
-                        break;
+                        default:
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "You've Entered an Invalid Option." << endl;
+                            break;
                     }
-                    case 2:
-                    {
-                        morgage();
-                        break;
-                    }
-                    case 3:
-                    {
-                        cout << "Current Balance: " << "\x1B[92m" << "$" << player[i].getBalance() << "\x1B[0m" << endl;
-                        break;
-                    }
-                    case 4:
-                    {
-                        listOfOwnedProperties();
-                        break;
-                    }
-                    case 5:
-                    {
-                        //Need to find player with the higher bid
-                        int highestBid = 0;
-                        int playerWithHighestBid;
-                        for(int j = 0; j < numBidders; j++)
-                        {
-                            if(playerCurrentBid[j] > highestBid)
-                            {
-                                highestBid = playerCurrentBid[j];
-                                playerWithHighestBid = j;
-                            }
-                        }
-                        if(playerWithHighestBid == i)
-                        {
-                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " you are not allowed to leave the auction ground because you are our highest bidder!" << endl;
-                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Miss A Turn." << endl;
-                        }
-                        else
-                        {
-                            playerBidStatus[i] = false;
-                            numBidders--;
-                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn!" << endl;
-                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "There are " << numBidders << " left!" << endl;
-                        }
-                        break;
-                    }
-                    default:
-                        cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "You've Entered an Invalid Option. Miss A Turn." << endl;
-                        break;
                 }
             }
             int numBiddersCheck = numPlayers;
