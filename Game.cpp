@@ -236,6 +236,18 @@ void Game::display_MapAndPlayer() const
     cout << endl;
 }
 
+int Game::getAmountofBankruptPlayers();
+{
+    int answer
+    for(int i = 0; i < numPlayers; i++)
+    {
+        if(player[i].getBankruptStatus() == true)
+        {
+            answer++;
+        }
+    }
+    return answer;
+}
 
 bool Game::readPlayers()
 {
