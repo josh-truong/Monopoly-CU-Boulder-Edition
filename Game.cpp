@@ -237,7 +237,6 @@ void Game::display_MapAndPlayer() const
 }
 
 
-
 bool Game::readPlayers()
 {
     //Read Player files
