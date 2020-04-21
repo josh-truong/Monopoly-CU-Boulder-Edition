@@ -14,8 +14,11 @@ Player::Player()
     playerPos_y = 0;
     bankrupt = false;
     inJail = false;
+    turnsinjail = 0;
     resetLocation = false;
 }
+
+
 
 void Player::setResetLocation_TRUE()
 {
@@ -36,6 +39,11 @@ void Player::setName(string playerName_)
 void Player::setJailStatus(bool status)
 {
     inJail = status;
+}
+
+void Player::setJailCounter(int counter)
+{
+    turnsinjail = counter;
 }
 
 void Player::setBalance(int balance_)
@@ -78,6 +86,11 @@ string Player::getName() const
 int Player::getBoardLocation()
 {
     return boardlocation;
+}
+
+int Player::getJailCounter()
+{
+    return injailcounter;
 }
 
 string Player::getPlayerChar() const
