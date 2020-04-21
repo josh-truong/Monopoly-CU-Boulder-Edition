@@ -238,7 +238,7 @@ void Game::display_MapAndPlayer() const
 
 int Game::getAmountofBankruptPlayers()
 {
-    int answer
+    int answer;
     for(int i = 0; i < numPlayers; i++)
     {
         if(player[i].getBankruptStatus() == true)
