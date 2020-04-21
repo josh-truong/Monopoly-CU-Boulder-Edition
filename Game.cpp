@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <fstream>
 #include <sstream>
+#include <string>
 //01001110 01101001 01100011 01100101 00100001 00100001 00100000 01000101 01100001 01110011 01110100 01100101 01110010 00100000 01000101 01100111 01100111 00101100 00100000 01101000 01110101 01101000 00111111 00001101 00001010 00100000 00100000 00100000 01011111 00001101 00001010 00100000 00100111 00100000 00100000 00100000 00100111 00001101 00001010 00100111 00100000 00100000 00100000 00100000 00100000 00100111 00001101 00001010 00100000 00100111 00100000 01011111 00100000 00100111 00001101 00001010 00100000
 using namespace std; 
 
@@ -116,6 +117,8 @@ void Game::setPiece(int boardLocation, string playerPiece, int currentTurn)
     }
     //////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////
+
+
     //Set piece into location
     if(!((1 <= i && i <= 9) && (1 <= j && j <= 9)))
     {
@@ -234,6 +237,11 @@ void Game::display_MapAndPlayer() const
         bottomLinecounter--;
     }
     cout << endl;
+    cout << setw(41) << "\x1B[92m" << "DICE 1: " << "\x1B[0m" << dice_1 << "\x1B[92m" << "      DICE 2: " << "\x1B[0m" << dice_2 << endl;
+    if(dice_1 == dice_2)
+    {
+        cout << setw(25) << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You Rolled A Double. Get a Second Roll!" << endl << endl;
+    }
 }
 
 int Game::getAmountofBankruptPlayers()
@@ -491,11 +499,22 @@ void Game::roll()
         dice_1 = rand() % 6 + 1;
         dice_2 = rand() % 6 + 1;
     }
-    cout << "DICE 1: " << dice_1 << "      DICE 2: " << dice_2 << endl;
-    // cout << "dice_1: " << dice_1 << endl;
-    // cout << "dice_2: " << dice_2 << endl;
-}
 
+    /*
+    This part will allow the player to roll again if they roll two dice of the same time.
+    It will function by taking in both of the dice roll variables and comparing them to each other.
+    If they are the same, it will move you and allow you to roll again after performing other tasks.
+    */
+
+    if(dice_1 == dice_2)
+    {
+        player[currentTurn - 1].setDisplayStatus(true);
+    }
+    if(dice_1 != dice_2)
+    {
+        player[currentTurn - 1].setDisplayStatus(false);
+    }
+}
 
 
 void Game::endTurn()
@@ -508,15 +527,6 @@ void Game::endTurn()
     currentTurn = (currentTurn % numPlayers) + 1;
     cout << "It is player " << currentTurn << "'s turn." << endl;
 
-}
-
-void Game::doubleTurn(int dice_1, int dice_2)
-{
-    /*
-    This function will allow the player to roll again if they roll two dice of the same time.
-    It will function by taking in both of the dice roll variables and comparing them to each other.
-    If they are the same, it will move you and allow you to roll again after performing other tasks.
-    */
 }
 
 int Game::getPlayerLocation()
@@ -694,7 +704,6 @@ void Game::buy(int propertyLocation, int currentPlayer)
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " I'm sorry looks like your wallet is empty." << endl;
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Would you like to morgage some of your property? Enter y/n" << endl;
         cin >> morgagePropertyResponse;
-        //WARNING -- We do not have morgage function yet
         if(toupper(morgagePropertyResponse) == "Y")
         {
             morgage();
@@ -749,7 +758,7 @@ void Game::buy(int propertyLocation, int currentPlayer)
     else if (toupper(morgagePropertyResponse) == "N")
     {
         cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " I'm sorry to hear that." << endl;
-        //WARNING -- We need to create and call an auction property
+        auction(propertyLocation);
     }
 }
 
@@ -1232,6 +1241,7 @@ void Game::jail()
     */
     setPiece(10,player[currentTurn - 1].getPlayerChar(), currentTurn);
     erase(currentTurn);
+    player[currentTurn - 1].setBoardLocation(10);
     display_MapAndPlayer();
     player[currentTurn - 1].setJailCounter(3);
     bool jail = true;
@@ -1897,6 +1907,7 @@ int Game::listOfOwnedProperties_ByOtherPlayers()
         cin >> spyPlayer;
     }while(!(1 <= spyPlayer && spyPlayer <= numPlayers));
 
+    cout << "\x1B[92m" << "[" << player[spyPlayer].getName() << "]" << "\x1B[0m" << "Current Balance: " << "\x1B[92m" << "$" << player[spyPlayer].getBalance() << "\x1B[0m" << endl;
     int nonMorgaged_property_counter = 0;
     int allProperties = 0;
     cout << "----------Owned Properties----------" << endl;
@@ -1921,7 +1932,7 @@ int Game::listOfOwnedProperties_ByOtherPlayers()
     }
     if(allProperties == 0)
     {
-        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " You currently do not own any properties" << endl;
+        cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " There's Currently No Title Deeds Owned" << endl;
     }
     cout << endl;
     return nonMorgaged_property_counter;
@@ -2070,16 +2081,16 @@ void Game::auction(int propertyLocation)
         playerCurrentBid[i] = 0;
     }
 
-    while(numBidders > 1)
+    while(numBidders != 1)
     {
-        for(int i = 0; i < numPlayers; i++)
+        for(int i = 0; (1 != numBidders) && (i < numPlayers); i++)
         {
             if(player[i].getBankruptStatus() == false && playerBidStatus[i] == true)
             {
+                cout << "4" << endl;
                 cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Do I have any more bids?" << endl;
                 int biddersMenuOption = biddersMenu(i);
-                
-
+                cout << "5" << endl;
                 switch(biddersMenuOption)
                 {
                     case 1:
@@ -2135,7 +2146,7 @@ void Game::auction(int propertyLocation)
                         if (playerBidStatus[0] && i == 0)
                         {
                             playerCurrentBid[0] = bidPrice;
-                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                            cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl << endl;
                         }
                         if (playerBidStatus[1] && i == 1)
                         {
@@ -2193,6 +2204,7 @@ void Game::auction(int propertyLocation)
                             playerBidStatus[i] = false;
                             numBidders--;
                             cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << player[i].getName() << " has withdrawn!" << endl;
+                            cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "There are " << numBidders << " left!" << endl;
                         }
                         break;
                     }
@@ -2212,6 +2224,7 @@ void Game::auction(int propertyLocation)
                         winner = k;
                     }
                 }
+                cout << endl;
                 cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Congratulations, " << player[winner].getName() << "! You're the proud owner of " << property[propertyLocation].getPropertyName() << endl;
                 property[propertyLocation].setOwner(player[winner].getName());
                 int winnerBalance = player[winner].getBalance();
@@ -2275,4 +2288,14 @@ void Game::bankrupt()
 bool Game::getBankruptStatus(int currentTurn)
 {
     return player[currentTurn - 1].getBankruptStatus();
+}
+
+bool Game::getDisplayStatus()
+{
+    return player[currentTurn - 1].getDisplayStatus();
+}
+
+void Game::setDisplayStatus(int updateStatus)
+{
+    player[currentTurn - 1].setDisplayStatus(updateStatus);
 }

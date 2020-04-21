@@ -38,6 +38,8 @@ class Game
         void setInJail(bool status);
         void setTurnsInJail(int number);
         int getTurnsInJail();
+        bool getDisplayStatus();
+        void setDisplayStatus(int updateStatus);
         
         void roll();
         void doubleTurn(int dice_1, int dice_2); //Incomplete

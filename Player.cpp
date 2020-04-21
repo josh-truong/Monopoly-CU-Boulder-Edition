@@ -16,9 +16,14 @@ Player::Player()
     inJail = false;
     turnsinjail = 0;
     resetLocation = false;
+    displayStatus = true;
 }
 
 
+void Player::setDisplayStatus(bool updateStatus)
+{
+    displayStatus = updateStatus;
+}
 
 void Player::setResetLocation_TRUE()
 {
@@ -126,4 +131,9 @@ bool Player::getBankruptStatus() const
 int Player::getPreviousBoardLocation()
 {
     return previousBoardLocation;
+}
+
+bool Player::getDisplayStatus() const
+{
+    return displayStatus;
 }
