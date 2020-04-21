@@ -33,6 +33,7 @@ class Game
         void readProperty();
 
         int getNumPlayers();
+        int getAmountofBankruptPlayers();
         
         void roll();
         void doubleTurn(int dice_1, int dice_2); //Incomplete
