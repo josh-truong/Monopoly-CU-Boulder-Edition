@@ -34,6 +34,10 @@ class Game
 
         int getNumPlayers();
         int getAmountofBankruptPlayers();
+        bool getInJail(int currentTurn);
+        void setInJail(bool status);
+        void setTurnsInJail(int number);
+        int getTurnsInJail();
         
         void roll();
         void doubleTurn(int dice_1, int dice_2); //Incomplete

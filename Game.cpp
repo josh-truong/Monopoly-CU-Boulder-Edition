@@ -983,6 +983,26 @@ void Game::buyHouse(int propertyLocation)
     }
 }
 
+bool Game::getInJail()
+{
+    return player[currentTurn - 1].getJailStatus();
+}
+
+void Game::setInJail(bool status)
+{
+    player[currentTurn - 1].setJailStatus(status);
+}
+
+void Game::setTurnsInJail(int number);
+{
+    player[currentTurn - 1].setJailCounter(number);
+}
+
+int Game::getTurnsInJail();
+{
+    return player[currentTurn - 1].getJailCounter();
+}
+
 void Game::rent(int propertyLocation, int currentTurn)
 {
     /*
@@ -1163,6 +1183,7 @@ void Game::jail()
     setPiece(10,player[currentTurn - 1].getPlayerChar(), currentTurn);
     erase(currentTurn);
     display_MapAndPlayer();
+    player[currentTurn - 1].setJailCounter(3);
     bool jail = true;
     player[currentTurn - 1].setJailStatus(jail);
 }

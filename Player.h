@@ -16,6 +16,7 @@ class Player
         int balance;
         int playerPos_x;
         int playerPos_y;
+        int turnsinjail;
         bool bankrupt;
         bool resetLocation;
         bool inJail;
@@ -30,6 +31,7 @@ class Player
         void setBalance(int balance_); 
         void setJailStatus(bool response);
         void setPlayerPos(int x, int y);
+        void setJailCounter(int turns);
         
         
         //We must only use this function when we have determined that the player is bankrupted or has decided to quit
@@ -40,6 +42,7 @@ class Player
         bool getJailStatus();
         string getName() const; //Get player name
         string getPlayerChar() const;
+        int getJailCounter();
         int getBalance() const; //Get balance
         int getBoardLocation();
         int getPlayerPos_x() const;
