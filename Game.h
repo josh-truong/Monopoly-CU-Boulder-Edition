@@ -41,8 +41,7 @@ class Game
         bool getDisplayStatus();
         void setDisplayStatus(int updateStatus);
         
-        void roll();
-        void doubleTurn(int dice_1, int dice_2); //Incomplete
+        void roll(); //Incomplete
         
         void getPropertyInfo(int propertyLocation_);
         void endGame(); //Incomplete
