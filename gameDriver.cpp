@@ -111,9 +111,32 @@ int main()
                         }
                         case 7:
                         {
-                            cout << "Enter in the name of the player you want to offer a trade to." << endl;
-                            string personname;
-                            cin >> personname;
+                            int tradeMenu;
+                            cout << "-------------Trade Menu-------------" << endl;
+                            cout << "1. Trade with Money" << endl;
+                            cout << "2. Trade with Property" << endl;
+                            cin >> tradeMenu;
+
+                            if(tradeMenu == 1)
+                            {
+                                int wantedProperty;
+                                int moneyDeal;
+                                cout << "Which property do you want? (Enter from 0 - 39): ";
+                                cin >> wantedProperty;
+                                cout << "How much money do you want to trade? $";
+                                cin >> moneyDeal;
+                                monopoly.tradeWithMoney(wantedProperty, moneyDeal);
+                            }
+                            else if(tradeMenu == 2)
+                            {
+                                int IwantThis;
+                                int IGiveYouThat;
+                                cout << "Which property do you want? (Enter from 0 - 39): ";
+                                cin >> IwantThis;
+                                cout << "Which Property do you want to trade for " << IwantThis << "? ";
+                                cin >> IGiveYouThat;
+                                monopoly.tradeWithProperty(IwantThis, IGiveYouThat);
+                            }
                             break;
                         }
                         case 8:
