@@ -40,7 +40,8 @@ class Game
         void getPropertyInfo(int propertyLocation_);
         void endGame(); //Incomplete
         void endTurn();
-        void trade(int propertyLocation, int deal); //Incomplete
+        void tradeWithMoney(int propertyLocation, int deal); //Incomplete
+        void tradeWithProperty(int IwantThis, int IGiveYouThat); //Incomplete
         void buy(int propertyLocation, int currentPlayer);
         void buyHouse(int propertyLocation);// incomplete
         void rent(int propertyLocation, int currentPlayer);
