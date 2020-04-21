@@ -25,7 +25,6 @@ int main()
     do
     {
         int currentTurn = monopoly.getCurrentTurn();
-
         if(monopoly.getBankruptStatus(currentTurn) == false && monopoly.getNumPlayers() != 1)
         {
             if(display_status == true)
@@ -147,7 +146,7 @@ int main()
         {
             monopoly.endTurn();
         }
-    } while (monopoly.getNumPlayers() != 1 && quitcounter == 0);
+    } while (quitcounter == 0);
 
     monopoly.endGame();
     return 0;
