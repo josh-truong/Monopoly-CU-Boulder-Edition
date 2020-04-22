@@ -9,6 +9,7 @@ int main()
     cout << setw(50) << "Welcome to a Game of Monopoly!" <<endl;
     cout << setw(50) << "Theme: CU Boudler" << endl;
     cout << setw(50) << "Solgan: The only place in Boulder where you can get rich!" << endl;
+    cout << setw(50) << "Brought to you by Josh Truong & Kennedy Adams" << endl;
 
     Game monopoly;
     bool successfulRead = monopoly.readPlayers();
@@ -235,7 +236,12 @@ int main()
             monopoly.endTurn();
         }
     } while (quitcounter == 0);
-
     monopoly.endGame();
+
+    // for(int i = 0; i <= 3000; i++)
+    // {
+    //     cout << "OH GOD HELP US. WE DID " << i << " lines of code! ";
+    // }
+    // cout << endl;
     return 0;
 }
