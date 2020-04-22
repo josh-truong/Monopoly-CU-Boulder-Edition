@@ -59,8 +59,10 @@ int main()
                 cout << "6. Buy House" << endl;
                 cout << "7. Trade" << endl;
                 cout << "8. End Turn" << endl;
-                cout << "9. Withdraw" << endl;
-                cout << "10. QUIT GAME" << endl;
+                cout << "9. Display Board" << endl;
+                cout << "----------------------------" << endl;
+                cout << "10. Withdraw" << endl;
+                cout << "11. QUIT GAME" << endl;
                 cin >> playerMenuOptions;
 
                 if(cin.fail())
@@ -153,6 +155,11 @@ int main()
                         }
                         case 9:
                         {
+                            monopoly.display_MapAndPlayer();
+                            break;
+                        }
+                        case 10:
+                        {
                             int repeater = 0;
                             while(repeater == 0)
                             {
@@ -178,7 +185,7 @@ int main()
                             }
                             break;
                         }
-                        case 10:
+                        case 11:
                         {
                             int repeater = 0;
                             while(repeater == 0)
@@ -205,12 +212,15 @@ int main()
                             }
                             break;
                         }
-                        case 11:
+                        case 12:
                         {
                             int propertyLocation;
                             cout << "Enter property Location: ";
                             cin >> propertyLocation;
-                            monopoly.buy(propertyLocation, 1);
+                            int player;
+                            cout << "Choose your player (1-4): ";
+                            cin >> player;
+                            monopoly.buy(propertyLocation, player);
                             break;
                         }
                         default:

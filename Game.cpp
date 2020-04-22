@@ -438,6 +438,10 @@ void Game::getPropertyInfo(int propertyLocation_)
         && propertyLocation_ != 7 && propertyLocation_ != 22 && propertyLocation_ != 36)
     {
         cout << "Property Price: \x1B[92m$" << property[propertyLocation_].getPropertyCost() << "\x1B[0m" << endl;
+    }
+    if(propertyLocation_ != 2 && propertyLocation_ != 17 && propertyLocation_ != 33
+        && propertyLocation_ != 7 && propertyLocation_ != 22 && propertyLocation_ != 36 && propertyLocation_ != 12 && propertyLocation_ != 28)
+    {
         cout << "Current Rent Cost: \x1B[92m$" << property[propertyLocation_].getRent() << "\x1B[0m" << endl;
     }
     
@@ -1971,7 +1975,7 @@ int Game::listOfOwnedProperties()
         int morgagedCost = propertyCost / 2;
         if((property[i].getOwner() == player[currentTurn - 1].getName()) && (property[i].getMorgage_Status() == false))
         {
-            cout << "[" << i << "] " << owned_PropertyName << " | Price: \x1B[92m$" << propertyCost << "\x1B[0m" << " | Morgaged Value: \x1B[91m$" << morgagedCost << "\x1B[0m" << " | Current Rent: \x1B[91m$" << propertyRent << "\x1B[0m" << endl;
+            cout << "\x1B[92m" << "[" << i << "] " << owned_PropertyName << " [" << property[i].getColor() << "]" << "\x1B[0m" << " | Price: \x1B[92m$" << propertyCost << "\x1B[0m" << " | Morgaged Value: \x1B[91m$" << morgagedCost << "\x1B[0m" << " | Current Rent: \x1B[91m$" << propertyRent << "\x1B[0m" << endl;
             nonMorgaged_property_counter++;
             allProperties++;
         }
