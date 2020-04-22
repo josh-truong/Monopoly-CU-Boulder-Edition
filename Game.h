@@ -23,7 +23,7 @@ class Game
     public:
         Game();
         void display_MapAndPlayer() const;
-        void move(int currentPlayer); //Player 1,2,3,4
+        void move(); //Player 1,2,3,4
         void setPiece(int boardLocation, string playerPiece, int currentTurn);
 
         
