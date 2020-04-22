@@ -60,7 +60,7 @@ class Game
         void auction(int propertyLocation);
         
         void communityChest(string textfile); //Incomplete
-        void chance(string textfile); //Incomplete
+        void chance(); //Incomplete
 
         string getPlayerUsername_GAME(int i);
         string getPlayerCharacter(int i);

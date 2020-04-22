@@ -81,7 +81,8 @@ Game::Game()
 */
 void Game::setPiece(int boardLocation, string playerPiece, int currentTurn)
 {
-    player[currentTurn - 1].setBoardLocation(boardLocation);
+    // player[currentTurn - 1].setBoardLocation(boardLocation);
+    player[currentTurn - 1].setBoardLocation(7);
     
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
@@ -248,7 +249,7 @@ void Game::display_MapAndPlayer() const
 
 int Game::getAmountofBankruptPlayers()
 {
-    int answer;
+    int answer = 0;
     for(int i = 0; i < numPlayers; i++)
     {
         if(player[i].getBankruptStatus() == true)
@@ -1445,17 +1446,17 @@ void Game::communityChest(string textfile)
     */  
 }
 
-void Game::chance(string textfile)
+void Game::chance()
 {
     srand((unsigned)time(0));
     int result = rand() % 16 + 1;
     string line;
-    ifstream chance;
-    chance.open(textfile);
-    if(chance.is_open())
+    ifstream readChance;
+    readChance.open("chance.txt");
+    if(readChance.is_open())
     {
         int counter = 1;
-        while(getline(chance, line) && counter < result)
+        while(getline(readChance, line) && counter < result)
         {
             counter++;
         }
@@ -1714,6 +1715,7 @@ void Game::chance(string textfile)
                 break;
             }
         }
+        readChance.close();
     }
     else
     {
@@ -1722,7 +1724,8 @@ void Game::chance(string textfile)
     /*
     This function will read the chance textfile, generate a random number between 1 and 16, determine what message to print
     using a getline and while loop, and apply a specific effect based on the number they obtained (these effects will be in a switch)
-    */  
+    */ 
+   
 }
 
 string Game::getPlayerUsername_GAME(int i)
@@ -1768,7 +1771,7 @@ bool Game::checkForExceptions(int boardLocation_)
                 case 7: case 22: case 36: //Chance
                 {
                     cout << property[boardLocation_].getPropertyName() << endl;
-                    chance("chance.txt");
+                    chance();
                     break;
                 }
                 case 10: //Just in Jail

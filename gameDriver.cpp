@@ -26,7 +26,7 @@ int main()
         int currentTurn = monopoly.getCurrentTurn();
         int numPlayers = monopoly.getNumPlayers();
         int amountBankrupt = monopoly.getAmountofBankruptPlayers();
-        if(amountBankrupt == numPlayers - 1)
+        if(amountBankrupt == (numPlayers - 1))
         {
             quitcounter = 1;
         }
@@ -187,6 +187,7 @@ int main()
                         case 11:
                         {
                             monopoly.bankrupt();
+                            break;
                         }
                         default:
                             cout << "You have entered an option that does not exits." << endl;
