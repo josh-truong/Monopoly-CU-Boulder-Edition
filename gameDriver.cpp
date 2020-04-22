@@ -57,9 +57,10 @@ int main()
                 cout << "4. Balance" << endl;
                 cout << "5. Get Property Info" << endl;
                 cout << "6. Buy House" << endl;
-                cout << "7. End Turn" << endl;
-                cout << "8. Trade" << endl;
-                cout << "9. QUIT GAME" << endl;
+                cout << "7. Trade" << endl;
+                cout << "8. End Turn" << endl;
+                cout << "9. Withdraw" << endl;
+                cout << "10. QUIT GAME" << endl;
                 cin >> playerMenuOptions;
 
                 if(cin.fail())
@@ -109,19 +110,6 @@ int main()
                         }
                         case 7:
                         {
-                            if(monopoly.getDisplayStatus() == true)
-                            {
-                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " --> " << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "]" << "\x1B[0m" << " You have an extra turn!"<< endl;
-                            }
-                            if(monopoly.getDisplayStatus() == false)
-                            {
-                                monopoly.setDisplayStatus(true);
-                                monopoly.endTurn();
-                            }              
-                            break;
-                        }
-                        case 8:
-                        {
                             int tradeMenu;
                             cout << "-------------Trade Menu-------------" << endl;
                             cout << "1. Trade with Money" << endl;
@@ -150,12 +138,53 @@ int main()
                             }
                             break;
                         }
+                        case 8:
+                        {
+                            if(monopoly.getDisplayStatus() == true)
+                            {
+                                cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " --> " << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "]" << "\x1B[0m" << " You have an extra turn!"<< endl;
+                            }
+                            if(monopoly.getDisplayStatus() == false)
+                            {
+                                monopoly.setDisplayStatus(true);
+                                monopoly.endTurn();
+                            }              
+                            break;
+                        }
                         case 9:
                         {
                             int repeater = 0;
                             while(repeater == 0)
                             {
+                                cout << "Are you sure you want to withdraw from the game?" << endl;
+                                cout << "NOTE* That withdrawing from this game means that you will have declared bankruptcy!" << endl;
+                                cout << "Enter QUIT or Enter CANCEL. Ensure the letters are completely capitalized." << endl;
+                                string entry;
+                                cin >> entry;
+                                if(entry == "QUIT")
+                                {
+                                    monopoly.bankrupt();
+                                    repeater = 1;
+                                }
+                                else if(entry == "CANCEL")
+                                {
+                                    cout << "The game goes on." << endl;
+                                    repeater = 1;
+                                }
+                                else
+                                {
+                                    cout << "Invalid input." << endl;
+                                }
+                            }
+                            break;
+                        }
+                        case 10:
+                        {
+                            int repeater = 0;
+                            while(repeater == 0)
+                            {
                                 cout << "Are you sure you want to quit?" << endl;
+                                cout << "NOTE* This command will stop the game completetly" << endl;
                                 cout << "Enter QUIT or Enter CANCEL. Ensure the letters are completely capitalized." << endl;
                                 string entry;
                                 cin >> entry;
@@ -176,17 +205,12 @@ int main()
                             }
                             break;
                         }
-                        case 10:
+                        case 11:
                         {
                             int propertyLocation;
                             cout << "Enter property Location: ";
                             cin >> propertyLocation;
                             monopoly.buy(propertyLocation, 1);
-                            break;
-                        }
-                        case 11:
-                        {
-                            monopoly.bankrupt();
                             break;
                         }
                         default:
