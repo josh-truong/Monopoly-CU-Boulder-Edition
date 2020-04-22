@@ -81,8 +81,7 @@ Game::Game()
 */
 void Game::setPiece(int boardLocation, string playerPiece, int currentTurn)
 {
-    // player[currentTurn - 1].setBoardLocation(boardLocation);
-    player[currentTurn - 1].setBoardLocation(7);
+    player[currentTurn - 1].setBoardLocation(boardLocation);
     
     int i,j;
     int k = player[currentTurn - 1].getPlayerPos_x();
@@ -787,11 +786,13 @@ void Game::buyHouse(int propertyLocation)
         {
             cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() << "?" << endl;
             cout << "Type Y for yes and N for no" << endl;
+            cin.clear();
             string userinput;
             cin >> userinput;
             if(toupper(userinput) == "Y")
             {
-                int repeater = 0;
+                cout << "Success" << endl;
+                int repeater = 1;
                 while(repeater == 1)
                 {
                     cout << "How many houses would you like to buy? Maximum is five on one property." << endl;
@@ -918,7 +919,7 @@ void Game::buyHouse(int propertyLocation)
             cin >> userinput;
             if(toupper(userinput) == "Y")
             {
-                int repeater = 0;
+                int repeater = 1;
                 while(repeater == 1)
                 {
                     cout << "How many houses would you like to buy? Maximum is five on one property." << endl;
@@ -955,7 +956,7 @@ void Game::buyHouse(int propertyLocation)
                                 player[currentTurn - 1].setBalance(amount);
                                 cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
                                 repeater = 0;
-                                property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
+                                property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 2);
                             }
                             else
                             {
@@ -974,7 +975,7 @@ void Game::buyHouse(int propertyLocation)
                                 player[currentTurn - 1].setBalance(amount);
                                 cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
                                 repeater = 0;
-                                property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
+                                property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 3);
                             }
                             else
                             {
@@ -993,7 +994,7 @@ void Game::buyHouse(int propertyLocation)
                                 player[currentTurn - 1].setBalance(amount);
                                 cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
                                 repeater = 0;
-                                property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
+                                property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 4);
                             }
                             else
                             {
@@ -1012,7 +1013,7 @@ void Game::buyHouse(int propertyLocation)
                                 player[currentTurn - 1].setBalance(amount);
                                 cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Your Balance After Transaction: " << "\x1B[92m" << "$" << amount << "\x1B[0m" << endl; 
                                 repeater = 0;
-                                property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 1);
+                                property[propertyLocation].setNumBuildings(property[propertyLocation].getNumBuildings() + 5);
                             }
                             else
                             {
@@ -1512,10 +1513,10 @@ void Game::chance()
                     }
                     else
                     {
-                        int OwnerNumber = 5
+                        int OwnerNumber = 5;
                         for(int i = 0; i < numPlayers; i++)
                         {
-                            if(property[12].getOwner()) = player[i].getName())
+                            if(property[12].getOwner() == player[i].getName())
                             {
                                 OwnerNumber = i;
                             }
@@ -1541,10 +1542,10 @@ void Game::chance()
                     }
                     else
                     {
-                        int OwnerNumber = 5
+                        int OwnerNumber = 5;
                         for(int i = 0; i < numPlayers; i++)
                         {
-                            if(property[28].getOwner()) = player[i].getName())
+                            if(property[28].getOwner() == player[i].getName())
                             {
                                 OwnerNumber = i;
                             }

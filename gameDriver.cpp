@@ -39,7 +39,6 @@ int main()
             }
             else
             {
-                monopoly.setInJail(false);
                 if(monopoly.getDisplayStatus() == true)
                 {
                     cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
