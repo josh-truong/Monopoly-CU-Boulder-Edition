@@ -44,7 +44,7 @@ int main()
                 {
                     cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
                     monopoly.roll();
-                    monopoly.move(currentTurn);
+                    monopoly.move();
                     monopoly.display_MapAndPlayer();
                     monopoly.checkOwnership(currentTurn);
                 }
