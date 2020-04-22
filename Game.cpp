@@ -783,7 +783,7 @@ void Game::buyHouse(int propertyLocation)
                 counter++;
             }
         }
-        if(counter == 2 && (color == "purple" || color == "dark blue"))
+        if(counter == 2 && (propertLocation == 1 || propertLocation == 3 || propertLocation == 37 || propertLocation == 39))
         {
             cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() << "?" << endl;
             cout << "Type Y for yes and N for no" << endl;
@@ -1947,6 +1947,10 @@ void Game::checkOwnership(int currentTurn)
         {
             buy(playerLocation, currentTurn);
         }
+        else if(ownership_status != player[currentTurn - 1].getName() && (player[currentTurn - 1].getBoardLocation() == 12 || player[currentTurn - 1].getBoardLocation() == 28))
+        {
+            waterElectricRent();
+        }
         else if(ownership_status != player[currentTurn - 1].getName())
         {
             rent(playerLocation, currentTurn);
@@ -1954,10 +1958,6 @@ void Game::checkOwnership(int currentTurn)
         else if(ownership_status == player[currentTurn - 1].getName())
         {
             cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Looks like you landed on one of your own properties! You're safe." << endl;
-        }
-        else if(ownership_status != player[currentTurn - 1].getName() && (player[currentTurn - 1].getBoardLocation() == 12 || player[currentTurn - 1].getBoardLocation() == 28))
-        {
-            waterElectricRent();
         }
     }
 }

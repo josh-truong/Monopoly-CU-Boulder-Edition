@@ -127,7 +127,14 @@ int main()
                                 cin >> wantedProperty;
                                 cout << "How much money do you want to trade? $";
                                 cin >> moneyDeal;
-                                monopoly.tradeWithMoney(wantedProperty, moneyDeal);
+                                if(wantedProperty >= 0 && wantedProperty <= 39)
+                                {
+                                    monopoly.tradeWithMoney(wantedProperty, moneyDeal);
+                                }
+                                else
+                                {
+                                    cout << "You entered a number outside of the range." << endl;
+                                }
                             }
                             else if(tradeMenu == 2)
                             {
@@ -137,7 +144,14 @@ int main()
                                 cin >> IwantThis;
                                 cout << "Which Property do you want to trade for property [" << IwantThis << "]? ";
                                 cin >> IGiveYouThat;
-                                monopoly.tradeWithProperty(IwantThis, IGiveYouThat);
+                                if(IGiveYouThat >= 0 && IGiveYouThat <= 39 && IwantThis >= 0 && IwantThis <= 39)
+                                {    
+                                    monopoly.tradeWithProperty(IwantThis, IGiveYouThat);
+                                }
+                                else
+                                {
+                                    cout << "You entered in a value outside of the range." << endl;
+                                }
                             }
                             break;
                         }
