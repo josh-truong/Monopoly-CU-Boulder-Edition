@@ -59,7 +59,7 @@ class Game
         void morgage();
         void auction(int propertyLocation);
         
-        void communityChest(string textfile); //Incomplete
+        void communityChest(); //Incomplete
         void chance(); //Incomplete
 
         string getPlayerUsername_GAME(int i);

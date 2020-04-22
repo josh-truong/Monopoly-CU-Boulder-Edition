@@ -36,6 +36,7 @@ int main()
             {
                 cout << "You are in jail for " << monopoly.getTurnsInJail() << " turn." << endl;
                 monopoly.setTurnsInJail(monopoly.getTurnsInJail() - 1);
+                monopoly.endTurn();
             }
             else
             {

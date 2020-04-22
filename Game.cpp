@@ -1263,13 +1263,13 @@ void Game::passGo()
     player[currentTurn - 1].setBalance(amount);
 }
 
-void Game::communityChest(string textfile)
+void Game::communityChest()
 {
     srand((unsigned)time(0));
     int result = rand() % 17 + 1;
     string line;
     ifstream communitychest;
-    communitychest.open(textfile);
+    communitychest.open("communitychest.txt");
     if(communitychest.is_open())
     {
         int counter = 1;
@@ -1481,7 +1481,19 @@ void Game::chance()
                 {
                     passGo();
                 }
-                checkOwnership(currentTurn);
+                string owner = property[24].getOwner();
+                if(owner == "none")
+                {
+                    buy(24, currentTurn);
+                }
+                else if(owner == player[currentTurn - 1].getName())
+                {
+                    cout << "You already own this property." << endl;
+                }
+                else
+                {
+                    rent(24, currentTurn);
+                }
                 display_MapAndPlayer();
                 break;
             }
@@ -1494,7 +1506,19 @@ void Game::chance()
                 {
                     passGo();
                 }
-                checkOwnership(currentTurn);
+                string owner = property[11].getOwner();
+                if(owner == "none")
+                {
+                    buy(11, currentTurn);
+                }
+                else if(owner == player[currentTurn - 1].getName())
+                {
+                    cout << "You already own this property." << endl;
+                }
+                else
+                {
+                    rent(11, currentTurn);
+                }
                 display_MapAndPlayer();
                 break;
             }
@@ -1510,6 +1534,10 @@ void Game::chance()
                     if(owner == "none")
                     {
                         buy(12, currentTurn);
+                    }
+                    else if(owner == player[currentTurn - 1].getName())
+                    {
+                        cout << "You already own this property." << endl;
                     }
                     else
                     {
@@ -1540,6 +1568,10 @@ void Game::chance()
                     {
                         buy(28, currentTurn);
                     }
+                    else if(owner == player[currentTurn - 1].getName())
+                    {
+                        cout << "You already own this property." << endl;
+                    }
                     else
                     {
                         int OwnerNumber = 5;
@@ -1559,7 +1591,6 @@ void Game::chance()
                         player[currentTurn - 1].setBalance(amountgained);
                     }
                 }
-                checkOwnership(currentTurn);
                 display_MapAndPlayer();
                 break;
             }
@@ -1577,8 +1608,13 @@ void Game::chance()
                     {
                         buy(15, currentTurn);
                     }
+                    else if(owner == player[currentTurn - 1].getName())
+                    {
+                        cout << "You already own this property." << endl;
+                    }
                     else
                     {
+                        rent(15, currentTurn);
                         rent(15, currentTurn);
                     }
                 }
@@ -1596,8 +1632,13 @@ void Game::chance()
                             buy(25, currentTurn);
                         }
                     }
+                    else if(owner == player[currentTurn - 1].getName())
+                    {
+                        cout << "You already own this property." << endl;
+                    }
                     else
                     {
+                        rent(25, currentTurn);
                         rent(25, currentTurn);
                     }
                 }
@@ -1611,12 +1652,16 @@ void Game::chance()
                     {
                         buy(5, currentTurn);
                     }
+                    else if(owner == player[currentTurn - 1].getName())
+                    {
+                        cout << "You already own this property." << endl;
+                    }
                     else
                     {
                         rent(5, currentTurn);
+                        rent(5, currentTurn);
                     }
                 }
-                checkOwnership(currentTurn);
                 display_MapAndPlayer();
                 break;
             }
@@ -1641,8 +1686,28 @@ void Game::chance()
                 cout << line  << endl;
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation() - 3;
                 setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
-                erase(currentTurn);                
-                checkOwnership(currentTurn);
+                erase(currentTurn);   
+                string owner = property[newPlayerPosition].getOwner();    
+                if(newPlayerPosition == 4)
+                {
+                    incomeTax();
+                }      
+                else if(newPlayerPosition == 33)
+                {
+                    communityChest();
+                }   
+                else if(owner == "none")
+                {
+                    buy(newPlayerPosition, currentTurn);
+                }
+                else if(owner == player[currentTurn - 1].getName())
+                {
+                    cout << "You already own this property." << endl;
+                }
+                else
+                {
+                    rent(newPlayerPosition, currentTurn);
+                }
                 display_MapAndPlayer();
                 break;
             }
@@ -1683,11 +1748,23 @@ void Game::chance()
                 cout << line  << endl;
                 setPiece(5, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
+                string owner = property[5].getOwner();
                 if(player[currentTurn - 1].getBoardLocation() > 5)
                 {
                     passGo();
                 }
-                checkOwnership(currentTurn);
+                if(owner == "none")
+                {
+                    buy(5, currentTurn);
+                }
+                else if(owner == player[currentTurn - 1].getName())
+                {
+                    cout << "You already own this property." << endl;
+                }
+                else
+                {
+                    rent(5, currentTurn);
+                }
                 display_MapAndPlayer();
                 break;
             }
@@ -1696,7 +1773,23 @@ void Game::chance()
                 cout << line  << endl;
                 setPiece(39, player[currentTurn - 1].getPlayerChar(), currentTurn);
                 erase(currentTurn);
-                checkOwnership(currentTurn);
+                string owner = property[39].getOwner();
+                if(owner == "none")
+                {
+                    buy(39, currentTurn);
+                }
+                else if(owner == player[currentTurn - 1].getName())
+                {
+                    cout << "You already own this property." << endl;
+                }
+                else if(owner == "Mr.Monopoly (Rich Uncle Pennybags)")
+                {
+                    cout << "This property will temporarily have no effect. Consider yourself lucky." << endl;
+                }
+                else
+                {
+                    rent(39, currentTurn);
+                }
                 display_MapAndPlayer();
                 break;
             }
@@ -1784,7 +1877,7 @@ bool Game::checkForExceptions(int boardLocation_)
                 case 2: case 17: case 33: //Community Chest
                 {
                     cout << property[boardLocation_].getPropertyName() << endl;
-                    communityChest("communitychest.txt");
+                    communityChest();
                     break;
                 }
                 case 4: //Income Tax
