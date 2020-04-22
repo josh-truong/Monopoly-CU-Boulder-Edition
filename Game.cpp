@@ -1511,10 +1511,10 @@ void Game::chance()
                     }
                     else
                     {
-                        int OwnerNumber = 5
+                        int OwnerNumber = 5;
                         for(int i = 0; i < numPlayers; i++)
                         {
-                            if(property[12].getOwner()) = player[i].getName())
+                            if(property[12].getOwner() == player[i].getName())
                             {
                                 OwnerNumber = i;
                             }
@@ -1540,10 +1540,10 @@ void Game::chance()
                     }
                     else
                     {
-                        int OwnerNumber = 5
+                        int OwnerNumber = 5;
                         for(int i = 0; i < numPlayers; i++)
                         {
-                            if(property[28].getOwner()) = player[i].getName())
+                            if(property[28].getOwner() == player[i].getName())
                             {
                                 OwnerNumber = i;
                             }
