@@ -783,7 +783,7 @@ void Game::buyHouse(int propertyLocation)
                 counter++;
             }
         }
-        if(counter == 2 && (propertLocation == 1 || propertLocation == 3 || propertLocation == 37 || propertLocation == 39))
+        if(counter == 2 && (propertyLocation == 1 || propertyLocation == 3 || propertyLocation == 37 || propertyLocation == 39))
         {
             cout << "Would you like to buy a house for " << property[propertyLocation].getPropertyName() << "?" << endl;
             cout << "Type Y for yes and N for no" << endl;
