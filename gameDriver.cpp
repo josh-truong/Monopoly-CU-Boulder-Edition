@@ -36,10 +36,10 @@ int main()
             {
                 cout << "You are in jail for " << monopoly.getTurnsInJail() << " turn." << endl;
                 monopoly.setTurnsInJail(monopoly.getTurnsInJail() - 1);
+                monopoly.endTurn();
             }
             else
             {
-                monopoly.setInJail(false);
                 if(monopoly.getDisplayStatus() == true)
                 {
                     cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
