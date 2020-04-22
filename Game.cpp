@@ -1505,7 +1505,6 @@ void Game::chance()
                 {
                     setPiece(12, player[currentTurn - 1].getPlayerChar(), currentTurn);
                     erase(currentTurn);
-
                     string owner = property[12].getOwner();
                     if(owner == "none")
                     {
@@ -1513,9 +1512,21 @@ void Game::chance()
                     }
                     else
                     {
-                        int amount = player[currentTurn - 1].getBalance();
-                        amount = amount - 10 * (dice_1 + dice_2);
-                        player[currentTurn - 1].setBalance(amount);
+                        int OwnerNumber = 5
+                        for(int i = 0; i < numPlayers; i++)
+                        {
+                            if(property[12].getOwner()) = player[i].getName())
+                            {
+                                OwnerNumber = i;
+                            }
+                        }
+                        int amountlost = player[currentTurn - 1].getBalance();
+                        amountlost = amountlost - 10 * (dice_1 + dice_2);
+                        player[currentTurn - 1].setBalance(amountlost);
+
+                        int amountgained = player[currentTurn - 1].getBalance();
+                        amountgained = amountgained + 10 * (dice_1 + dice_2);
+                        player[currentTurn - 1].setBalance(amountgained);
                     }
                 }
                 else if(playerposition == 22)
@@ -1530,9 +1541,21 @@ void Game::chance()
                     }
                     else
                     {
-                        int amount = player[currentTurn - 1].getBalance();
-                        amount = amount - 10 * (dice_1 + dice_2);
-                        player[currentTurn - 1].setBalance(amount);
+                        int OwnerNumber = 5
+                        for(int i = 0; i < numPlayers; i++)
+                        {
+                            if(property[28].getOwner()) = player[i].getName())
+                            {
+                                OwnerNumber = i;
+                            }
+                        }
+                        int amountlost = player[currentTurn - 1].getBalance();
+                        amountlost = amountlost - 10 * (dice_1 + dice_2);
+                        player[currentTurn - 1].setBalance(amountlost);
+
+                        int amountgained = player[currentTurn - 1].getBalance();
+                        amountgained = amountgained + 10 * (dice_1 + dice_2);
+                        player[currentTurn - 1].setBalance(amountgained);
                     }
                 }
                 checkOwnership(currentTurn);
