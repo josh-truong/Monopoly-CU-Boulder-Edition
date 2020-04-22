@@ -163,7 +163,6 @@ void Game::move()
         }
         else if (i == 1)
         {
-            cout << "i: " << i << endl;
             string playerPieces[4] = {"\x1B[92m$\x1B[0m",    "\x1B[92m%\x1B[0m",     "\x1B[92m*\x1B[0m",     "\x1B[92m&\x1B[0m"};
             player[currentTurn - 1].setBoardLocation(boardLocation + dice_1 + dice_2);
             playerPiece = playerPieces[currentTurn - 1];
