@@ -16,7 +16,7 @@ Property::Property()
     {
         rentArr[i] = 0;
     }
-    color = "white"; //<-- White just have all the colors
+    color = "none";
     numBuildings = 0;
     morgage = false;
 }
@@ -46,6 +46,11 @@ void Property::setBuildingCost(int buildingCost_)
     buildingCost = buildingCost_;
 }
 
+int Property::getRentAt(int i)
+{
+    return rentArr[i];
+}
+
 void Property::setRentAt(int i, int rent_)
 {
     if(!(0 <= i && 0 < 6))
@@ -68,9 +73,9 @@ void Property::setNumBuildings(int numBuildings_)
     numBuildings = numBuildings_;
 }
 
-void Property::setMorgage_True()
+void Property::setMorgage(bool status)
 {
-    morgage = true;
+    morgage = status;
 }
 // ////////////////////////////////////////////////////////////////////////////////
 // ////////////////////////////////////////////////////////////////////////////////

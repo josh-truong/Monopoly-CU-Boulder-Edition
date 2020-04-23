@@ -40,9 +40,10 @@ class Property
         void setRentAt(int i, int rent_);
         void setColor(string color);
         void setNumBuildings(int numBuildings_);
-        void setMorgage_True();
+        void setMorgage(bool status);
         
         // //Accessors
+        int getRentAt(int i);
         int getPropertyLocation();
         string getPropertyName(); //<--Need more details on how to obtain property name
         string getOwner();

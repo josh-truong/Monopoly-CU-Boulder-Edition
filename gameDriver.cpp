@@ -61,9 +61,10 @@ int main()
                 cout << "7. Trade" << endl;
                 cout << "8. End Turn" << endl;
                 cout << "9. Display Board" << endl;
+                cout << "10. Buy Back Morgaged Property" << endl;
                 cout << "----------------------------" << endl;
-                cout << "10. Withdraw" << endl;
-                cout << "11. QUIT GAME" << endl;
+                cout << "11. Withdraw" << endl;
+                cout << "12. QUIT GAME" << endl;
                 cin >> playerMenuOptions;
 
                 if(cin.fail())
@@ -107,8 +108,19 @@ int main()
                         }
                         case 6: 
                         {
-                            int location = monopoly.getPlayerLocation();
-                            monopoly.buyHouse(location);
+                            if(monopoly.listOfOwnedProperties() != 0)
+                            {
+                                cout << "Which Property would you like to upgrade? ";
+                                int location;
+                                cin >> location;
+                                monopoly.buyHouse(location);
+                            }
+                            else
+                            {
+                                cout << "You have no properties to build your houses on." << endl;
+                            }
+                            
+                            
                             break;
                         }
                         case 7:
@@ -175,6 +187,11 @@ int main()
                         }
                         case 10:
                         {
+                            monopoly.buyMorgaged();
+                            break;
+                        }
+                        case 11:
+                        {
                             int repeater = 0;
                             while(repeater == 0)
                             {
@@ -200,7 +217,7 @@ int main()
                             }
                             break;
                         }
-                        case 11:
+                        case 12:
                         {
                             int repeater = 0;
                             while(repeater == 0)
@@ -227,7 +244,7 @@ int main()
                             }
                             break;
                         }
-                        case 12:
+                        case 13:
                         {
                             int propertyLocation;
                             cout << "Enter property Location: ";

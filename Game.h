@@ -78,7 +78,7 @@ class Game
         int biddersMenu(int currenBidderTurn);
         void bankrupt();
         int biddingPrice();
-
+        void buyMorgaged();
         bool getBankruptStatus(int currentTurn);
 };
 
