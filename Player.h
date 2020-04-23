@@ -28,14 +28,14 @@ class Player
         void setResetLocation_TRUE();
         void setName(string playerName_); // Set player name
         void setPlayerChar(string playerChar_);
+        
         // NOTE: We can only set the balance and not update it(ADD/SUBTRACT)
         void setBalance(int balance_); 
         void setJailStatus(bool response);
         void setPlayerPos(int x, int y);
         void setJailCounter(int turns);
         void setDisplayStatus(bool updateStatus);
-        
-        
+
         //We must only use this function when we have determined that the player is bankrupted or has decided to quit
         void setBankruptStatusTrue();
         void setBoardLocation(int);

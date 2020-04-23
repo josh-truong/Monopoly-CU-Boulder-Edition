@@ -46,11 +46,6 @@ void Property::setBuildingCost(int buildingCost_)
     buildingCost = buildingCost_;
 }
 
-int Property::getRentAt(int i)
-{
-    return rentArr[i];
-}
-
 void Property::setRentAt(int i, int rent_)
 {
     if(!(0 <= i && 0 < 6))
@@ -80,6 +75,11 @@ void Property::setMorgage(bool status)
 // ////////////////////////////////////////////////////////////////////////////////
 // ////////////////////////////////////////////////////////////////////////////////
 // //Accessors Section
+int Property::getRentAt(int i)
+{
+    return rentArr[i];
+}
+
 int Property::getPropertyLocation()
 {
     return propertyLocation;

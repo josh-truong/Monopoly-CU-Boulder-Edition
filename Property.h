@@ -23,10 +23,6 @@ class Property
         int numBuildings;
         bool morgage;
         
-        //Variables for railroads
-        
-        
-        
     public:
         //Constructor
         Property();
@@ -45,13 +41,13 @@ class Property
         // //Accessors
         int getRentAt(int i);
         int getPropertyLocation();
-        string getPropertyName(); //<--Need more details on how to obtain property name
+        string getPropertyName();
         string getOwner();
         int getPropertyCost();
         int getBuildingCost();
         void getListOfRentCP(); //Colored Properties
         void getListOfRentTransport(); //Transport Properties
-        int getRent(); //<--We need to determine how many houses * rent
+        int getRent();
         string getColor();
         int getNumBuildings();
         bool getMorgage_Status();

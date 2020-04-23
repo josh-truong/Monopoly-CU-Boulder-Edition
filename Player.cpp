@@ -30,11 +30,6 @@ void Player::setResetLocation_TRUE()
     resetLocation = true;
 }
 
-bool Player::getResetLocation_Status()
-{
-    return resetLocation;
-}
-
 void Player::setName(string playerName_)
 {
     playerName = playerName_;
@@ -136,4 +131,9 @@ int Player::getPreviousBoardLocation()
 bool Player::getDisplayStatus() const
 {
     return displayStatus;
+}
+
+bool Player::getResetLocation_Status()
+{
+    return resetLocation;
 }

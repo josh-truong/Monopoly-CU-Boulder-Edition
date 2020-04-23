@@ -22,18 +22,37 @@ class Game
 
     public:
         Game();
+
+        //Components of board
         void display_MapAndPlayer() const;
-        void move(); //Player 1,2,3,4
+        void move(); 
+        //BOARDLOCATION (0-39), STRING PLAYER PIECE (@#$%^&*)
         void setPiece(int boardLocation, string playerPiece, int currentTurn);
+        void erase(int currentTurn);
+        void roll();
 
         
         //File readers <-- There is no need to have user input filenames, but would be a 
         //great idea if they want to customize their own board
         bool readPlayers();
         void readProperty();
+        //Reads an executes chance property
+        void communityChest();
+        void chance();
 
+        // Player Status
         int getNumPlayers();
         int getAmountofBankruptPlayers();
+        void bankrupt();
+        void banish(int currentTurn);
+        bool getBankruptStatus(int currentTurn);
+
+        //End
+        void endGame();
+        void endTurn();
+
+        //Jail
+        void jail();
         bool getInJail();
         void setInJail(bool status);
         void setTurnsInJail(int number);
@@ -41,45 +60,41 @@ class Game
         bool getDisplayStatus();
         void setDisplayStatus(int updateStatus);
         
-        void roll(); //Incomplete
         
+        //MENU
         void getPropertyInfo(int propertyLocation_);
-        void endGame(); //Incomplete
-        void endTurn();
-        void tradeWithMoney(int propertyLocation, int deal); //Incomplete
-        void tradeWithProperty(int IwantThis, int IGiveYouThat); //Incomplete
+        void tradeWithMoney(int propertyLocation, int deal);
+        void tradeWithProperty(int IwantThis, int IGiveYouThat);
         void buy(int propertyLocation, int currentPlayer);
-        void buyHouse(int propertyLocation);// incomplete
+        void buyHouse(int propertyLocation);
+        void morgage();
+        int listOfOwnedProperties();
+        int listOfOwnedProperties_ByOtherPlayers();
+        void buyMorgaged();
+
+        //Individual Properties
         void rent(int propertyLocation, int currentPlayer);
         void waterElectricRent(); //Incomplete
         void luxuryTax();
         void incomeTax();
-        void jail(); //Incomplete
         void passGo();
-        void morgage();
-        void auction(int propertyLocation);
-        
-        void communityChest(); //Incomplete
-        void chance(); //Incomplete
 
+        //Use if no buy property
+        void auction(int propertyLocation);
+        int biddersMenu(int currenBidderTurn);
+        int biddingPrice();
+
+        //Player Information
         string getPlayerUsername_GAME(int i);
         string getPlayerCharacter(int i);
         string toupper(string name);
         int getPlayerLocation();
-        void checkOwnership(int currentPlayer);
-        bool checkForExceptions(int boardLocation);
-        void erase(int currentTurn);
-        int listOfOwnedProperties();
-        int listOfOwnedProperties_ByOtherPlayers();
-
-        void banish(int currentTurn);
         int getCurrentTurn();
         void currentPlayerBal();
-        int biddersMenu(int currenBidderTurn);
-        void bankrupt();
-        int biddingPrice();
-        void buyMorgaged();
-        bool getBankruptStatus(int currentTurn);
+
+        //Main Component
+        void checkOwnership(int currentPlayer);
+        bool checkForExceptions(int boardLocation);    
 };
 
 #endif

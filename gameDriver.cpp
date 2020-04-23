@@ -52,16 +52,16 @@ int main()
                 cout << endl;
                 cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
                 cout << "Menu" << endl;
-                cout << "1. Morgage" << endl;
+                cout << "1. Balance" << endl;
                 cout << "2. List of Owned Properties" << endl;
                 cout << "3. Get Players Info" << endl;
-                cout << "4. Balance" << endl;
-                cout << "5. Get Property Info" << endl;
+                cout << "4. Get Property Info" << endl;
+                cout << "5. Morgage" << endl;
                 cout << "6. Buy House" << endl;
-                cout << "7. Trade" << endl;
-                cout << "8. End Turn" << endl;
+                cout << "7. Buy Back Morgaged Property" << endl;
+                cout << "8. Trade" << endl;
                 cout << "9. Display Board" << endl;
-                cout << "10. Buy Back Morgaged Property" << endl;
+                cout << "10. End Turn" << endl;
                 cout << "----------------------------" << endl;
                 cout << "11. Withdraw" << endl;
                 cout << "12. QUIT GAME" << endl;
@@ -77,28 +77,22 @@ int main()
                 {
                     switch(playerMenuOptions)
                     {
-                        case 1:
-                        {
-                            int morgageProperty_uI;
-                            monopoly.morgage();
-                            break;
-                        }
-                        case 2:
-                        {
-                            monopoly.listOfOwnedProperties();
-                            break;
-                        }
-                        case 3:
-                        {
-                            monopoly.listOfOwnedProperties_ByOtherPlayers();
-                            break;
-                        }
-                        case 4:
+                        case 1: //Display Current Player Balance
                         {
                             monopoly.currentPlayerBal();
                             break;
                         }
-                        case 5:
+                        case 2: // Display Current Player List Of Owned Properties
+                        {
+                            monopoly.listOfOwnedProperties();
+                            break;
+                        }
+                        case 3: // Displayer Other Players Info
+                        {
+                            monopoly.listOfOwnedProperties_ByOtherPlayers();
+                            break;
+                        }
+                        case 4: // Get Property Info from (0-39)
                         {
                             int propertyLocation;
                             cout << "Enter from 0-39: ";
@@ -106,7 +100,12 @@ int main()
                             monopoly.getPropertyInfo(propertyLocation);
                             break;
                         }
-                        case 6: 
+                        case 5: // Morgage a Property
+                        {
+                            monopoly.morgage();
+                            break;
+                        }
+                        case 6: //Buy Houses/hotel
                         {
                             if(monopoly.listOfOwnedProperties() != 0)
                             {
@@ -119,11 +118,14 @@ int main()
                             {
                                 cout << "You have no properties to build your houses on." << endl;
                             }
-                            
-                            
                             break;
                         }
-                        case 7:
+                        case 7: // Buy back a morgaged property
+                        {
+                            monopoly.buyMorgaged();
+                            break;
+                        }
+                        case 8: // Trade Menu
                         {
                             int tradeMenu;
                             cout << "-------------Trade Menu-------------" << endl;
@@ -164,11 +166,17 @@ int main()
                                 {
                                     cout << "You entered in a value outside of the range." << endl;
                                 }
-                            }
+                            }          
                             break;
                         }
-                        case 8:
+                        case 9: // Re-display board 
                         {
+                            monopoly.display_MapAndPlayer();
+                            break;
+                        }
+                        case 10: // End Turn
+                        {
+                            
                             if(monopoly.getDisplayStatus() == true)
                             {
                                 cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " --> " << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "]" << "\x1B[0m" << " You have an extra turn!"<< endl;
@@ -177,20 +185,10 @@ int main()
                             {
                                 monopoly.setDisplayStatus(true);
                                 monopoly.endTurn();
-                            }              
+                            }    
                             break;
                         }
-                        case 9:
-                        {
-                            monopoly.display_MapAndPlayer();
-                            break;
-                        }
-                        case 10:
-                        {
-                            monopoly.buyMorgaged();
-                            break;
-                        }
-                        case 11:
+                        case 11: // Individuals may withdraw from game
                         {
                             int repeater = 0;
                             while(repeater == 0)
@@ -217,7 +215,7 @@ int main()
                             }
                             break;
                         }
-                        case 12:
+                        case 12: // End all game
                         {
                             int repeater = 0;
                             while(repeater == 0)
@@ -244,7 +242,7 @@ int main()
                             }
                             break;
                         }
-                        case 13:
+                        case 13: //GOD MODE: buy function at any location
                         {
                             int propertyLocation;
                             cout << "Enter property Location: ";
@@ -269,10 +267,10 @@ int main()
     } while (quitcounter == 0);
     monopoly.endGame();
 
-    // for(int i = 0; i <= 3000; i++)
-    // {
-    //     cout << "OH GOD HELP US. WE DID " << i << " lines of code! ";
-    // }
-    // cout << endl;
+    for(int i = 0; i <= 3492; i++)
+    {
+        cout << "HELP US. WE DID " << i << " lines!";
+    }
+    cout << endl;
     return 0;
 }
