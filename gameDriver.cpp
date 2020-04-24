@@ -267,10 +267,10 @@ int main()
     } while (quitcounter == 0);
     monopoly.endGame();
 
-    for(int i = 0; i <= 3492; i++)
-    {
-        cout << "HELP US. WE DID " << i << " lines!";
-    }
-    cout << endl;
+    // for(int i = 0; i <= 3492; i++)
+    // {
+    //     cout << "HELP US. WE DID " << i << " lines!";
+    // }
+    // cout << endl;
     return 0;
 }

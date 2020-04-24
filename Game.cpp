@@ -1277,6 +1277,7 @@ void Game::passGo()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Game::communityChest()
 {
+    string playerPieces[4] = {"\x1B[92m$\x1B[0m",    "\x1B[92m%\x1B[0m",     "\x1B[92m*\x1B[0m",     "\x1B[92m&\x1B[0m"};
     srand((unsigned)time(0));
     int result = rand() % 17 + 1;
     string line;
@@ -1294,7 +1295,7 @@ void Game::communityChest()
             case 1:
             {
                 cout << line << endl;
-                setPiece(0,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(0,playerPieces[currentTurn - 1], currentTurn);
                 erase(currentTurn);
                 passGo();
                 display_MapAndPlayer();
@@ -1463,6 +1464,7 @@ void Game::communityChest()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Game::chance()
 {
+    string playerPieces[4] = {"\x1B[92m$\x1B[0m",    "\x1B[92m%\x1B[0m",     "\x1B[92m*\x1B[0m",     "\x1B[92m&\x1B[0m"};
     srand((unsigned)time(0));
     int result = rand() % 16 + 1;
     string line;
@@ -1484,7 +1486,7 @@ void Game::chance()
             {
                 player[currentTurn - 1].setBoardLocation(0);
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                 erase(currentTurn);
                 passGo();
                 display_MapAndPlayer();
@@ -1494,7 +1496,7 @@ void Game::chance()
             {
                 player[currentTurn - 1].setBoardLocation(24);
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                 erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 24)
                 {
@@ -1520,7 +1522,7 @@ void Game::chance()
             {
                 player[currentTurn - 1].setBoardLocation(11);
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                 erase(currentTurn);
                 if(player[currentTurn - 1].getBoardLocation() > 11)
                 {
@@ -1549,7 +1551,7 @@ void Game::chance()
                 {
                     player[currentTurn - 1].setBoardLocation(12);
                     int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                     erase(currentTurn);
                     string owner = property[12].getOwner();
                     if(owner == "none")
@@ -1583,7 +1585,7 @@ void Game::chance()
                 {
                     player[currentTurn - 1].setBoardLocation(28);
                     int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                     erase(currentTurn);
 
                     string owner = property[28].getOwner();
@@ -1624,7 +1626,7 @@ void Game::chance()
                 {
                     player[currentTurn - 1].setBoardLocation(15);
                     int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                     erase(currentTurn);
 
                     string owner = property[15].getOwner();
@@ -1646,7 +1648,7 @@ void Game::chance()
                 {
                     player[currentTurn - 1].setBoardLocation(25);
                     int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                     erase(currentTurn);
 
                     string owner = property[25].getOwner();
@@ -1672,7 +1674,7 @@ void Game::chance()
                 {
                     player[currentTurn - 1].setBoardLocation(5);
                     int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                    setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                    setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                     erase(currentTurn);
 
                     string owner = property[5].getOwner();
@@ -1710,7 +1712,7 @@ void Game::chance()
             case 8:
             {
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation() - 3;
-                setPiece(newPlayerPosition, player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(newPlayerPosition, playerPieces[currentTurn - 1], currentTurn);
                 erase(currentTurn);   
                 string owner = property[newPlayerPosition].getOwner();    
                 if(newPlayerPosition == 4)
@@ -1769,7 +1771,7 @@ void Game::chance()
             {
                 player[currentTurn - 1].setBoardLocation(5);
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                 erase(currentTurn);
                 string owner = property[5].getOwner();
                 if(player[currentTurn - 1].getBoardLocation() > 5)
@@ -1795,7 +1797,7 @@ void Game::chance()
             {
                 player[currentTurn - 1].setBoardLocation(39);
                 int newPlayerPosition = player[currentTurn - 1].getBoardLocation();
-                setPiece(newPlayerPosition,player[currentTurn - 1].getPlayerChar(), currentTurn);
+                setPiece(newPlayerPosition,playerPieces[currentTurn - 1], currentTurn);
                 erase(currentTurn);
                 string owner = property[39].getOwner();
                 if(owner == "none")
@@ -2112,8 +2114,8 @@ void Game::morgage()
             int playerBalance = player[currentTurn - 1].getBalance();
             
             
-            cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << "\x1B[0m" << " Current Balance: " << "\x1B[92m" << "$" << player[currentTurn - 1].getBalance() << "\x1B[97m" << " + $" << morgagedCost << "\x1B[0m" << endl;
-            cout << "Expected Balance: " << "\x1B[92m" << "$" << player[currentTurn - 1].getBalance() << endl;
+            cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << "\x1B[0m" << " Current Balance: " << "\x1B[92m" << "$" << playerBalance << "\x1B[97m" << " + $" << morgagedCost << "\x1B[0m" << endl;
+            cout << "Expected Balance: " << "\x1B[92m" << "$" << player[currentTurn - 1].getBalance() + morgagedCost << endl;
             string confirmation;
             cout << "Do you want to morgage this property: " << "\x1B[91m" << "[" << property[uI_PropertyLoc].getPropertyLocation() << "] " << property[uI_PropertyLoc].getPropertyName() << "\x1B[0m" << " for " << "$" << morgagedCost << "?" << endl; 
             cout << "Enter yes or no: ";
@@ -2491,7 +2493,6 @@ void Game::bankrupt()
             cout << "\x1B[92m" << "[Mr.Monopoly]" << "\x1B[0m" << " Looks like your time has run out!" << endl;
             cout << setw(50) << "\x1B[92m" << "Blucifer has entered the game and took you as his creator (Luis Jiménez)..." << endl;
             cout << "\x1B[92m" << "[" << player[currentTurn - 1].getName() << "]" << " has left the game." << "\x1B[0m" << endl;
-
             break;
         }
         case 2:
