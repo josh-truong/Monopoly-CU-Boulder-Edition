@@ -86,7 +86,7 @@ class Game
 
         //Player Information
         string getPlayerUsername_GAME(int i);
-        string getPlayerCharacter(int i);
+        string getPlayerCharacter();
         string toupper(string name);
         int getPlayerLocation();
         int getCurrentTurn();

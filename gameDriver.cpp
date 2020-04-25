@@ -43,14 +43,14 @@ int main()
             {
                 if(monopoly.getDisplayStatus() == true)
                 {
-                    cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
+                    cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter() << "\x1B[97m" << "] TURN" << "\x1B[0m" << endl;
                     monopoly.roll();
                     monopoly.move();
                     monopoly.display_MapAndPlayer();
                     monopoly.checkOwnership(currentTurn);
                 }
                 cout << endl;
-                cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter(currentTurn) << "] TURN" << "\x1B[0m" << endl;
+                cout << "\x1B[97m" << "[" << monopoly.getPlayerUsername_GAME(currentTurn) << "][" << monopoly.getPlayerCharacter() << "\x1B[97m" << "] TURN" << "\x1B[0m" << endl;
                 cout << "Menu" << endl;
                 cout << "1. Balance" << endl;
                 cout << "2. List of Owned Properties" << endl;
