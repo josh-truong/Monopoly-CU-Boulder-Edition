@@ -49,9 +49,6 @@ int Game::biddingPrice()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Game::auction(int propertyLocation)
 {
-    cout << "######################################################### AUCTION GROUND ##############################################################" << endl;
-    cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << " Do I have a bid?" << endl;
-    getPropertyInfo(propertyLocation);
     int numBidders = numPlayers;
     bool playerBidStatus[4];
     int playerCurrentBid[4];
@@ -68,8 +65,25 @@ void Game::auction(int propertyLocation)
     {
         for(int i = 0; (1 != numBidders) && (i < numPlayers); i++)
         {
+            system("clear");
             if(player[i].getBankruptStatus() == false && playerBidStatus[i] == true)
             {
+                cout << "############################################################# " << "\x1B[92m" << "AUCTION GROUND" << "\x1B[0m" << " ##################################################################" << endl;
+                cout << "Current Bids: " << endl;
+                for(int j = 0; j < numPlayers; j++)
+                {
+                    if(playerBidStatus[j] == true && i != j)
+                    {
+                        cout << "[" << player[j].getName() << "] " << "\x1B[91m" << "$" << playerCurrentBid[j] << "\x1B[0m" << "      "; 
+                    }
+                    else if(playerBidStatus[j] == true && i == j)
+                    {
+                        cout << "[" << player[j].getName() << "] " << "\x1B[92m" << "$" << playerCurrentBid[j] << "\x1B[0m" << "      ";
+                    }
+                    
+                }
+                cout << endl;
+                getPropertyInfo(propertyLocation);
                 int repeater = 0;
                 while(repeater == 0)
                 {
@@ -130,22 +144,22 @@ void Game::auction(int propertyLocation)
                             if (playerBidStatus[0] && i == 0)
                             {
                                 playerCurrentBid[0] = bidPrice;
-                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl << endl;
+                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << "\x1B[0m" << endl << endl;
                             }
                             if (playerBidStatus[1] && i == 1)
                             {
                                 playerCurrentBid[1] = bidPrice;
-                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << "\x1B[0m" << endl;
                             }
                             if (playerBidStatus[2] && i == 2)
                             {
                                 playerCurrentBid[2] = bidPrice;
-                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << "\x1B[0m" << endl;
                             }
                             if (playerBidStatus[3] && i == 3)
                             {
                                 playerCurrentBid[3] = bidPrice;
-                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << endl;
+                                cout << "Player " << "\x1B[92m" << "[" << player[i].getName() << "] " << "\x1B[0m" << "has bid for " << "\x1B[92m" << "$" << bidPrice << "\x1B[0m" << endl;
                             }
                             
                             repeater = 1;
@@ -211,6 +225,7 @@ void Game::auction(int propertyLocation)
                     }
                 }
                 cout << endl;
+                system("clear");
                 cout << "\x1B[92m" << "[Mr.Monopoly] " << "\x1B[0m" << "Congratulations, " << player[winner].getName() << "! You're the proud owner of " << property[propertyLocation].getPropertyName() << endl;
                 property[propertyLocation].setOwner(player[winner].getName());
                 int winnerBalance = player[winner].getBalance();

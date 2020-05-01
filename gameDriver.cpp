@@ -18,12 +18,12 @@ int main()
     {
         successfulRead = monopoly.readPlayers();
     }
-
     string playerQuit;
     int playerMenuOptions = 0;
     int quitcounter = 0;
     do
     {
+        system("clear");
         int currentTurn = monopoly.getCurrentTurn();
         int numPlayers = monopoly.getNumPlayers();
         int amountBankrupt = monopoly.getAmountofBankruptPlayers();
