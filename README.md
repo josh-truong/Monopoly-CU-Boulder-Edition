@@ -3,4 +3,6 @@ Monopoly with a CU Boulder Theme
 
 USE to Compile and Run Game
 
-g++ -std=c++11 AccessPlayerInfo\&MenuAccess.cpp BoardDisplay.cpp Game.h Player.h Property.h Trade.cpp Auction.cpp Community\&Chance.cpp Jail.cpp PropertyInfo.cpp buyPHM.cpp gameDriver.cpp readPlayer\&Property.cpp Bankrupt.cpp Game.cpp Player.cpp Property.cpp
+g++ -std=c++11 -o Monopoly .\AccessPlayerInfoNMenuAccess.cpp .\Auction.cpp .\Bankrupt.cpp .\BoardDisplay.cpp .\buyPHM.cpp .\CommunityChance.cpp .\Game.cpp .\Game.h .\gameDriver.cpp .\Jail.cpp .\Player.cpp .\Player.h .\Property.cpp .\Property.h .\PropertyInfo.cpp .\readPlayerNProperty.cpp .\Trade.cpp
+
+USE ./Monopoly.exe to run the game
